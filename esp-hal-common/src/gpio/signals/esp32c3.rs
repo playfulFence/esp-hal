@@ -1,6 +1,7 @@
-pub type OutputSignalType = u8;
-pub const OUTPUT_SIGNAL_MAX: u8 = 128;
 pub const INPUT_SIGNAL_MAX: u8 = 100;
+pub const OUTPUT_SIGNAL_MAX: u8 = 128;
+
+pub type OutputSignalType = u8;
 
 pub const ONE_INPUT: u8 = 0x1e;
 pub const ZERO_INPUT: u8 = 0x1f;

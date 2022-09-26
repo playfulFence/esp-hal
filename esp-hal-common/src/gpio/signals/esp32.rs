@@ -1,6 +1,7 @@
-pub type OutputSignalType = u16;
-pub const OUTPUT_SIGNAL_MAX: u16 = 548;
 pub const INPUT_SIGNAL_MAX: u16 = 539;
+pub const OUTPUT_SIGNAL_MAX: u16 = 548;
+
+pub type OutputSignalType = u16;
 
 pub const ONE_INPUT: u8 = 0x38;
 pub const ZERO_INPUT: u8 = 0x30;
