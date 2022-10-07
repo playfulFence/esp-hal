@@ -1,0 +1,21 @@
+chip = "esp32"
+rt   = "xtensa_lx_rt"
+
+setup = """
+let peripherals = Peripherals::take().unwrap();
+let system = peripherals.DPORT.split();
+let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
+
+let mut rtc = Rtc::new(peripherals.RTC_CNTL);
+let timer_group0 = TimerGroup::new(peripherals.TIMG0, &clocks);
+let mut wdt = timer_group0.wdt;
+
+// Disable MWDT and RWDT (Watchdog) flash boot protection
+rtc.rwdt.disable();
+wdt.disable();
+"""
+
+examples = [
+    { name = "advanced_serial", extra = { tx = "gpio16", rx = "gpio17" } },
+    { name = "hello_world",     extra = {} },
+]

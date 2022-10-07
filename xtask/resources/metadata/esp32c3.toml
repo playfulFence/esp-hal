@@ -1,0 +1,25 @@
+chip = "esp32c3"
+rt   = "riscv_rt"
+
+setup = """
+let peripherals = Peripherals::take().unwrap();
+let system = peripherals.SYSTEM.split();
+let clocks = ClockControl::boot_defaults(system.clock_control).freeze();
+
+let mut rtc = Rtc::new(peripherals.RTC_CNTL);
+let timer_group0 = TimerGroup::new(peripherals.TIMG0, &clocks);
+let mut wdt0 = timer_group0.wdt;
+let timer_group1 = TimerGroup::new(peripherals.TIMG1, &clocks);
+let mut wdt1 = timer_group1.wdt;
+
+// Disable watchdog timers
+rtc.swd.disable();
+rtc.rwdt.disable();
+wdt0.disable();
+wdt1.disable();
+"""
+
+examples = [
+    { name = "advanced_serial", extra = { tx = "gpio1", rx = "gpio2" } },
+    { name = "hello_world",     extra = {} },
+]
