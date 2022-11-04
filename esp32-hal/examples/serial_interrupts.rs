@@ -13,16 +13,16 @@ use esp32_hal::{
     interrupt,
     pac::{self, Peripherals, UART0},
     prelude::*,
-    serial::config::AtCmdConfig,
     timer::TimerGroup,
+    uart::{config::AtCmdConfig, UartDriver},
     Rtc,
-    Serial,
 };
 use esp_backtrace as _;
 use nb::block;
 use xtensa_lx_rt::entry;
 
-static SERIAL: Mutex<RefCell<Option<Serial<UART0>>>> = Mutex::new(RefCell::new(None));
+// static SERIAL: Mutex<RefCell<Option<Serial<UART0>>>> =
+// Mutex::new(RefCell::new(None));
 
 #[entry]
 fn main() -> ! {
@@ -38,7 +38,7 @@ fn main() -> ! {
     let timer_group1 = TimerGroup::new(peripherals.TIMG1, &clocks);
     let mut wdt1 = timer_group1.wdt;
 
-    let mut serial0 = Serial::new(peripherals.UART0);
+    // let mut serial0 = Serial::new(peripherals.UART0);
     let mut rtc = Rtc::new(peripherals.RTC_CNTL);
 
     // Disable MWDT and RWDT (Watchdog) flash boot protection
@@ -46,22 +46,24 @@ fn main() -> ! {
     wdt1.disable();
     rtc.rwdt.disable();
 
-    serial0.set_at_cmd(AtCmdConfig::new(None, None, None, b'#', None));
-    serial0.set_rx_fifo_full_threshold(30);
-    serial0.listen_at_cmd();
-    serial0.listen_rx_fifo_full();
+    // serial0.set_at_cmd(AtCmdConfig::new(None, None, None, b'#', None));
+    // serial0.set_rx_fifo_full_threshold(30);
+    // serial0.listen_at_cmd();
+    // serial0.listen_rx_fifo_full();
 
     interrupt::enable(pac::Interrupt::UART0, interrupt::Priority::Priority2).unwrap();
 
     timer0.start(1u64.secs());
 
-    critical_section::with(|cs| SERIAL.borrow_ref_mut(cs).replace(serial0));
+    // critical_section::with(|cs| SERIAL.borrow_ref_mut(cs).replace(serial0));
 
     loop {
         critical_section::with(|cs| {
-            let mut serial = SERIAL.borrow_ref_mut(cs);
-            let serial = serial.as_mut().unwrap();
-            writeln!(serial, "Hello World! Send a single `#` character or send at least 30 characters and see the interrupts trigger.").ok();
+            // let mut serial = SERIAL.borrow_ref_mut(cs);
+            // let serial = serial.as_mut().unwrap();
+            // writeln!(serial, "Hello World! Send a single `#` character or
+            // send at least 30 characters and see the interrupts
+            // trigger.").ok();
         });
 
         block!(timer0.wait()).unwrap();
@@ -71,24 +73,24 @@ fn main() -> ! {
 #[interrupt]
 fn UART0() {
     critical_section::with(|cs| {
-        let mut serial = SERIAL.borrow_ref_mut(cs);
-        let serial = serial.as_mut().unwrap();
+        // let mut serial = SERIAL.borrow_ref_mut(cs);
+        // let serial = serial.as_mut().unwrap();
 
         let mut cnt = 0;
-        while let nb::Result::Ok(_c) = serial.read() {
-            cnt += 1;
-        }
-        writeln!(serial, "Read {} bytes", cnt,).ok();
+        // while let nb::Result::Ok(_c) = serial.read() {
+        //     cnt += 1;
+        // }
+        // writeln!(serial, "Read {} bytes", cnt,).ok();
 
-        writeln!(
-            serial,
-            "Interrupt AT-CMD: {} RX-FIFO-FULL: {}",
-            serial.at_cmd_interrupt_set(),
-            serial.rx_fifo_full_interrupt_set(),
-        )
-        .ok();
+        // writeln!(
+        //     serial,
+        //     "Interrupt AT-CMD: {} RX-FIFO-FULL: {}",
+        //     serial.at_cmd_interrupt_set(),
+        //     serial.rx_fifo_full_interrupt_set(),
+        // )
+        // .ok();
 
-        serial.reset_at_cmd_interrupt();
-        serial.reset_rx_fifo_full_interrupt();
+        // serial.reset_at_cmd_interrupt();
+        // serial.reset_rx_fifo_full_interrupt();
     });
 }

@@ -10,13 +10,12 @@ use esp32c3_hal::{
     clock::ClockControl,
     pac::Peripherals,
     prelude::*,
-    serial::{
-        config::{Config, DataBits, Parity, StopBits},
-        TxRxPins,
-    },
     timer::TimerGroup,
+    uart::{
+        config::{Config, DataBits, Parity, StopBits},
+        UartDriver,
+    },
     Rtc,
-    Serial,
     IO,
 };
 use esp_backtrace as _;
@@ -51,24 +50,25 @@ fn main() -> ! {
     };
 
     let io = IO::new(peripherals.GPIO, peripherals.IO_MUX);
-    let pins = TxRxPins::new_tx_rx(
-        io.pins.gpio1.into_push_pull_output(),
-        io.pins.gpio2.into_floating_input(),
-    );
+    // let pins = TxRxPins::new_tx_rx(
+    //     io.pins.gpio1.into_push_pull_output(),
+    //     io.pins.gpio2.into_floating_input(),
+    // );
 
-    let mut serial1 = Serial::new_with_config(peripherals.UART1, Some(config), Some(pins), &clocks);
+    // let mut serial1 = Serial::new_with_config(peripherals.UART1, Some(config),
+    // Some(pins), &clocks);
 
     timer0.start(250u64.millis());
 
     println!("Start");
     loop {
-        serial1.write(0x42).ok();
-        let read = block!(serial1.read());
+        // serial1.write(0x42).ok();
+        // let read = block!(serial1.read());
 
-        match read {
-            Ok(read) => println!("Read {:02x}", read),
-            Err(err) => println!("Error {:?}", err),
-        }
+        // match read {
+        //     Ok(read) => println!("Read {:02x}", read),
+        //     Err(err) => println!("Error {:?}", err),
+        // }
 
         block!(timer0.wait()).unwrap();
     }

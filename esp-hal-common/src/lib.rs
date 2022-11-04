@@ -43,7 +43,6 @@ pub use self::{
     interrupt::*,
     rng::Rng,
     rtc_cntl::{Rtc, Rwdt},
-    serial::Serial,
     spi::Spi,
     timer::Timer,
 };
@@ -65,12 +64,12 @@ pub mod pulse_control;
 pub mod rng;
 pub mod rom;
 pub mod rtc_cntl;
-pub mod serial;
 pub mod spi;
 pub mod system;
 #[cfg(has_systimer)]
 pub mod systimer;
 pub mod timer;
+pub mod uart;
 #[cfg(has_usb_serial_jtag)]
 pub mod usb_serial_jtag;
 #[cfg(not(esp32c2))]

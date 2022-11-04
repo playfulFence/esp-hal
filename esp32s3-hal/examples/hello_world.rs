@@ -11,8 +11,8 @@ use esp32s3_hal::{
     pac::Peripherals,
     prelude::*,
     timer::TimerGroup,
+    uart::UartDriver,
     Rtc,
-    Serial,
 };
 use esp_backtrace as _;
 use nb::block;
@@ -28,7 +28,7 @@ fn main() -> ! {
     let mut timer0 = timer_group0.timer0;
     let mut wdt = timer_group0.wdt;
     let mut rtc = Rtc::new(peripherals.RTC_CNTL);
-    let mut serial0 = Serial::new(peripherals.UART0);
+    // let mut serial0 = Serial::new(peripherals.UART0);
 
     // Disable MWDT and RWDT (Watchdog) flash boot protection
     wdt.disable();
@@ -37,7 +37,7 @@ fn main() -> ! {
     timer0.start(1u64.secs());
 
     loop {
-        writeln!(serial0, "Hello world!").unwrap();
+        // writeln!(serial0, "Hello world!").unwrap();
         block!(timer0.wait()).unwrap();
     }
 }

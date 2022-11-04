@@ -17,10 +17,10 @@ pub use esp_hal_common::{
     pac,
     prelude,
     pulse_control,
-    serial,
     spi,
     systimer,
     timer,
+    uart,
     usb_serial_jtag,
     utils,
     Cpu,
@@ -29,7 +29,6 @@ pub use esp_hal_common::{
     Rng,
     Rtc,
     Rwdt,
-    Serial,
     UsbSerialJtag,
 };
 

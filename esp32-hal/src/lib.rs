@@ -15,9 +15,9 @@ pub use esp_hal_common::{
     pac,
     prelude,
     pulse_control,
-    serial,
     spi,
     timer,
+    uart,
     utils,
     Cpu,
     Delay,
@@ -25,7 +25,6 @@ pub use esp_hal_common::{
     Rng,
     Rtc,
     Rwdt,
-    Serial,
 };
 
 pub use self::gpio::IO;
