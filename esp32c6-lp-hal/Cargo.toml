@@ -26,6 +26,7 @@ embedded-hal     = { version = "0.2.7", features = ["unproven"] }
 esp32c6-lp       = { git = "https://github.com/esp-rs/esp-pacs", rev = "a9cad5e", features = ["critical-section"] }
 procmacros       = { package = "esp-hal-procmacros", path = "../esp-hal-procmacros", features = ["esp32c6-lp"] }
 riscv            = "0.10.1"
+fugit            = "0.3.7"
 paste            = "1.0.14"
 
 [dev-dependencies]

@@ -4,6 +4,7 @@ use core::arch::global_asm;
 
 pub mod delay;
 pub mod gpio;
+pub mod i2c;
 
 pub mod riscv {
     //! Low level access to RISC-V processors.

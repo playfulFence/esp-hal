@@ -35,6 +35,16 @@ pub struct Output<MODE> {
 
 pub struct PushPull;
 
+pub trait LpOutputPin<const PIN: u8> {
+    fn set_low(&mut self);
+    fn set_high(&mut self);
+}
+
+pub trait LpInputPin<const PIN: u8> {
+    fn lp_is_high(&self) -> bool;
+    fn lp_is_low(&self) -> bool;
+}
+
 #[non_exhaustive]
 pub struct GpioPin<MODE, const PIN: u8> {
     phantom: PhantomData<MODE>,
@@ -105,4 +115,24 @@ impl<MODE, const PIN: u8> embedded_hal::digital::v2::StatefulOutputPin
 impl<MODE, const PIN: u8> embedded_hal::digital::v2::toggleable::Default
     for GpioPin<Output<MODE>, PIN>
 {
+}
+
+impl<MODE, const PIN: u8> LpOutputPin<PIN> for GpioPin<Output<MODE>, PIN> {
+    fn set_low(&mut self) {
+        self.set_output_low();
+    }
+
+    fn set_high(&mut self) {
+        self.set_output_high();
+    }
+}
+
+impl<MODE, const PIN: u8> LpInputPin<PIN> for GpioPin<Input<MODE>, PIN> {
+    fn lp_is_high(&self) -> bool {
+        self.input_state()
+    }
+
+    fn lp_is_low(&self) -> bool {
+        !self.lp_is_high()
+    }
 }
