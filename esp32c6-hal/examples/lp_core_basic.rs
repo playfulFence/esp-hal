@@ -35,12 +35,11 @@ fn main() -> ! {
     println!("lp core stopped");
 
     // load code to LP core
-    let lp_core_code = load_lp_code!(
-        "../esp32c6-lp-hal/target/riscv32imac-unknown-none-elf/release/examples/blinky"
-    );
+    let lp_core_code =
+        load_lp_code!("../esp32c6-lp-hal/target/riscv32imac-unknown-none-elf/release/examples/i2c");
 
     // start LP core
-    lp_core_code.run(&mut lp_core, lp_core::LpCoreWakeupSource::HpCpu, lp_pin);
+    lp_core_code.run(&mut lp_core, lp_core::LpCoreWakeupSource::HpCpu);
     println!("lpcore run");
 
     let data = (0x5000_2000) as *mut u32;
