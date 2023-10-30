@@ -28,6 +28,7 @@ procmacros       = { package = "esp-hal-procmacros", path = "../esp-hal-procmacr
 riscv            = "0.10.1"
 fugit            = "0.3.7"
 paste            = "1.0.14"
+liquid_crystal = "0.1.6"
 
 [dev-dependencies]
 panic-halt       = "0.2.0"

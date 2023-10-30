@@ -54,6 +54,8 @@ elliptic-curve    = {version = "0.13.6", default-features = false, features = ["
 p192              = {version = "0.13.0", default-features = false, features = ["arithmetic"] }
 p256              = {version = "0.13.2", default-features = false, features = ["arithmetic"] }
 embassy-sync       = "0.4.0"
+liquid_crystal = "0.1.6"
+fugit            = "0.3.7"
 
 [features]
 default              = ["rt", "vectored", "esp-hal-common/rv-zero-rtc-bss"]

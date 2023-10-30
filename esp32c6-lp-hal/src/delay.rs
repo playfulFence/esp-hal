@@ -46,16 +46,16 @@ impl DelayMs<u32> for Delay {
     }
 }
 
-impl DelayMs<u16> for Delay {
-    #[inline(always)]
-    fn delay_ms(&mut self, ms: u16) {
-        self.rv_delay.delay_ms(ms);
-    }
-}
-
 impl DelayUs<u16> for Delay {
     #[inline(always)]
     fn delay_us(&mut self, us: u16) {
         self.rv_delay.delay_us(us);
+    }
+}
+
+impl DelayMs<u16> for Delay {
+    #[inline(always)]
+    fn delay_ms(&mut self, us: u16) {
+        self.rv_delay.delay_ms(us);
     }
 }

@@ -23,6 +23,8 @@ pub struct Input<MODE> {
     _mode: PhantomData<MODE>,
 }
 
+pub struct InOut;
+
 pub struct Floating;
 
 pub struct PullDown;
@@ -34,16 +36,6 @@ pub struct Output<MODE> {
 }
 
 pub struct PushPull;
-
-pub trait LpOutputPin<const PIN: u8> {
-    fn set_low(&mut self);
-    fn set_high(&mut self);
-}
-
-pub trait LpInputPin<const PIN: u8> {
-    fn lp_is_high(&self) -> bool;
-    fn lp_is_low(&self) -> bool;
-}
 
 #[non_exhaustive]
 pub struct GpioPin<MODE, const PIN: u8> {
@@ -57,6 +49,28 @@ impl<MODE, const PIN: u8> GpioPin<Input<MODE>, PIN> {
 }
 
 impl<MODE, const PIN: u8> GpioPin<Output<MODE>, PIN> {
+    fn output_state(&self) -> bool {
+        unsafe { &*LP_IO::PTR }.out.read().bits() >> PIN & 0x1 != 0
+    }
+
+    fn set_output_low(&mut self) {
+        unsafe { &*LP_IO::PTR }
+            .out_w1tc
+            .write(|w| w.out_data_w1tc().variant(1 << PIN));
+    }
+
+    fn set_output_high(&mut self) {
+        unsafe { &*LP_IO::PTR }
+            .out_w1ts
+            .write(|w| w.out_data_w1ts().variant(1 << PIN));
+    }
+}
+
+impl<const PIN: u8> GpioPin<InOut, PIN> {
+    fn input_state(&self) -> bool {
+        unsafe { &*LP_IO::PTR }.in_.read().bits() >> PIN & 0x1 != 0
+    }
+
     fn output_state(&self) -> bool {
         unsafe { &*LP_IO::PTR }.out.read().bits() >> PIN & 0x1 != 0
     }
@@ -117,22 +131,40 @@ impl<MODE, const PIN: u8> embedded_hal::digital::v2::toggleable::Default
 {
 }
 
-impl<MODE, const PIN: u8> LpOutputPin<PIN> for GpioPin<Output<MODE>, PIN> {
-    fn set_low(&mut self) {
+impl<const PIN: u8> embedded_hal::digital::v2::InputPin for GpioPin<InOut, PIN> {
+    type Error = Infallible;
+
+    fn is_high(&self) -> Result<bool, Self::Error> {
+        Ok(self.input_state())
+    }
+
+    fn is_low(&self) -> Result<bool, Self::Error> {
+        Ok(!self.is_high()?)
+    }
+}
+
+impl<const PIN: u8> embedded_hal::digital::v2::OutputPin for GpioPin<InOut, PIN> {
+    type Error = Infallible;
+
+    fn set_low(&mut self) -> Result<(), Self::Error> {
         self.set_output_low();
+        Ok(())
     }
 
-    fn set_high(&mut self) {
+    fn set_high(&mut self) -> Result<(), Self::Error> {
         self.set_output_high();
+        Ok(())
     }
 }
 
-impl<MODE, const PIN: u8> LpInputPin<PIN> for GpioPin<Input<MODE>, PIN> {
-    fn lp_is_high(&self) -> bool {
-        self.input_state()
+impl<const PIN: u8> embedded_hal::digital::v2::StatefulOutputPin for GpioPin<InOut, PIN> {
+    fn is_set_high(&self) -> Result<bool, Self::Error> {
+        Ok(self.output_state())
     }
 
-    fn lp_is_low(&self) -> bool {
-        !self.lp_is_high()
+    fn is_set_low(&self) -> Result<bool, Self::Error> {
+        Ok(!self.is_set_high()?)
     }
 }
+
+impl<const PIN: u8> embedded_hal::digital::v2::toggleable::Default for GpioPin<InOut, PIN> {}
