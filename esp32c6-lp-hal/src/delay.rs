@@ -59,3 +59,10 @@ impl DelayMs<u16> for Delay {
         self.rv_delay.delay_ms(us);
     }
 }
+
+impl DelayMs<u8> for Delay {
+    #[inline(always)]
+    fn delay_ms(&mut self, us: u8) {
+        self.rv_delay.delay_ms(us);
+    }
+}

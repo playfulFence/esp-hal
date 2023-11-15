@@ -38,11 +38,11 @@ pub const NO_PIN: Option<NoPinType> = None;
 
 #[derive(Copy, Clone)]
 pub enum Event {
-    RisingEdge  = 1,
+    RisingEdge = 1,
     FallingEdge = 2,
-    AnyEdge     = 3,
-    LowLevel    = 4,
-    HighLevel   = 5,
+    AnyEdge = 3,
+    LowLevel = 4,
+    HighLevel = 5,
 }
 
 pub struct Unknown {}
@@ -82,6 +82,8 @@ pub struct Floating;
 pub struct PullDown;
 
 pub struct PullUp;
+
+pub struct InOut;
 
 pub struct Output<MODE> {
     _mode: PhantomData<MODE>,
@@ -133,7 +135,7 @@ pub struct AF1;
 pub struct AF2;
 
 pub enum DriveStrength {
-    I5mA  = 0,
+    I5mA = 0,
     I10mA = 1,
     I20mA = 2,
     I40mA = 3,
@@ -151,7 +153,7 @@ pub enum AlternateFunction {
 
 #[derive(PartialEq)]
 pub enum RtcFunction {
-    Rtc     = 0,
+    Rtc = 0,
     Digital = 1,
 }
 
@@ -2209,7 +2211,7 @@ pub mod rtc_io {
 
     use core::marker::PhantomData;
 
-    use super::{Floating, Input, Output, PullDown, PullUp, PushPull, Unknown};
+    use super::{Floating, InOut, Input, Output, PullDown, PullUp, PushPull, Unknown};
 
     /// A GPIO pin configured for low power operation
     pub struct LowPowerPin<MODE, const PIN: u8> {
@@ -2328,6 +2330,14 @@ pub mod rtc_io {
                 private: PhantomData::default(),
             }
         }
+
+        pub fn into_puinput_ppoutput(self) -> LowPowerPin<InOut, PIN> {
+            self.into_pull_up_input();
+            self.into_push_pull_output();
+            LowPowerPin {
+                private: PhantomData::default(),
+            }
+        }
     }
 
     #[cfg(esp32s3)]
@@ -2371,7 +2381,7 @@ pub mod lp_gpio {
 
     use core::marker::PhantomData;
 
-    use super::{Floating, Input, Output, PullDown, PullUp, PushPull, Unknown};
+    use super::{Floating, InOut, Input, Output, PullDown, PullUp, PushPull, Unknown};
 
     /// A GPIO pin configured for low power operation
     pub struct LowPowerPin<MODE, const PIN: u8> {
@@ -2460,6 +2470,13 @@ pub mod lp_gpio {
         /// Configures the pin as an output pin.
         pub fn into_push_pull_output(self) -> LowPowerPin<Output<PushPull>, PIN> {
             self.output_enable(true);
+            LowPowerPin {
+                private: PhantomData::default(),
+            }
+        }
+
+        pub fn into_puinput_ppoutput(self) -> LowPowerPin<InOut, PIN> {
+            self.into_pull_up_input().into_push_pull_output();
             LowPowerPin {
                 private: PhantomData::default(),
             }
