@@ -252,14 +252,15 @@ impl<'d> I2C {
             (&*LP_AON::PTR)
                 .gpio_mux
                 .modify(|_, w| w.sel().bits(sel_mask | (1 << 6)));
+            (&*LP_IO::PTR).gpio[6].modify(|_, w| w.mcu_sel().bits(0));
+
             (&*LP_AON::PTR)
                 .gpio_mux
                 .modify(|_, w| w.sel().bits(sel_mask | (1 << 7)));
-        }
+            (&*LP_IO::PTR).gpio[7].modify(|_, w| w.mcu_sel().bits(0));
 
-        unsafe {
             // Set output mode to Normal
-            (&*LP_IO::PTR).pin[6].modify(|_, w| w.pad_driver().bit(false));
+            (&*LP_IO::PTR).pin[6].modify(|_, w| w.pad_driver().clear_bit());
             // Enable output (writing to write-1-to-set register, then internally the
             // `GPIO_OUT_REG` will be set)
             (&*LP_IO::PTR)
@@ -267,15 +268,14 @@ impl<'d> I2C {
                 .write(|w| w.enable_w1ts().bits(1 << 6));
             // Enable input
             (&*LP_IO::PTR).gpio[6].modify(|_, w| w.fun_ie().set_bit());
+
             // Disable pulldown (enable internal weak pull-down)
-            (&*LP_IO::PTR).gpio[6].modify(|_, w| w.fun_wpd().bit(false));
+            (&*LP_IO::PTR).gpio[6].modify(|_, w| w.fun_wpd().clear_bit());
             // Enable pullup
             (&*LP_IO::PTR).gpio[6].modify(|_, w| w.fun_wpu().set_bit());
 
-            (&*LP_IO::PTR).gpio[6].modify(|_, w| w.mcu_sel().bits(1));
-
             // Same process for SCL pin
-            (&*LP_IO::PTR).pin[7].modify(|_, w| w.pad_driver().bit(false));
+            (&*LP_IO::PTR).pin[7].modify(|_, w| w.pad_driver().clear_bit());
             // Enable output (writing to write-1-to-set register, then internally the
             // `GPIO_OUT_REG` will be set)
             (&*LP_IO::PTR)
@@ -284,11 +284,12 @@ impl<'d> I2C {
             // Enable input
             (&*LP_IO::PTR).gpio[7].modify(|_, w| w.fun_ie().set_bit());
             // Disable pulldown (enable internal weak pull-down)
-            (&*LP_IO::PTR).gpio[7].modify(|_, w| w.fun_wpd().bit(false));
+            (&*LP_IO::PTR).gpio[7].modify(|_, w| w.fun_wpd().clear_bit());
             // Enable pullup
             (&*LP_IO::PTR).gpio[7].modify(|_, w| w.fun_wpu().set_bit());
 
             // Select LP I2C function for the SDA and SCL pins
+            (&*LP_IO::PTR).gpio[6].modify(|_, w| w.mcu_sel().bits(1));
             (&*LP_IO::PTR).gpio[7].modify(|_, w| w.mcu_sel().bits(1));
         }
 
@@ -296,8 +297,8 @@ impl<'d> I2C {
         me.i2c.clk_conf.modify(|_, w| w.sclk_active().set_bit());
 
         // Enable LP I2C controller clock
-        set_peri_reg_mask(LPPERI_CLK_EN_REG, LPPERI_LP_EXT_I2C_CK_EN);
-        clear_peri_reg_mask(LPPERI_RESET_EN_REG, LPPERI_LP_EXT_I2C_RESET_EN);
+        // set_peri_reg_mask(LPPERI_CLK_EN_REG, LPPERI_LP_EXT_I2C_CK_EN);
+        // clear_peri_reg_mask(LPPERI_RESET_EN_REG, LPPERI_LP_EXT_I2C_RESET_EN);
 
         // Initialize LP I2C Master mode
         me.i2c.ctr.modify(|_, w| unsafe {
@@ -314,16 +315,7 @@ impl<'d> I2C {
         });
 
         // First, reset the fifo buffers
-        me.i2c.fifo_conf.modify(|_, w| {
-            w.nonfifo_en()
-                .clear_bit()
-                .tx_fifo_rst()
-                .set_bit()
-                .rx_fifo_rst()
-                .set_bit()
-                .fifo_prt_en()
-                .set_bit()
-        });
+        me.i2c.fifo_conf.modify(|_, w| w.nonfifo_en().clear_bit());
 
         me.i2c
             .ctr
@@ -446,11 +438,11 @@ impl<'d> I2C {
         me.i2c
             .filter_cfg
             .modify(|_, w| unsafe { w.sda_filter_thres().bits(LP_I2C_FILTER_CYC_NUM_DEF) });
-        me.i2c.filter_cfg.modify(|_, w| w.sda_filter_en().set_bit());
-
         me.i2c
             .filter_cfg
             .modify(|_, w| unsafe { w.scl_filter_thres().bits(LP_I2C_FILTER_CYC_NUM_DEF) });
+
+        me.i2c.filter_cfg.modify(|_, w| w.sda_filter_en().set_bit());
         me.i2c.filter_cfg.modify(|_, w| w.scl_filter_en().set_bit());
 
         // Configure the I2C master to send a NACK when the Rx FIFO count is full
@@ -471,13 +463,13 @@ impl<'d> I2C {
         let data = (0x5000_2000) as *mut u32;
 
         // If SCL is busy, reset the Master FSM
-        // if self.i2c.sr.read().bus_busy().bit_is_set() {
-        //     self.i2c.ctr.modify(|_, w| unsafe { w.fsm_rst().set_bit() });
-        // }
+        if self.i2c.sr.read().bus_busy().bit_is_set() {
+            self.i2c.ctr.modify(|_, w| unsafe { w.fsm_rst().set_bit() });
+        }
 
-        // if bytes.len() > 255 {
-        //     return Err(Error::ExceedingFifo);
-        // }
+        if bytes.len() > 255 {
+            return Err(Error::ExceedingFifo);
+        }
 
         // Reset FIFO and command list
         self.reset_fifo();
@@ -485,17 +477,20 @@ impl<'d> I2C {
         self.add_cmd_lp(&mut cmd_iterator, Command::Start)?;
 
         // Load device address and R/W bit into FIFO
-        self.write_fifo(0x01);
-        self.write_fifo(0x10);
+        self.write_fifo(((addr & 0xFF) << 1) | ((OperationType::Write as u8) << 0));
+
         self.add_cmd_lp(
             &mut cmd_iterator,
             Command::Write {
-                ack_exp: Ack::Ack,
+                ack_exp: Ack::Nack,
                 ack_check_en: true,
                 length: 1 as u8,
             },
-        );
-        self.write_fifo(0x20);
+        )?;
+
+        unsafe {
+            data.write_volatile(self.i2c.data.read().fifo_rdata().bits().into());
+        }
 
         self.enable_interrupts();
 
@@ -512,6 +507,9 @@ impl<'d> I2C {
             };
             remaining_bytes -= fifo_size as u32;
 
+            unsafe {
+                data.write_volatile(fifo_size as u32);
+            }
             // Write data to the FIFO
             for &byte in &bytes[data_idx as usize..(data_idx as usize) + fifo_size as usize] {
                 self.write_fifo(byte);
@@ -521,7 +519,7 @@ impl<'d> I2C {
             self.add_cmd_lp(
                 &mut cmd_iterator,
                 Command::Write {
-                    ack_exp: Ack::Ack,
+                    ack_exp: Ack::Nack,
                     ack_check_en: true,
                     length: fifo_size as u8,
                 },
