@@ -27,6 +27,7 @@ categories = [
 [dependencies]
 esp-hal-common               = { version = "0.13.0", features = ["esp32s2"], path = "../esp-hal-common" }
 embassy-time                 = { version = "0.1.5",  features = ["nightly"], optional = true }
+embassy-usb-driver           = { git = "https://github.com/embassy-rs/embassy.git", package = "embassy-usb-driver"}
 xtensa-atomic-emulation-trap = "0.4.0"
 
 [dev-dependencies]
@@ -70,6 +71,7 @@ portable-atomic  = ["esp-hal-common/portable-atomic"]
 embassy = ["esp-hal-common/embassy"]
 embassy-time-systick       = ["esp-hal-common/embassy-time-systick", "embassy-time/tick-hz-80_000_000"] 
 embassy-time-timg0         = ["esp-hal-common/embassy-time-timg0", "embassy-time/tick-hz-1_000_000"]
+embassy-usb                = ["esp-hal-common/embassy-usb"]
 embassy-executor-interrupt = ["esp-hal-common/embassy-executor-interrupt"]
 embassy-executor-thread    = ["esp-hal-common/embassy-executor-thread"]
 

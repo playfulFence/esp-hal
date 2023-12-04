@@ -9,6 +9,7 @@
 
 use embassy_executor::Spawner;
 use embassy_time::{Duration, Timer};
+use embassy_usb_driver;
 use esp32s2_hal::{
     clock::ClockControl,
     embassy::{self},

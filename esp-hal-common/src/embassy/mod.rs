@@ -81,6 +81,8 @@ pub mod executor;
 use core::cell::Cell;
 
 use embassy_time::driver::{AlarmHandle, Driver};
+#[cfg(all(usb0, feature = "embassy-usb"))]
+mod usb_driver_otg;
 
 #[cfg_attr(
     all(systimer, feature = "embassy-time-systick"),
