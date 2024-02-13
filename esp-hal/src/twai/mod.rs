@@ -75,10 +75,9 @@
 //! }
 //! ```
 
-#[cfg(feature = "eh1")]
-use embedded_can::{nb::Can, Error, ErrorKind, ExtendedId, Frame, Id, StandardId};
-#[cfg(not(feature = "eh1"))]
-use embedded_hal::can::{Can, Error, ErrorKind, ExtendedId, Frame, Id, StandardId};
+// #[cfg(feature = "eh1")]
+// use embedded_can::{nb::Can, Error, ErrorKind, ExtendedId, Frame, Id, StandardId};
+
 use fugit::HertzU32;
 
 use self::filter::{Filter, FilterType};
@@ -90,7 +89,10 @@ use crate::{
     system::{self, PeripheralClockControl},
 };
 
+pub mod can;
 pub mod filter;
+
+use can::{Can, Error, ErrorKind, ExtendedId, Frame, Id, StandardId};
 
 /// Structure backing the embedded_hal::can::Frame/embedded_can::Frame trait.
 #[derive(Clone, Copy, Debug)]
@@ -126,7 +128,7 @@ impl EspTwaiFrame {
     }
 }
 
-impl Frame for EspTwaiFrame {
+impl can::Frame for EspTwaiFrame {
     fn new(id: impl Into<Id>, data: &[u8]) -> Option<Self> {
         // CAN2.0 frames cannot contain more than 8 bytes of data.
         if data.len() > 8 {
