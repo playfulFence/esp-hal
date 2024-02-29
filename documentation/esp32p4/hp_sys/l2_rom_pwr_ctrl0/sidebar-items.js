@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["L2_ROM_PWR_CTRL0_SPEC"],"type":["R","REG_L2_ROM_CLK_FORCE_ON_R","REG_L2_ROM_CLK_FORCE_ON_W","W"]};

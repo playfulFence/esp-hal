@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["OUT_LINK_ADDR_CH0_SPEC"],"type":["OUTLINK_ADDR_CH0_R","OUTLINK_ADDR_CH0_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SAR_TOUCH_STATUS5_SPEC"],"type":["R","TOUCH_PAD5_DATA_R","TOUCH_PAD5_DEBOUNCE_R"]};

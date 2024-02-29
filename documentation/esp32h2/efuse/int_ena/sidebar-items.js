@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_ENA_SPEC"],"type":["PGM_DONE_INT_ENA_R","PGM_DONE_INT_ENA_W","R","READ_DONE_INT_ENA_R","READ_DONE_INT_ENA_W","W"]};

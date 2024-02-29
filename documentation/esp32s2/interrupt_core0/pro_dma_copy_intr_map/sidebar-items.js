@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PRO_DMA_COPY_INTR_MAP_SPEC"],"type":["PRO_DMA_COPY_INTR_MAP_R","PRO_DMA_COPY_INTR_MAP_W","R","W"]};

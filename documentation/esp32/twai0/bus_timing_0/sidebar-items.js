@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BUS_TIMING_0_SPEC"],"type":["BAUD_PRESC_R","BAUD_PRESC_W","R","SYNC_JUMP_WIDTH_R","SYNC_JUMP_WIDTH_W","W"]};

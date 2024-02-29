@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GRXSTSP_SPEC"],"type":["BCNT_R","CHNUM_R","DPID_R","FN_R","PKTSTS_R","R"]};

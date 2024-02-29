@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["date","otg_conf","test_conf"],"struct":["RegisterBlock"],"type":["DATE","OTG_CONF","TEST_CONF"]};

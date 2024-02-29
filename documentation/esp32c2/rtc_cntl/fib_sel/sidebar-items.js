@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FIB_SEL_SPEC"],"type":["FIB_SEL_R","FIB_SEL_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CACHE_SYNC_MAP_SPEC"],"type":["CACHE_SYNC_MAP_R","CACHE_SYNC_MAP_W","R","W"]};

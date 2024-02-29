@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["L2_BYPASS_CACHE_CONF_SPEC"],"type":["BYPASS_L2_CACHE_EN_R","BYPASS_L2_CACHE_EN_W","R","W"]};

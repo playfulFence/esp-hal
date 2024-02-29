@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DHT_CODEMIN_DC1_SPEC"],"type":["DHT_CODEMIN_DC1_R","R"]};

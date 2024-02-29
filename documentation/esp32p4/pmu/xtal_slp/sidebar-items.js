@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["XTAL_SLP_SPEC"],"type":["CNT_TARGET_R","CNT_TARGET_W","R","W"]};

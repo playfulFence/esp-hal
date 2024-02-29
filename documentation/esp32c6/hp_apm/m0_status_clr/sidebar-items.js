@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["M0_STATUS_CLR_SPEC"],"type":["M0_REGION_STATUS_CLR_W","W"]};

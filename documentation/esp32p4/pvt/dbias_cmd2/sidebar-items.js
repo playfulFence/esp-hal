@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DBIAS_CMD2_SPEC"],"type":["DBIAS_CMD2_R","DBIAS_CMD2_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["STATUS_12_SPEC"],"type":["PAD12_DATA_R","PAD12_DEBOUNCE_CNT_R","PAD12_NEG_NOISE_CNT_R","R"]};

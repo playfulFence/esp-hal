@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VDDBAT_CFG_SPEC"],"type":["ANA_VDDBAT_MODE_R","R","VDDBAT_SW_UPDATE_W","W"]};

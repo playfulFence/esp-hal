@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CH_HPOINT_SPEC"],"type":["HPOINT_R","HPOINT_W","R","W"]};

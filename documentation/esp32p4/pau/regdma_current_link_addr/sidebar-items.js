@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["REGDMA_CURRENT_LINK_ADDR_SPEC"],"type":["CURRENT_LINK_ADDR_R","R"]};

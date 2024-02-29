@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TRIGGER_SPEC"],"type":["MEM_LOOP_R","MEM_LOOP_W","OFF_W","ON_W","R","RESTART_ENA_R","RESTART_ENA_W","W"]};

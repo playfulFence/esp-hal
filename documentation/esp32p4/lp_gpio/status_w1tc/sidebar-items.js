@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["STATUS_W1TC_SPEC"],"type":["REG_GPIO_STATUS_DATA_W1TC_W","W"]};

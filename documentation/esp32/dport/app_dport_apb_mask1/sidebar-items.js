@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["APP_DPORT_APB_MASK1_SPEC"],"type":["APPDPORT_APB_MASK1_R","APPDPORT_APB_MASK1_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GEN_PLD_DATA_SPEC"],"type":["GEN_PLD_B1_R","GEN_PLD_B1_W","GEN_PLD_B2_R","GEN_PLD_B2_W","GEN_PLD_B3_R","GEN_PLD_B3_W","GEN_PLD_B4_R","GEN_PLD_B4_W","R","W"]};

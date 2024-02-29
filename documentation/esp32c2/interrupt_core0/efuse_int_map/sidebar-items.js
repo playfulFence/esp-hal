@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EFUSE_INT_MAP_SPEC"],"type":["EFUSE_INT_MAP_R","EFUSE_INT_MAP_W","R","W"]};

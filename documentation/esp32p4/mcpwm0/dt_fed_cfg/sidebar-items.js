@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DT_FED_CFG_SPEC"],"type":["DB_FED_R","DB_FED_W","R","W"]};

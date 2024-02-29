@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AF_CTRL1_SPEC"],"type":["AF_THPIXNUM_R","AF_THPIXNUM_W","R","W"]};

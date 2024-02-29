@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_CLR_SPEC"],"type":["LP_WDT_INT_CLR_W","SUPER_WDT_INT_CLR_W","W"]};

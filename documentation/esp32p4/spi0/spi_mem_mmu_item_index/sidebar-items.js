@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SPI_MEM_MMU_ITEM_INDEX_SPEC"],"type":["R","SPI_MMU_ITEM_INDEX_R","SPI_MMU_ITEM_INDEX_W","W"]};

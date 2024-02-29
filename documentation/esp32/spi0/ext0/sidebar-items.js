@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EXT0_SPEC"],"type":["R","T_PP_ENA_R","T_PP_ENA_W","T_PP_SHIFT_R","T_PP_SHIFT_W","T_PP_TIME_R","T_PP_TIME_W","W"]};

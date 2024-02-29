@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["WPROTECT_SPEC"],"type":["R","W","WDT_WKEY_R","WDT_WKEY_W"]};

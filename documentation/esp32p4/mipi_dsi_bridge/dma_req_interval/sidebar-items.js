@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DMA_REQ_INTERVAL_SPEC"],"type":["DMA_REQ_INTERVAL_R","DMA_REQ_INTERVAL_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PWR_UP_SPEC"],"type":["R","SHUTDOWNZ_R","SHUTDOWNZ_W","W"]};

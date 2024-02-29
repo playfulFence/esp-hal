@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["REDUNDANCY_SIG4_SPEC"],"type":["R","REDCY_SIG4_R"]};

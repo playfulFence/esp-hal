@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VID_NUM_CHUNKS_ACT_SPEC"],"type":["R","VID_NUM_CHUNKS_ACT_R"]};

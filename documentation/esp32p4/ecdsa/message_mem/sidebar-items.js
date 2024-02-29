@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MESSAGE_MEM_SPEC"],"type":["R","W"]};

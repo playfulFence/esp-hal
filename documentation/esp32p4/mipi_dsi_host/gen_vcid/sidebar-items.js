@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GEN_VCID_SPEC"],"type":["R","RX_R","RX_W","TEAR_AUTO_R","TEAR_AUTO_W","TX_AUTO_R","TX_AUTO_W","W"]};

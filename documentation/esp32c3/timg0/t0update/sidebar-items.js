@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["T0UPDATE_SPEC"],"type":["R","UPDATE_R","UPDATE_W","W"]};

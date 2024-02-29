@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CACHE_APB_POSTW_EN_SPEC"],"type":["R","REG_CACHE_APB_POSTW_EN_R","REG_CACHE_APB_POSTW_EN_W","W"]};

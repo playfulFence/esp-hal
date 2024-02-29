@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DBI_VCID_SPEC"],"type":["DBI_VCID_R","DBI_VCID_W","R","W"]};

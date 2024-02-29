@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BUSTOEXTMEM_ENA_SPEC"],"type":["BUSTOEXTMEM_ENA_R","BUSTOEXTMEM_ENA_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["QUERY_ERROR_SPEC"],"type":["QUERY_CHECK_R","R"]};

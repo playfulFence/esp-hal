@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["bbpd_ctrl"],"struct":["RegisterBlock"],"type":["BBPD_CTRL"]};

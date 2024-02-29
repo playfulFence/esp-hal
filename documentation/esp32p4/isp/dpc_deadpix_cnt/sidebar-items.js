@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DPC_DEADPIX_CNT_SPEC"],"type":["DPC_DEADPIX_CNT_R","R"]};

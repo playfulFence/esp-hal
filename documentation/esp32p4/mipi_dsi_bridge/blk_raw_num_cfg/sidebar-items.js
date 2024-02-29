@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BLK_RAW_NUM_CFG_SPEC"],"type":["BLK_RAW_NUM_TOTAL_R","BLK_RAW_NUM_TOTAL_SET_W","BLK_RAW_NUM_TOTAL_W","R","W"]};

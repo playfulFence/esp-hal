@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LP_CPU_PWR2_SPEC"],"type":["LP_CPU_WAKEUP_EN_R","LP_CPU_WAKEUP_EN_W","R","W"]};

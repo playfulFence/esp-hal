@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CORE_1_AREA_PIF_1_MAX_SPEC"],"type":["CORE_1_AREA_PIF_1_MAX_R","CORE_1_AREA_PIF_1_MAX_W","R","W"]};

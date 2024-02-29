@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LSC_TABLESIZE_SPEC"],"type":["LSC_XTABLESIZE_R","LSC_XTABLESIZE_W","R","W"]};

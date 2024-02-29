@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HP_SLEEP_LP_DCDC_RESERVE_SPEC"],"type":["PMU_HP_SLEEP_LP_DCDC_RESERVE_W","W"]};

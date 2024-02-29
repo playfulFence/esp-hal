@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DATE_SPEC"],"type":["R","RTC_CLK_EN_R","RTC_CLK_EN_W","RTC_DATE_R","RTC_DATE_W","W"]};

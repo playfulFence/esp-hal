@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CCM_COEF4_SPEC"],"type":["CCM_BG_R","CCM_BG_W","CCM_BR_R","CCM_BR_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CHN_TMP_STATUS_SPEC"],"type":["PAD_ACTIVE_STATUS_R","PAD_INACTIVE_STATUS_R","R"]};

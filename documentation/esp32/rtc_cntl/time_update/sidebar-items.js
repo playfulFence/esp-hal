@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TIME_UPDATE_SPEC"],"type":["R","TIME_UPDATE_W","TIME_VALID_R","W"]};

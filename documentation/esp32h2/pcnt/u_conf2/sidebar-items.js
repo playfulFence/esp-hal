@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["U_CONF2_SPEC"],"type":["CNT_H_LIM_R","CNT_H_LIM_W","CNT_L_LIM_R","CNT_L_LIM_W","R","W"]};

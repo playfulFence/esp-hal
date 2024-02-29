@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HP_MEM_AUX_CTRL_SPEC"],"type":["HP_MEM_AUX_CTRL_R","HP_MEM_AUX_CTRL_W","R","W"]};

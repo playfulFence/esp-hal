@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IN_POP_CH4_SPEC"],"type":["INFIFO_POP_CH4_R","INFIFO_POP_CH4_W","INFIFO_RDATA_CH4_R","R","W"]};

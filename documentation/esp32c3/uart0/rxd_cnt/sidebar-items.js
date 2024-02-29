@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RXD_CNT_SPEC"],"type":["R","RXD_EDGE_CNT_R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DESIGN_FOR_VERIFICATION1_SPEC"],"type":["DFV1_R","DFV1_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BLEND_FIX_PIXEL_SPEC"],"type":["BLEND_TX_FIX_PIXEL_R","BLEND_TX_FIX_PIXEL_W","R","W"]};

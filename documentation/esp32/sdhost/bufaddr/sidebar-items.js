@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BUFADDR_SPEC"],"type":["BUFADDR_R","R"]};

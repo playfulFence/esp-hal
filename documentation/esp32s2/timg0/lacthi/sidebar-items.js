@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LACTHI_SPEC"],"type":["LACT_HI_R","R"]};

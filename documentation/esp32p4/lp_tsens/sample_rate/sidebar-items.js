@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SAMPLE_RATE_SPEC"],"type":["R","SAMPLE_RATE_R","SAMPLE_RATE_W","W"]};

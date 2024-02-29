@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VID_PKT_SIZE_ACT_SPEC"],"type":["R","VID_PKT_SIZE_ACT_R"]};

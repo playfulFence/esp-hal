@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RESP2_SPEC"],"type":["R","RESPONSE2_R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FLASH_ACE3_SIZE_SPEC"],"type":["FLASH_ACE3_SIZE_R","FLASH_ACE3_SIZE_W","R","W"]};

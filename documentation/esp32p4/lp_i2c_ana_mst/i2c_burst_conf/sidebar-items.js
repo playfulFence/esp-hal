@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["I2C_BURST_CONF_SPEC"],"type":["I2C_MST_BURST_CTRL_R","I2C_MST_BURST_CTRL_W","R","W"]};

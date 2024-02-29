@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SLC1_HOST_PF_SPEC"],"type":["R","SLC1_PF_DATA_R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["POWER_PD_CNNT_MASK_SPEC"],"type":["PD_CNNT_MASK_R","PD_CNNT_MASK_W","R","W","XPD_CNNT_MASK_R","XPD_CNNT_MASK_W"]};

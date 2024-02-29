@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PWR_STATE_SPEC"],"type":["BACKUP_ST_STATE_R","HP_PWR_ST_STATE_R","LP_PWR_ST_STATE_R","R"]};

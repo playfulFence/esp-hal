@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DHT_TOTLEN_AC0_SPEC"],"type":["DHT_TOTLEN_AC0_R","R"]};

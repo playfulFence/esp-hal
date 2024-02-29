@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SDIO_ACTIVE_SPEC"],"type":["R","SDIO_ACT_DNUM_R","SDIO_ACT_DNUM_W","W"]};

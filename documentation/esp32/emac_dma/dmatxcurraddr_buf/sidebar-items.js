@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DMATXCURRADDR_BUF_SPEC"],"type":["R"]};

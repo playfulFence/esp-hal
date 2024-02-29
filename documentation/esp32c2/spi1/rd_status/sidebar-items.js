@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RD_STATUS_SPEC"],"type":["R","STATUS_R","STATUS_W","W","WB_MODE_R","WB_MODE_W"]};

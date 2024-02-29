@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MEM_RX_STATUS_SPEC"],"type":["MEM_RX_RD_ADDR_R","MEM_RX_STATUS_R","MEM_RX_WR_ADDR_R","R"]};

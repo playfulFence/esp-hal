@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BISTIN_SEL_SPEC"],"type":["BISTIN_SEL_R","BISTIN_SEL_W","R","W"]};

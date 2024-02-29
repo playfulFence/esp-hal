@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HP_REGULATOR_CFG_SPEC"],"type":["DIG_REGULATOR_EN_CAL_R","DIG_REGULATOR_EN_CAL_W","R","W"]};

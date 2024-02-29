@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LOG_MEM_START_SPEC"],"type":["LOG_MEM_START_R","LOG_MEM_START_W","R","W"]};

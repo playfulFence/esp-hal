@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ERR_CODE_CAP_SPEC"],"type":["ECC_DIRECTION_R","ECC_SEGMENT_R","ECC_TYPE_R","R"]};

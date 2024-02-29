@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BACKUP_DMA_CFG2_SPEC"],"type":["LINK_ADDR_AON_R","LINK_ADDR_AON_W","R","W"]};

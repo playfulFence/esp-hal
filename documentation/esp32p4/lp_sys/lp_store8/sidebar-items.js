@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LP_STORE8_SPEC"],"type":["LP_SCRATCH8_R","LP_SCRATCH8_W","R","W"]};

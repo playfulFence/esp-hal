@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FSM_SPEC"],"type":["CSPI_LOCK_DELAY_TIME_R","CSPI_LOCK_DELAY_TIME_W","CSPI_ST_R","EM_ST_R","R","W"]};

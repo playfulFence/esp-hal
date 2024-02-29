@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VID_VBP_LINES_SPEC"],"type":["R","VBP_LINES_R","VBP_LINES_W","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["ble_timer_clk_conf","clk_conf","coex_lp_clk_conf","date","etm_clk_conf","modem_lp_timer_conf"],"struct":["RegisterBlock"],"type":["BLE_TIMER_CLK_CONF","CLK_CONF","COEX_LP_CLK_CONF","DATE","ETM_CLK_CONF","MODEM_LP_TIMER_CONF"]};

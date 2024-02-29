@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["L2_MEM_L2_CACHE_ECC_SPEC"],"type":["R","REG_L2_CACHE_ECC_EN_R","REG_L2_CACHE_ECC_EN_W","W"]};

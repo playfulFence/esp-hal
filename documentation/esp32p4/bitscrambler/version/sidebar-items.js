@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VERSION_SPEC"],"type":["BITSCRAMBLER_VER_R","BITSCRAMBLER_VER_W","R","W"]};

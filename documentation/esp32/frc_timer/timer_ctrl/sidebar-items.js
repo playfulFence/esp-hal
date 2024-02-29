@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TIMER_CTRL_SPEC"],"type":["R","TIMER_PRESCALER_R","TIMER_PRESCALER_W","W"]};

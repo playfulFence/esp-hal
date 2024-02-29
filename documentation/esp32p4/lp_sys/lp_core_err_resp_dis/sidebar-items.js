@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LP_CORE_ERR_RESP_DIS_SPEC"],"type":["LP_CORE_ERR_RESP_DIS_R","LP_CORE_ERR_RESP_DIS_W","R","W"]};

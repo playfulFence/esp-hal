@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SAR_NOUSE_SPEC"],"type":["R","SAR_NOUSE_R","SAR_NOUSE_W","W"]};

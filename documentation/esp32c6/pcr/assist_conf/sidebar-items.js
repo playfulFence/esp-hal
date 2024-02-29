@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ASSIST_CONF_SPEC"],"type":["ASSIST_CLK_EN_R","ASSIST_CLK_EN_W","ASSIST_RST_EN_R","ASSIST_RST_EN_W","R","W"]};

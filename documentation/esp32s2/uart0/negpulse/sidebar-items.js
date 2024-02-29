@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["NEGPULSE_SPEC"],"type":["NEGEDGE_MIN_CNT_R","R"]};

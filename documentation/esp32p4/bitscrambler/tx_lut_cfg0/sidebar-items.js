@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TX_LUT_CFG0_SPEC"],"type":["R","TX_LUT_IDX_R","TX_LUT_IDX_W","TX_LUT_MODE_R","TX_LUT_MODE_W","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IN_POP_DATA_CNT_CH0_SPEC"],"type":["IN_CMDFIFO_POP_DATA_CNT_CH0_R","R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BUS_FREE_TIME_SPEC"],"type":["R","REG_BUS_FREE_TIME_R","REG_BUS_FREE_TIME_W","W"]};

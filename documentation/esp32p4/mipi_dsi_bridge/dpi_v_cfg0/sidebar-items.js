@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DPI_V_CFG0_SPEC"],"type":["R","VDISP_R","VDISP_W","VTOTAL_R","VTOTAL_W","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ARB_LOST_CAP_SPEC"],"type":["ARB_LOST_CAP_R","R"]};

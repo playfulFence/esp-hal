@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PHY_TMR_RD_CFG_SPEC"],"type":["MAX_RD_TIME_R","MAX_RD_TIME_W","R","W"]};

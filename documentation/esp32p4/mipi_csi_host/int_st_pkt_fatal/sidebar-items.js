@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_ST_PKT_FATAL_SPEC"],"type":["R","ST_ERR_ECC_DOUBLE_R","ST_SHORTER_PAYLOAD_R"]};

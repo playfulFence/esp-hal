@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FORCE_ACC_HP_SPEC"],"type":["LP_AON_FORCE_ACC_HPMEM_EN_R","LP_AON_FORCE_ACC_HPMEM_EN_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["_0_TXLINK_DSCR_SPEC"],"type":["R","SLC0_TXLINK_DSCR_R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SDA_DUTY_SPEC"],"type":["R","SDA_DUTY_R","SDA_DUTY_W","W"]};

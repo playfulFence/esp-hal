@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["OUT_RESET_AVAIL_CH_SPEC"],"type":["OUT_RESET_AVAIL_CH_R","R"]};

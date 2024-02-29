@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["UHCI_CONF_SPEC"],"type":["R","UHCI_CLK_EN_R","UHCI_CLK_EN_W","UHCI_READY_R","UHCI_RST_EN_R","UHCI_RST_EN_W","W"]};

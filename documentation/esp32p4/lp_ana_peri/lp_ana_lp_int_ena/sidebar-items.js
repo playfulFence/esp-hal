@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LP_ANA_LP_INT_ENA_SPEC"],"type":["LP_ANA_BOD_MODE0_LP_INT_ENA_R","LP_ANA_BOD_MODE0_LP_INT_ENA_W","R","W"]};

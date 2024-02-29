@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EX_CLKOUT_CONF_SPEC"],"type":["DIV_NUM_R","DIV_NUM_W","DLY_NUM_R","DLY_NUM_W","H_DIV_NUM_R","H_DIV_NUM_W","R","W"]};

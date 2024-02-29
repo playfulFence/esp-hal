@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SEARCH_ENABLE_SPEC"],"type":["R","SEARCH_ENABLE_R","SEARCH_ENABLE_W","W"]};

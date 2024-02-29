@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TCM_RAM_PWR_CTRL0_SPEC"],"type":["R","REG_HP_TCM_CLK_FORCE_ON_R","REG_HP_TCM_CLK_FORCE_ON_W","W"]};

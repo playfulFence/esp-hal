@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["APPCPU_CTRL_C_SPEC"],"type":["APPCPU_RUNSTALL_R","APPCPU_RUNSTALL_W","R","W"]};

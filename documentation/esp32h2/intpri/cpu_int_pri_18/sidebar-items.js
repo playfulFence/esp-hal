@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CPU_INT_PRI_18_SPEC"],"type":["CPU_PRI_18_MAP_R","CPU_PRI_18_MAP_W","R","W"]};

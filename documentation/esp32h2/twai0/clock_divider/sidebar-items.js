@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CLOCK_DIVIDER_SPEC"],"type":["CD_R","CD_W","CLOCK_OFF_R","CLOCK_OFF_W","R","W"]};

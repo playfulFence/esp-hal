@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_ENA_TIMERS_SPEC"],"type":["R","T0_INT_ENA_R","T0_INT_ENA_W","T1_INT_ENA_R","T1_INT_ENA_W","W","WDT_INT_ENA_R","WDT_INT_ENA_W"]};

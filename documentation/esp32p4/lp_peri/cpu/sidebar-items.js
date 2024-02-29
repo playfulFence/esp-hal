@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CPU_SPEC"],"type":["LPCORE_DBGM_UNAVAILABLE_R","LPCORE_DBGM_UNAVAILABLE_W","R","W"]};

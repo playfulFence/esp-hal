@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SDA_HOLD_SPEC"],"type":["R","TIME_R","TIME_W","W"]};

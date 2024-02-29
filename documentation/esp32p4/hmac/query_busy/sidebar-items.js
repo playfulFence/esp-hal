@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["QUERY_BUSY_SPEC"],"type":["BUSY_STATE_R","R"]};

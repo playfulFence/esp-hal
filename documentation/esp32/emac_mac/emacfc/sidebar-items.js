@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EMACFC_SPEC"],"type":["DZPQ_R","DZPQ_W","FCBBA_R","FCBBA_W","PAUSE_TIME_R","PAUSE_TIME_W","PLT_R","PLT_W","R","RFCE_R","RFCE_W","TFCE_R","TFCE_W","UPFD_R","UPFD_W","W"]};

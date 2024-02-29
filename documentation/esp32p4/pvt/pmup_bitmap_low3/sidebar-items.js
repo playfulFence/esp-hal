@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PMUP_BITMAP_LOW3_SPEC"],"type":["PUMP_BITMAP_LOW3_R","PUMP_BITMAP_LOW3_W","R","W"]};

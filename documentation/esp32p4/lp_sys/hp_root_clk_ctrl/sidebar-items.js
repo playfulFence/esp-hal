@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HP_ROOT_CLK_CTRL_SPEC"],"type":["CPU_CLK_EN_R","CPU_CLK_EN_W","R","SYS_CLK_EN_R","SYS_CLK_EN_W","W"]};

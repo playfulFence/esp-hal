@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AWB_VSCALE_SPEC"],"type":["AWB_BPOINT_R","AWB_BPOINT_W","AWB_TPOINT_R","AWB_TPOINT_W","R","W"]};

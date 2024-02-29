@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AF_LUM_B_SPEC"],"type":["AF_LUMB_R","R"]};

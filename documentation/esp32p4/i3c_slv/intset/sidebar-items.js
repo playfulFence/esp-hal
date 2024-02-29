@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INTSET_SPEC"],"type":["R","RXPEND_ENA_R","RXPEND_ENA_W","STOP_ENA_R","STOP_ENA_W","TXSEND_ENA_R","TXSEND_ENA_W","W"]};

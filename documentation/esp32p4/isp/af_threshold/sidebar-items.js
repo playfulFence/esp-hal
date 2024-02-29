@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AF_THRESHOLD_SPEC"],"type":["AF_GEN_THRESHOLD_R","AF_THRESHOLD_R","AF_THRESHOLD_W","R","W"]};

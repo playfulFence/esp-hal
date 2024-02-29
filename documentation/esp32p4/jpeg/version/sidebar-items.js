@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VERSION_SPEC"],"type":["JPEG_VER_R","JPEG_VER_W","R","W"]};

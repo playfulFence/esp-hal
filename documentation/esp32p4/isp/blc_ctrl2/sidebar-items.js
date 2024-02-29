@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BLC_CTRL2_SPEC"],"type":["BLC_R0_TH_R","BLC_R0_TH_W","BLC_R1_TH_R","BLC_R1_TH_W","BLC_R2_TH_R","BLC_R2_TH_W","BLC_R3_TH_R","BLC_R3_TH_W","R","W"]};

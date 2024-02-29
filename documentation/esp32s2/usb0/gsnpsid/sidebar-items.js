@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GSNPSID_SPEC"],"type":["R","SYNOPSYSID_R"]};

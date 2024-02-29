@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ARB_TIMEOUT_RX_SPEC"],"type":["ARB_TIMEOUT_RX_R","ARB_TIMEOUT_RX_W","R","W"]};

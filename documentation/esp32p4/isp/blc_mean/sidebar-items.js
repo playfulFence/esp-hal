@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BLC_MEAN_SPEC"],"type":["BLC_R0_MEAN_R","BLC_R1_MEAN_R","BLC_R2_MEAN_R","BLC_R3_MEAN_R","R"]};

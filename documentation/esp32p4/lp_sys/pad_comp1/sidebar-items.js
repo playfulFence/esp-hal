@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PAD_COMP1_SPEC"],"type":["DREF_COMP1_R","DREF_COMP1_W","MODE_COMP1_R","MODE_COMP1_W","R","W","XPD_COMP1_R","XPD_COMP1_W"]};

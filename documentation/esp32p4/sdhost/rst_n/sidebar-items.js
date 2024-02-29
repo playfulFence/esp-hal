@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RST_N_SPEC"],"type":["CARD_RESET_R","CARD_RESET_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VERSION_SPEC"],"type":["DATE_R","DATE_W","R","W"]};

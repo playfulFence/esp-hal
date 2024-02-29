@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HSYNC_CNT_SPEC"],"type":["HSYNC_CNT_R","HSYNC_CNT_W","R","W"]};

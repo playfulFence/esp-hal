@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INTMTX_CONF_SPEC"],"type":["INTMTX_CLK_EN_R","INTMTX_CLK_EN_W","INTMTX_RST_EN_R","INTMTX_RST_EN_W","R","W"]};

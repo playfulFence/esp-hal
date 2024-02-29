@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["STATE_SPEC"],"type":["R","TX_IDLE_R"]};

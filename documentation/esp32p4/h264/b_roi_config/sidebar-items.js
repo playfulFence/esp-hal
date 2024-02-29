@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["B_ROI_CONFIG_SPEC"],"type":["B_ROI_EN_R","B_ROI_EN_W","B_ROI_MODE_R","B_ROI_MODE_W","R","W"]};

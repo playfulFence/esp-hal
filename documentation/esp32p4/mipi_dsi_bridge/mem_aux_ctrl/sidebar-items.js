@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MEM_AUX_CTRL_SPEC"],"type":["DSI_MEM_AUX_CTRL_R","DSI_MEM_AUX_CTRL_W","R","W"]};

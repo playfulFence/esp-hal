@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MEAS2_MUX_SPEC"],"type":["R","SAR2_PWDET_CCT_R","SAR2_PWDET_CCT_W","SAR2_RTC_FORCE_R","SAR2_RTC_FORCE_W","W"]};

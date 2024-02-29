@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CHN_STATUS_SPEC"],"type":["MEAS_DONE_R","PAD_ACTIVE_R","R","SCAN_CURR_R"]};

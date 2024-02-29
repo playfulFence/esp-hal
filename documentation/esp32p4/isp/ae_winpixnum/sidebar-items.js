@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AE_WINPIXNUM_SPEC"],"type":["AE_SUBWIN_PIXNUM_R","AE_SUBWIN_PIXNUM_W","R","W"]};

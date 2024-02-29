@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BLK0_BACKUP4_W2_SPEC"],"type":["OTP_BEBUG_BLOCK0_BACKUP4_W2_R","R"]};

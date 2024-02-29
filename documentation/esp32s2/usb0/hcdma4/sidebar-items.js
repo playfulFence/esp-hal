@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HCDMA4_SPEC"],"type":["H_DMAADDR4_R","H_DMAADDR4_W","R","W"]};

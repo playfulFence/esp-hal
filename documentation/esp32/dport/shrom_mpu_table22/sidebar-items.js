@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SHROM_MPU_TABLE22_SPEC"],"type":["R","SHROM_MPU_TABLE22_R","SHROM_MPU_TABLE22_W","W"]};

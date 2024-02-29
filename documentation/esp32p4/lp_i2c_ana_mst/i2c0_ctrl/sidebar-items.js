@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["I2C0_CTRL_SPEC"],"type":["I2C0_BUSY_R","I2C0_CTRL_R","I2C0_CTRL_W","R","W"]};

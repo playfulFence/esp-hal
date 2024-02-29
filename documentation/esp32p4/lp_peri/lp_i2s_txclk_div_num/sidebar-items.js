@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LP_I2S_TXCLK_DIV_NUM_SPEC"],"type":["LP_I2S_TX_CLKM_DIV_NUM_R","LP_I2S_TX_CLKM_DIV_NUM_W","R","W"]};

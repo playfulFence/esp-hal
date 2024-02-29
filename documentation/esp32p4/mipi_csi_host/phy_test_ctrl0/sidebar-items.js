@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PHY_TEST_CTRL0_SPEC"],"type":["PHY_TESTCLK_R","PHY_TESTCLK_W","PHY_TESTCLR_R","PHY_TESTCLR_W","R","W"]};

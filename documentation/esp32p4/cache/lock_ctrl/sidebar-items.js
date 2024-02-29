@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LOCK_CTRL_SPEC"],"type":["LOCK_DONE_R","LOCK_ENA_R","LOCK_ENA_W","LOCK_RGID_R","LOCK_RGID_W","R","UNLOCK_ENA_R","UNLOCK_ENA_W","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ROM_PD_CTRL_SPEC"],"type":["APP_ROM_PD_R","APP_ROM_PD_W","PRO_ROM_PD_R","PRO_ROM_PD_W","R","SHARE_ROM_PD_R","SHARE_ROM_PD_W","W"]};

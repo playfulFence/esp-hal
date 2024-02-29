@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["T3QNR_SPEC"],"type":["R","T3_QNR_VAL_R"]};

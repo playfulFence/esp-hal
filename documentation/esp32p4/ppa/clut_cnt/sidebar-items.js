@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CLUT_CNT_SPEC"],"type":["BLEND0_CLUT_CNT_R","BLEND1_CLUT_CNT_R","R"]};

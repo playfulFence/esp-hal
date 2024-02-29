@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CORE_DMACTIVE_LPCORE_SPEC"],"type":["CORE_DMACTIVE_LPCORE_R","R"]};

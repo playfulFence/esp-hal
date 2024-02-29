@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SLP_WAKEUP_CNTL0_SPEC"],"type":["SLEEP_REQ_W","W"]};

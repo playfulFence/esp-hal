@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IBI_SIR_REQ_REJECT_SPEC"],"type":["R","REG_SIR_REQ_REJECT_R","REG_SIR_REQ_REJECT_W","W"]};

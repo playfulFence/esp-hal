@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_CLR_SPEC"],"type":["OVERFLOW_CLR_W","SOC_WAKEUP_INT_CLR_W","W"]};

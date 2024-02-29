@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["C0_SPEC"],"type":["DQT_TBL_SEL_R","DQT_TBL_SEL_W","ID_R","ID_W","R","W","X_FACTOR_R","X_FACTOR_W","Y_FACTOR_R","Y_FACTOR_W"]};

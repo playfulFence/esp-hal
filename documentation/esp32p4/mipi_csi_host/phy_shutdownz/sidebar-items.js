@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PHY_SHUTDOWNZ_SPEC"],"type":["PHY_SHUTDOWNZ_R","PHY_SHUTDOWNZ_W","R","W"]};

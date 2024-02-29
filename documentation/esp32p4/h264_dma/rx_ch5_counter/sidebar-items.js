@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RX_CH5_COUNTER_SPEC"],"type":["R","RX_CH5_CNT_R"]};

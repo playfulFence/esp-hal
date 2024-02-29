@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LACTUPDATE_SPEC"],"type":["LACT_UPDATE_W","W"]};

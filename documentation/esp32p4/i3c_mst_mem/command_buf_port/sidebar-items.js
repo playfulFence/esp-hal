@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["COMMAND_BUF_PORT_SPEC"],"type":["R","REG_COMMAND_R","REG_COMMAND_W","W"]};

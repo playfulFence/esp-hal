@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VID_HBP_TIME_SPEC"],"type":["R","VID_HBP_TIME_R","VID_HBP_TIME_W","W"]};

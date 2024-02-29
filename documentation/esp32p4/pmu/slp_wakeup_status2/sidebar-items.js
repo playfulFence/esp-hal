@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SLP_WAKEUP_STATUS2_SPEC"],"type":["LP_LITE_WAKEUP_CAUSE_R","R"]};

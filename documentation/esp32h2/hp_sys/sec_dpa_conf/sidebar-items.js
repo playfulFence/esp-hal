@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SEC_DPA_CONF_SPEC"],"type":["R","SEC_DPA_CFG_SEL_R","SEC_DPA_CFG_SEL_W","SEC_DPA_LEVEL_R","SEC_DPA_LEVEL_W","W"]};

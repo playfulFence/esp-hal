@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AAD_BLOCK_NUM_SPEC"],"type":["AAD_BLOCK_NUM_R","AAD_BLOCK_NUM_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HPTXFSIZ_SPEC"],"type":["PTXFSIZE_R","PTXFSIZE_W","PTXFSTADDR_R","PTXFSTADDR_W","R","W"]};

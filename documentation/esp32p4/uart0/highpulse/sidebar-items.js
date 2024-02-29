@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HIGHPULSE_SPEC"],"type":["MIN_CNT_R","R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["WDTCONFIG4_SPEC"],"type":["R","W","WDT_STG3_HOLD_R","WDT_STG3_HOLD_W"]};

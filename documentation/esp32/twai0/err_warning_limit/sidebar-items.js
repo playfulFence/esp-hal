@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ERR_WARNING_LIMIT_SPEC"],"type":["ERR_WARNING_LIMIT_R","ERR_WARNING_LIMIT_W","R","W"]};

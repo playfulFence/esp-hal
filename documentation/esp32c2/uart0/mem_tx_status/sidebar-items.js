@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MEM_TX_STATUS_SPEC"],"type":["APB_TX_WADDR_R","R","TX_RADDR_R"]};

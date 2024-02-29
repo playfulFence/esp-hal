@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AE_BLOCK_MEAN_2_SPEC"],"type":["AE_B13_MEAN_R","AE_B14_MEAN_R","AE_B20_MEAN_R","AE_B21_MEAN_R","R"]};

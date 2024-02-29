@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AWB_HSCALE_SPEC"],"type":["AWB_LPOINT_R","AWB_LPOINT_W","AWB_RPOINT_R","AWB_RPOINT_W","R","W"]};

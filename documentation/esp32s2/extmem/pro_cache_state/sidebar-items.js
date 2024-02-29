@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PRO_CACHE_STATE_SPEC"],"type":["PRO_DCACHE_STATE_R","PRO_ICACHE_STATE_R","R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IBI_SIR_REQ_PAYLOAD_SPEC"],"type":["R","REG_SIR_REQ_PAYLOAD_R","REG_SIR_REQ_PAYLOAD_W","W"]};

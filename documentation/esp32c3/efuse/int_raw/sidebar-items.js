@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_RAW_SPEC"],"type":["PGM_DONE_INT_RAW_R","PGM_DONE_INT_RAW_W","R","READ_DONE_INT_RAW_R","READ_DONE_INT_RAW_W","W"]};

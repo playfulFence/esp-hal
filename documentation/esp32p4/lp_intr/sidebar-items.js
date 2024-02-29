@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["date","status","sw_int_clr","sw_int_ena","sw_int_raw","sw_int_st"],"struct":["RegisterBlock"],"type":["DATE","STATUS","SW_INT_CLR","SW_INT_ENA","SW_INT_RAW","SW_INT_ST"]};

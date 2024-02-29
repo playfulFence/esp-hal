@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["APB2OTP_BLK4_W11_SPEC"],"type":["APB2OTP_BLOCK4_W11_R","R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["L2_MEM_SUBSIZE_SPEC"],"type":["R","REG_L2_MEM_SUB_BLKSIZE_R","REG_L2_MEM_SUB_BLKSIZE_W","W"]};

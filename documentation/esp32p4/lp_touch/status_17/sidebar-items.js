@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["STATUS_17_SPEC"],"type":["DBIAS_R","DCAP_LPF_R","DRES_LPF_R","DRV_HS_R","DRV_LS_R","R","RTC_FREQ_SCAN_CNT_R"]};

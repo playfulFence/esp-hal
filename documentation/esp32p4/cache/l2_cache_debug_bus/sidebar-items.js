@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["L2_CACHE_DEBUG_BUS_SPEC"],"type":["L2_CACHE_DEBUG_BUS_R","L2_CACHE_DEBUG_BUS_W","R","W"]};

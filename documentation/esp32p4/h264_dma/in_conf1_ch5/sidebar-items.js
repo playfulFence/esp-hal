@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IN_CONF1_CH5_SPEC"],"type":["BLOCK_START_ADDR_CH5_R","BLOCK_START_ADDR_CH5_W","R","W"]};

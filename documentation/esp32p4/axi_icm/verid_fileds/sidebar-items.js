@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VERID_FILEDS_SPEC"],"type":["ICM_REG_VERID_R","R"]};

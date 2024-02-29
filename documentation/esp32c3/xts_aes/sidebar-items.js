@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["date","destination","destroy","linesize","physical_address","plain_mem","release","state","trigger"],"struct":["RegisterBlock"],"type":["DATE","DESTINATION","DESTROY","LINESIZE","PHYSICAL_ADDRESS","PLAIN_MEM","RELEASE","STATE","TRIGGER"]};

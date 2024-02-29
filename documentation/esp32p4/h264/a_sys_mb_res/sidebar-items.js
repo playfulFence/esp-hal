@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["A_SYS_MB_RES_SPEC"],"type":["A_SYS_TOTAL_MB_X_R","A_SYS_TOTAL_MB_X_W","A_SYS_TOTAL_MB_Y_R","A_SYS_TOTAL_MB_Y_W","R","W"]};

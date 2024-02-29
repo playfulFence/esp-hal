@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LP_SLEEP_LP_BIAS_RESERVE_SPEC"],"type":["LP_SLEEP_LP_BIAS_RESERVE_W","W"]};

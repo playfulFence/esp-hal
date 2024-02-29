@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DT1_RED_CFG_SPEC"],"type":["DB1_RED_R","DB1_RED_W","R","W"]};

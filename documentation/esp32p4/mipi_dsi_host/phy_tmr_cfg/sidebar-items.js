@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PHY_TMR_CFG_SPEC"],"type":["PHY_HS2LP_TIME_R","PHY_HS2LP_TIME_W","PHY_LP2HS_TIME_R","PHY_LP2HS_TIME_W","R","W"]};

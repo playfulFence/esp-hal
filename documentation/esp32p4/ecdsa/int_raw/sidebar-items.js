@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_RAW_SPEC"],"type":["CALC_DONE_INT_RAW_R","R","SHA_RELEASE_INT_RAW_R"]};

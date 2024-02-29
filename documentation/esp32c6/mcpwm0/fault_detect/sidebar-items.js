@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FAULT_DETECT_SPEC"],"type":["EVENT_F0_R","EVENT_F1_R","EVENT_F2_R","F0_EN_R","F0_EN_W","F0_POLE_R","F0_POLE_W","F1_EN_R","F1_EN_W","F1_POLE_R","F1_POLE_W","F2_EN_R","F2_EN_W","F2_POLE_R","F2_POLE_W","R","W"]};

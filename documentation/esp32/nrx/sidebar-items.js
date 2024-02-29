@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["nrxpd_ctrl"],"struct":["RegisterBlock"],"type":["NRXPD_CTRL"]};

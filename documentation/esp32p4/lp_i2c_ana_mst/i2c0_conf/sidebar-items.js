@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["I2C0_CONF_SPEC"],"type":["I2C0_CONF_R","I2C0_CONF_W","I2C0_STATUS_R","R","W"]};

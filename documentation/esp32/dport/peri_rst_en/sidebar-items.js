@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PERI_RST_EN_SPEC"],"type":["PERI_RST_EN_R","PERI_RST_EN_W","R","W"]};

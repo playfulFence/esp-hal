@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_ENA_SPEC"],"type":["DONE_INT_ENA_R","DONE_INT_ENA_W","ERROR_INT_ENA_R","ERROR_INT_ENA_W","R","W"]};

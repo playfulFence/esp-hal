@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ECO_CELL_CTRL_SPEC"],"type":["R","RDN_ENA_R","RDN_ENA_W","RDN_RESULT_R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DIG_PAD_HOLD_SPEC"],"type":["DIG_PAD_HOLD_R","DIG_PAD_HOLD_W","R","W"]};

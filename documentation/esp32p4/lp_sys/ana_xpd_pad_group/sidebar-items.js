@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ANA_XPD_PAD_GROUP_SPEC"],"type":["ANA_REG_XPD_PAD_GROUP_R","ANA_REG_XPD_PAD_GROUP_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CLK_SPEC"],"type":["EN_R","EN_W","MEM_CLK_FORCE_ON_R","MEM_CLK_FORCE_ON_W","MEM_FORCE_PD_R","MEM_FORCE_PD_W","MEM_FORCE_PU_R","MEM_FORCE_PU_W","R","W"]};

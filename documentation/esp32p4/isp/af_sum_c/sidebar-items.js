@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AF_SUM_C_SPEC"],"type":["AF_SUMC_R","R"]};

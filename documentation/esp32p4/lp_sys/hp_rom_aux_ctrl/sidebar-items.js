@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HP_ROM_AUX_CTRL_SPEC"],"type":["HP_ROM_AUX_CTRL_R","HP_ROM_AUX_CTRL_W","R","W"]};

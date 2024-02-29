@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["COMPVER0_SPEC"],"type":["DMAC_COMPVER_R","R"]};

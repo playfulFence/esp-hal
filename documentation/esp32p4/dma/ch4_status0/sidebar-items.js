@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CH4_STATUS0_SPEC"],"type":["CH4_CMPLTD_BLK_TFR_SIZE_R","R"]};

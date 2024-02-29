@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BACKUP_DMA_CFG1_SPEC"],"type":["AON_BYPASS_R","AON_BYPASS_W","R","W"]};

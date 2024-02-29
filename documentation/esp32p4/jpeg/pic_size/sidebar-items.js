@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PIC_SIZE_SPEC"],"type":["HA_R","HA_W","R","VA_R","VA_W","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BIST_CTRL_SPEC"],"type":["BIST_PAD_OE_R","BIST_PAD_OE_W","BIST_START_W","R","W"]};

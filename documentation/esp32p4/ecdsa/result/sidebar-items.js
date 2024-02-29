@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RESULT_SPEC"],"type":["K_VALUE_WARNING_R","OPERATION_RESULT_R","R"]};

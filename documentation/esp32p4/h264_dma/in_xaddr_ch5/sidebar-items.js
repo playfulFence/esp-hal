@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IN_XADDR_CH5_SPEC"],"type":["IN_CMDFIFO_XADDR_CH5_R","R"]};

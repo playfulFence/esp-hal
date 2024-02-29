@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IN_SPEC"],"type":["R","REG_GPIO_IN_DATA_NEXT_R"]};

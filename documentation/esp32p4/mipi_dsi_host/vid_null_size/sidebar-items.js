@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VID_NULL_SIZE_SPEC"],"type":["R","VID_NULL_SIZE_R","VID_NULL_SIZE_W","W"]};

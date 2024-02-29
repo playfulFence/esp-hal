@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TCM_PARITY_CHECK_CTRL_SPEC"],"type":["R","TCM_PARITY_CHECK_EN_R","TCM_PARITY_CHECK_EN_W","W"]};

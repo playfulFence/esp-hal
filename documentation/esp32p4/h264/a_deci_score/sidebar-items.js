@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["A_DECI_SCORE_SPEC"],"type":["A_C_DECI_SCORE_R","A_C_DECI_SCORE_W","A_L_DECI_SCORE_R","A_L_DECI_SCORE_W","R","W"]};

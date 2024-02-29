@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LCD_FIRST_CMD_VAL_SPEC"],"type":["LCD_FIRST_CMD_VALUE_R","LCD_FIRST_CMD_VALUE_W","R","W"]};

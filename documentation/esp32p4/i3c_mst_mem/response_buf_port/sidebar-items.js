@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RESPONSE_BUF_PORT_SPEC"],"type":["R","RESPONSE_R"]};

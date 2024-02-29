@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CLOCK_GATE_SPEC"],"type":["CORE0_REG_CLK_EN_R","CORE0_REG_CLK_EN_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["OCCUPY_1_SPEC"],"type":["OCCUPY_CACHE_R","OCCUPY_CACHE_W","R","W"]};

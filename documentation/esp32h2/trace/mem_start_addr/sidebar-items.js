@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MEM_START_ADDR_SPEC"],"type":["MEM_START_ADDR_R","MEM_START_ADDR_W","R","W"]};

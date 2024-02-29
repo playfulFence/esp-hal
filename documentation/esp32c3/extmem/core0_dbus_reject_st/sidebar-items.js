@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CORE0_DBUS_REJECT_ST_SPEC"],"type":["CORE0_DBUS_ATTR_R","CORE0_DBUS_WORLD_R","R"]};

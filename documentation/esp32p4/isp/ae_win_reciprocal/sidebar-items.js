@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AE_WIN_RECIPROCAL_SPEC"],"type":["AE_SUBWIN_RECIP_R","AE_SUBWIN_RECIP_W","R","W"]};

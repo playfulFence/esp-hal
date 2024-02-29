@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["APP_TIMER_INT2_MAP_SPEC"],"type":["APP_TIMER_INT2_MAP_R","APP_TIMER_INT2_MAP_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AF_VSCALE_C_SPEC"],"type":["AF_BPOINT_C_R","AF_BPOINT_C_W","AF_TPOINT_C_R","AF_TPOINT_C_W","R","W"]};

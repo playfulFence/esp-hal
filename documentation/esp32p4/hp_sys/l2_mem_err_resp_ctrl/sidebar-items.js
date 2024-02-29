@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["L2_MEM_ERR_RESP_CTRL_SPEC"],"type":["L2_MEM_ERR_RESP_EN_R","L2_MEM_ERR_RESP_EN_W","R","W"]};

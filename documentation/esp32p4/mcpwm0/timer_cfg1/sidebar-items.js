@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TIMER_CFG1_SPEC"],"type":["R","TIMER_MOD_R","TIMER_MOD_W","TIMER_START_R","TIMER_START_W","W"]};

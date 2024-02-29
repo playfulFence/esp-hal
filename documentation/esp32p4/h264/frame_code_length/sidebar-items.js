@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FRAME_CODE_LENGTH_SPEC"],"type":["FRAME_CODE_LENGTH_R","R"]};

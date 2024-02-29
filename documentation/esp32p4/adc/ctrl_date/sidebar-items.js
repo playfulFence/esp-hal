@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CTRL_DATE_SPEC"],"type":["CLK_EN_R","CLK_EN_W","CTRL_DATE_R","CTRL_DATE_W","R","W"]};

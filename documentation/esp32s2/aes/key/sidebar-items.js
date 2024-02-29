@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["KEY_SPEC"],"type":["KEY_R","KEY_W","R","W"]};

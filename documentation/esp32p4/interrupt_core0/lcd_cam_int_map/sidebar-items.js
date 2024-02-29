@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LCD_CAM_INT_MAP_SPEC"],"type":["CORE0_LCD_CAM_INT_MAP_R","CORE0_LCD_CAM_INT_MAP_W","R","W"]};

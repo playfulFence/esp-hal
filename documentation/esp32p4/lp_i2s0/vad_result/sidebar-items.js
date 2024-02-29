@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VAD_RESULT_SPEC"],"type":["ENERGY_ENOUGH_R","R","VAD_FLAG_R"]};

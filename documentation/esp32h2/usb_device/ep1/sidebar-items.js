@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EP1_SPEC"],"type":["R","RDWR_BYTE_R","RDWR_BYTE_W","W"]};

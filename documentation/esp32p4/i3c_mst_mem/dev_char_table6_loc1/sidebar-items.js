@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DEV_CHAR_TABLE6_LOC1_SPEC"],"type":["DCT_DEV6_LOC1_R","R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CDETECT_SPEC"],"type":["CARD_DETECT_N_R","R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DMARINTWDTIMER_SPEC"],"type":["R","RIWTC_R","RIWTC_W","W"]};

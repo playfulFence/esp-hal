@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PHY_TX_TRIGGERS_SPEC"],"type":["PHY_TX_TRIGGERS_R","PHY_TX_TRIGGERS_W","R","W"]};

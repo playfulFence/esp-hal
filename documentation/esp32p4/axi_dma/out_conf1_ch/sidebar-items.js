@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["OUT_CONF1_CH_SPEC"],"type":["OUT_CHECK_OWNER_CH_R","OUT_CHECK_OWNER_CH_W","R","W"]};

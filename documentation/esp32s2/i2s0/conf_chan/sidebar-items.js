@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CONF_CHAN_SPEC"],"type":["R","RX_CHAN_MOD_R","RX_CHAN_MOD_W","TX_CHAN_MOD_R","TX_CHAN_MOD_W","W"]};

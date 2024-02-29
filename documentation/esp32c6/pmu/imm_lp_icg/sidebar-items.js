@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IMM_LP_ICG_SPEC"],"type":["TIE_HIGH_LP_ROOTCLK_SEL_W","TIE_LOW_LP_ROOTCLK_SEL_W","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AHB_CONFIG_SPEC"],"type":["HBURST_R","HBURST_W","MAX_INCR_R","MAX_INCR_W","R","W"]};

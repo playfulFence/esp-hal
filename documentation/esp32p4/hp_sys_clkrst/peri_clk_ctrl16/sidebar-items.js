@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PERI_CLK_CTRL16_SPEC"],"type":["I2S1_TX_DIV_N_R","I2S1_TX_DIV_N_W","I2S1_TX_DIV_X_R","I2S1_TX_DIV_X_W","I2S1_TX_DIV_Y_R","I2S1_TX_DIV_Y_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TIMER5_SPEC"],"type":["MIN_SLP_VAL_R","MIN_SLP_VAL_W","R","W"]};

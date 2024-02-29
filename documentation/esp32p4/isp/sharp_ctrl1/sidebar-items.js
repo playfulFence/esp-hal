@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SHARP_CTRL1_SPEC"],"type":["R","SHARP_GRADIENT_MAX_R"]};

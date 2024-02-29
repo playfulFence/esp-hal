@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VAD_CONF_SPEC"],"type":["R","VAD_EN_R","VAD_EN_W","VAD_FORCE_START_W","VAD_RESET_W","W"]};

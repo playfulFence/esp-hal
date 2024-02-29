@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["T1QNR_SPEC"],"type":["CHROMINANCE_QNR_VAL_R","R"]};

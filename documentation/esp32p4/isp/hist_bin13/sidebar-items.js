@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HIST_BIN13_SPEC"],"type":["HIST_BIN_13_R","R"]};

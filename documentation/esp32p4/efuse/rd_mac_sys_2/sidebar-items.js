@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RD_MAC_SYS_2_SPEC"],"type":["MAC_RESERVED_0_R","MAC_RESERVED_1_R","R"]};

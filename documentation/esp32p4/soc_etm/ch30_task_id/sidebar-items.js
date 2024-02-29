@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CH30_TASK_ID_SPEC"],"type":["CH30_TASK_ID_R","CH30_TASK_ID_W","R","W"]};

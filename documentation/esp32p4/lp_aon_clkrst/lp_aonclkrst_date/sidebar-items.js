@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LP_AONCLKRST_DATE_SPEC"],"type":["LP_AONCLKRST_CLK_EN_R","LP_AONCLKRST_CLK_EN_W","R","W"]};

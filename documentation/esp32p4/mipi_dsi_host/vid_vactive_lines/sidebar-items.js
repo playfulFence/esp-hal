@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VID_VACTIVE_LINES_SPEC"],"type":["R","V_ACTIVE_LINES_R","V_ACTIVE_LINES_W","W"]};

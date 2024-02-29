@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DHT_INFO_SPEC"],"type":["AC0_DHT_ID_R","AC0_DHT_ID_W","AC1_DHT_ID_R","AC1_DHT_ID_W","DC0_DHT_ID_R","DC0_DHT_ID_W","DC1_DHT_ID_R","DC1_DHT_ID_W","R","W"]};

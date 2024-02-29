@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DPI_RSV_DPI_DATA_SPEC"],"type":["DPI_RSV_DATA_R","DPI_RSV_DATA_W","R","W"]};

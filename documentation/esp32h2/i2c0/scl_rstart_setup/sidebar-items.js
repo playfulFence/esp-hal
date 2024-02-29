@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SCL_RSTART_SETUP_SPEC"],"type":["R","TIME_R","TIME_W","W"]};

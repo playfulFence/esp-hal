@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TXFIFO_START_ADDR_SPEC"],"type":["R","TXFIFO_START_ADDR_R"]};

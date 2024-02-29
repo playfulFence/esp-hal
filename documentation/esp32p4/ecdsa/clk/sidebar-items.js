@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CLK_SPEC"],"type":["GATE_FORCE_ON_R","GATE_FORCE_ON_W","R","W"]};

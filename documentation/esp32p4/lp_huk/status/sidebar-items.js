@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["STATUS_SPEC"],"type":["R","RISK_LEVEL_R","STATUS_R"]};

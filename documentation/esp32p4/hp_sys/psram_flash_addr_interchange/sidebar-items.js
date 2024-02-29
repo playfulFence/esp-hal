@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PSRAM_FLASH_ADDR_INTERCHANGE_SPEC"],"type":["CPU_R","CPU_W","DMA_R","DMA_W","R","W"]};

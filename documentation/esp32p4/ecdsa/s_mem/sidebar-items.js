@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["S_MEM_SPEC"],"type":["R","W"]};

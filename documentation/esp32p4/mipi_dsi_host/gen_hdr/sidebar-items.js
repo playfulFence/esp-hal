@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GEN_HDR_SPEC"],"type":["GEN_DT_R","GEN_DT_W","GEN_VC_R","GEN_VC_W","GEN_WC_LSBYTE_R","GEN_WC_LSBYTE_W","GEN_WC_MSBYTE_R","GEN_WC_MSBYTE_W","R","W"]};

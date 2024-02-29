@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TX_CRC_DATA_EN_ADDR_CH_SPEC"],"type":["R","TX_CRC_DATA_EN_ADDR_CH_R","TX_CRC_DATA_EN_ADDR_CH_W","W"]};

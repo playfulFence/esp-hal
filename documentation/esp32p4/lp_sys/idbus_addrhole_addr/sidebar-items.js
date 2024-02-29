@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IDBUS_ADDRHOLE_ADDR_SPEC"],"type":["IDBUS_ADDRHOLE_ADDR_R","R"]};
