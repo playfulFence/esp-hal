@@ -1,0 +1,246 @@
+use std::path::{Path, PathBuf};
+
+use anyhow::{bail, Result};
+use clap::{Args, Parser};
+use strum::IntoEnumIterator;
+use xtask::{Chip, Package, Version};
+
+// ----------------------------------------------------------------------------
+// Command-line Interface
+
+#[derive(Debug, Parser)]
+enum Cli {
+    /// Build documentation for the specified chip.
+    BuildDocumentation(BuildDocumentationArgs),
+    /// Build all examples for the specified chip.
+    BuildExamples(BuildExamplesArgs),
+    /// Build the specified package with the given options.
+    BuildPackage(BuildPackageArgs),
+    /// Run the given example for the specified chip.
+    RunExample(RunExampleArgs),
+    /// Bump the version of the specified package(s)
+    BumpVersion(BumpVersionArgs),
+}
+
+#[derive(Debug, Args)]
+struct BuildDocumentationArgs {
+    /// Package to build documentation for.
+    #[arg(value_enum)]
+    package: Package,
+    /// Which chip to build the documentation for.
+    #[arg(value_enum)]
+    chip: Chip,
+    /// Open the documentation in the default browser once built.
+    #[arg(long)]
+    open: bool,
+}
+
+#[derive(Debug, Args)]
+struct BuildExamplesArgs {
+    /// Package to build examples for.
+    #[arg(value_enum)]
+    package: Package,
+    /// Which chip to build the examples for.
+    #[arg(value_enum)]
+    chip: Chip,
+}
+
+#[derive(Debug, Args)]
+struct BuildPackageArgs {
+    /// Package to build.
+    #[arg(value_enum)]
+    package: Package,
+    /// Target to build for.
+    #[arg(long)]
+    target: Option<String>,
+    /// Features to build with.
+    #[arg(long, value_delimiter = ',')]
+    features: Vec<String>,
+    /// Toolchain to build with.
+    #[arg(long)]
+    toolchain: Option<String>,
+}
+
+#[derive(Debug, Args)]
+struct RunExampleArgs {
+    /// Package to run example from.
+    #[arg(value_enum)]
+    package: Package,
+    /// Which chip to run the examples for.
+    #[arg(value_enum)]
+    chip: Chip,
+    /// Which example to run
+    example: String,
+}
+
+#[derive(Debug, Args)]
+struct BumpVersionArgs {
+    /// How much to bump the version by.
+    #[arg(value_enum)]
+    amount: Version,
+    /// Package(s) to target.
+    #[arg(value_enum, default_values_t = Package::iter())]
+    packages: Vec<Package>,
+}
+
+// ----------------------------------------------------------------------------
+// Application
+
+fn main() -> Result<()> {
+    env_logger::Builder::new()
+        .filter_module("xtask", log::LevelFilter::Info)
+        .init();
+
+    let workspace = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    let workspace = workspace.parent().unwrap().canonicalize()?;
+
+    match Cli::parse() {
+        Cli::BuildDocumentation(args) => build_documentation(&workspace, args),
+        Cli::BuildExamples(args) => build_examples(&workspace, args),
+        Cli::BuildPackage(args) => build_package(&workspace, args),
+        Cli::RunExample(args) => run_example(&workspace, args),
+        Cli::BumpVersion(args) => bump_version(&workspace, args),
+    }
+}
+
+// ----------------------------------------------------------------------------
+// Subcommands
+
+fn build_documentation(workspace: &Path, args: BuildDocumentationArgs) -> Result<()> {
+    // Ensure that the package/chip combination provided are valid:
+    validate_package_chip(&args.package, &args.chip)?;
+
+    // Determine the appropriate build target for the given package and chip:
+    let target = target_triple(&args.package, &args.chip)?;
+
+    // Simply build the documentation for the specified package, targeting the
+    // specified chip:
+    xtask::build_documentation(workspace, args.package, args.chip, target, args.open)
+}
+
+fn build_examples(workspace: &Path, mut args: BuildExamplesArgs) -> Result<()> {
+    // Ensure that the package/chip combination provided are valid:
+    validate_package_chip(&args.package, &args.chip)?;
+
+    // If the 'esp-hal' package is specified, what we *really* want is the
+    // 'examples' package instead:
+    if args.package == Package::EspHal {
+        log::warn!(
+            "Package '{}' specified, using '{}' instead",
+            Package::EspHal,
+            Package::Examples
+        );
+        args.package = Package::Examples;
+    }
+
+    // Absolute path of the package's root:
+    let package_path = xtask::windows_safe_path(&workspace.join(args.package.to_string()));
+
+    // Absolute path to the directory containing the examples:
+    let example_path = if args.package == Package::Examples {
+        package_path.join("src").join("bin")
+    } else {
+        package_path.join("examples")
+    };
+
+    // Determine the appropriate build target for the given package and chip:
+    let target = target_triple(&args.package, &args.chip)?;
+
+    // Load all examples and parse their metadata:
+    xtask::load_examples(&example_path)?
+        .iter()
+        // Filter down the examples to only those for which the specified chip is supported:
+        .filter(|example| example.supports_chip(args.chip))
+        // Attempt to build each supported example, with all required features enabled:
+        .try_for_each(|example| xtask::build_example(&package_path, args.chip, target, example))
+}
+
+fn build_package(workspace: &Path, args: BuildPackageArgs) -> Result<()> {
+    // Absolute path of the package's root:
+    let package_path = xtask::windows_safe_path(&workspace.join(args.package.to_string()));
+
+    // Build the package using the provided features and/or target, if any:
+    xtask::build_package(&package_path, args.features, args.toolchain, args.target)
+}
+
+fn run_example(workspace: &Path, mut args: RunExampleArgs) -> Result<()> {
+    // Ensure that the package/chip combination provided are valid:
+    validate_package_chip(&args.package, &args.chip)?;
+
+    // If the 'esp-hal' package is specified, what we *really* want is the
+    // 'examples' package instead:
+    if args.package == Package::EspHal {
+        log::warn!(
+            "Package '{}' specified, using '{}' instead",
+            Package::EspHal,
+            Package::Examples
+        );
+        args.package = Package::Examples;
+    }
+
+    // Absolute path of the package's root:
+    let package_path = xtask::windows_safe_path(&workspace.join(args.package.to_string()));
+
+    // Absolute path to the directory containing the examples:
+    let example_path = if args.package == Package::Examples {
+        package_path.join("src").join("bin")
+    } else {
+        package_path.join("examples")
+    };
+
+    // Determine the appropriate build target for the given package and chip:
+    let target = target_triple(&args.package, &args.chip)?;
+
+    // Load all examples and parse their metadata:
+    let example = xtask::load_examples(&example_path)?
+        .iter()
+        // Filter down the examples to only those for which the specified chip is supported:
+        .filter(|example| example.supports_chip(args.chip))
+        .find_map(|example| {
+            if example.name() == args.example {
+                Some(example.clone())
+            } else {
+                None
+            }
+        });
+
+    if let Some(example) = example {
+        xtask::run_example(&package_path, args.chip, target, &example)?;
+    } else {
+        log::error!("Example not found or unsupported for the given chip");
+    }
+
+    Ok(())
+}
+
+fn bump_version(workspace: &Path, args: BumpVersionArgs) -> Result<()> {
+    // Bump the version by the specified amount for each given package:
+    for package in args.packages {
+        xtask::bump_version(workspace, package, args.amount)?;
+    }
+
+    Ok(())
+}
+
+// ----------------------------------------------------------------------------
+// Helper Functions
+
+fn target_triple<'a>(package: &'a Package, chip: &'a Chip) -> Result<&'a str> {
+    if *package == Package::EspLpHal {
+        chip.lp_target()
+    } else {
+        Ok(chip.target())
+    }
+}
+
+fn validate_package_chip(package: &Package, chip: &Chip) -> Result<()> {
+    if *package == Package::EspLpHal && !chip.has_lp_core() {
+        bail!(
+            "Invalid chip provided for package '{}': '{}'",
+            package,
+            chip
+        );
+    }
+
+    Ok(())
+}

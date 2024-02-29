@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["OPTION1_SPEC"],"type":["FORCE_DOWNLOAD_BOOT_R","FORCE_DOWNLOAD_BOOT_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["OUT_EP2_ST_SPEC"],"type":["OUT_EP2_RD_ADDR_R","OUT_EP2_STATE_R","OUT_EP2_WR_ADDR_R","R"]};

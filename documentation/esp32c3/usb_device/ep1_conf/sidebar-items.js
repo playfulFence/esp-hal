@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EP1_CONF_SPEC"],"type":["R","SERIAL_IN_EP_DATA_FREE_R","SERIAL_OUT_EP_DATA_AVAIL_R","W","WR_DONE_W"]};

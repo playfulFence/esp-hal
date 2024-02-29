@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LOG_MAX_SPEC"],"type":["LOG_MAX_R","LOG_MAX_W","R","W"]};

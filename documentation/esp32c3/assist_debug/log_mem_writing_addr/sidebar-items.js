@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LOG_MEM_WRITING_ADDR_SPEC"],"type":["LOG_MEM_WRITING_ADDR_R","R"]};

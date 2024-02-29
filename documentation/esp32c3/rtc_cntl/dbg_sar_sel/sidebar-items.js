@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DBG_SAR_SEL_SPEC"],"type":["R","SAR_DEBUG_SEL_R","SAR_DEBUG_SEL_W","W"]};
