@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DMA_RX_I_0_SPEC"],"type":["DMA_RX_I_LOCK_R","DMA_RX_I_LOCK_W","R","W"]};

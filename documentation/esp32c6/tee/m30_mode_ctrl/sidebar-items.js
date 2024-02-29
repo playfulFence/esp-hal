@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["M30_MODE_CTRL_SPEC"],"type":["M30_MODE_R","M30_MODE_W","R","W"]};

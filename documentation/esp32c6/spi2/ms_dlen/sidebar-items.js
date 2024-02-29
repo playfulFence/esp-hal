@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["MS_DLEN_SPEC"],"type":["MS_DATA_BITLEN_R","MS_DATA_BITLEN_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["STORE8_SPEC"],"type":["LP_AON_STORE8_R","LP_AON_STORE8_W","R","W"]};

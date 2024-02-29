@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HW_CFG_SPEC"],"type":["HW_STANDBY_EN_R","HW_STANDBY_EN_W","R","W"]};

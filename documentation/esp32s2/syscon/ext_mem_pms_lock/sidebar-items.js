@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EXT_MEM_PMS_LOCK_SPEC"],"type":["EXT_MEM_PMS_LOCK_R","EXT_MEM_PMS_LOCK_W","R","W"]};

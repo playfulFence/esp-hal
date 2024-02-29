@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["WIFI_BB_INTR_MAP_SPEC"],"type":["R","W","WIFI_BB_INTR_MAP_R","WIFI_BB_INTR_MAP_W"]};

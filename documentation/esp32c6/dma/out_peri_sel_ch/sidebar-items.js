@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["OUT_PERI_SEL_CH_SPEC"],"type":["PERI_OUT_SEL_R","PERI_OUT_SEL_W","R","W"]};

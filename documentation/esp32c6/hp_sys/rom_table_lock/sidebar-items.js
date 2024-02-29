@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["ROM_TABLE_LOCK_SPEC"],"type":["R","ROM_TABLE_LOCK_R","ROM_TABLE_LOCK_W","W"]};

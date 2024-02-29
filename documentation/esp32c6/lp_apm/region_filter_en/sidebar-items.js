@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["REGION_FILTER_EN_SPEC"],"type":["R","REGION_FILTER_EN_R","REGION_FILTER_EN_W","W"]};

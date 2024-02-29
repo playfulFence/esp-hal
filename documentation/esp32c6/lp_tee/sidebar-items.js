@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["clock_gate","date","force_acc_hp","m0_mode_ctrl"],"struct":["RegisterBlock"],"type":["CLOCK_GATE","DATE","FORCE_ACC_HP","M0_MODE_CTRL"]};

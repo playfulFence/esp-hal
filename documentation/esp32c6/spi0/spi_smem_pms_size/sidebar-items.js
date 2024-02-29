@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SPI_SMEM_PMS_SIZE_SPEC"],"type":["R","SPI_SMEM_PMS_SIZE_R","SPI_SMEM_PMS_SIZE_W","W"]};

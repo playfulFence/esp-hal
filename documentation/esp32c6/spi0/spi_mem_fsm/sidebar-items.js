@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SPI_MEM_FSM_SPEC"],"type":["R","SPI_MEM_LOCK_DELAY_TIME_R","SPI_MEM_LOCK_DELAY_TIME_W","W"]};

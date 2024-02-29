@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["INTR_RAW_SPEC"],"type":["FIFO_OVERFLOW_INTR_RAW_R","MEM_FULL_INTR_RAW_R","R"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BLK9_W8_SPEC"],"type":["BLOCK9_W8_R","R"]};

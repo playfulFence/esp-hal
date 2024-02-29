@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IN_EP3_ST_SPEC"],"type":["IN_EP3_RD_ADDR_R","IN_EP3_STATE_R","IN_EP3_WR_ADDR_R","R"]};

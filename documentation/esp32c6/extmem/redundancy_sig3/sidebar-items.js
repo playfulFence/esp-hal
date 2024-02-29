@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["REDUNDANCY_SIG3_SPEC"],"type":["CACHE_REDCY_SIG3_R","CACHE_REDCY_SIG3_W","R","W"]};

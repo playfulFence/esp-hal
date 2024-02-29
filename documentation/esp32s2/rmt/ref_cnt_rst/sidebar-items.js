@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["REF_CNT_RST_SPEC"],"type":["CH0_R","CH0_W","CH1_R","CH1_W","CH2_R","CH2_W","CH3_R","CH3_W","R","W"]};

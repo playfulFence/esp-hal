@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SET_START_MODMULT_SPEC"],"type":["SET_START_MODMULT_W","W"]};

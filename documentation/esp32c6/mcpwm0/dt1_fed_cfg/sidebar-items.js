@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DT1_FED_CFG_SPEC"],"type":["DB1_FED_R","DB1_FED_W","R","W"]};

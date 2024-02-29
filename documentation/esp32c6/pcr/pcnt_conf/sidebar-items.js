@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PCNT_CONF_SPEC"],"type":["PCNT_CLK_EN_R","PCNT_CLK_EN_W","PCNT_RST_EN_R","PCNT_RST_EN_W","R","W"]};

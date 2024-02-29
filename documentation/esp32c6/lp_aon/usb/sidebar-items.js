@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["USB_SPEC"],"type":["R","RESET_DISABLE_R","RESET_DISABLE_W","W"]};

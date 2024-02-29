@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DTXFSTS6_SPEC"],"type":["D_INEPTXFSPCAVAIL6_R","R"]};

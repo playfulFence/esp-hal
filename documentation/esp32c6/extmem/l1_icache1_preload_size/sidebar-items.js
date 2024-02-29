@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["L1_ICACHE1_PRELOAD_SIZE_SPEC"],"type":["L1_ICACHE1_PRELOAD_SIZE_R","R"]};

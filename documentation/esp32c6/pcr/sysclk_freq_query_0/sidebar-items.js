@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SYSCLK_FREQ_QUERY_0_SPEC"],"type":["FOSC_FREQ_R","PLL_FREQ_R","R"]};

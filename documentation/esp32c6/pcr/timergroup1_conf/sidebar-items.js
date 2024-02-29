@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TIMERGROUP1_CONF_SPEC"],"type":["R","TG1_CLK_EN_R","TG1_CLK_EN_W","TG1_RST_EN_R","TG1_RST_EN_W","W"]};

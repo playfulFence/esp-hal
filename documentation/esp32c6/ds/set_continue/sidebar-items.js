@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SET_CONTINUE_SPEC"],"type":["SET_CONTINUE_W","W"]};

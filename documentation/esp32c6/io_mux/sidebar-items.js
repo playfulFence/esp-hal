@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["date","gpio","modem_diag_en","pin_ctrl"],"struct":["RegisterBlock"],"type":["DATE","GPIO","MODEM_DIAG_EN","PIN_CTRL"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IV__SPEC"],"type":["IV_R","IV_W","R","W"]};

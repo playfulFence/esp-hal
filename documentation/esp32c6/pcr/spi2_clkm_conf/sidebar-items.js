@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SPI2_CLKM_CONF_SPEC"],"type":["R","SPI2_CLKM_EN_R","SPI2_CLKM_EN_W","SPI2_CLKM_SEL_R","SPI2_CLKM_SEL_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RMT_CONF_SPEC"],"type":["R","RMT_CLK_EN_R","RMT_CLK_EN_W","RMT_RST_EN_R","RMT_RST_EN_W","W"]};

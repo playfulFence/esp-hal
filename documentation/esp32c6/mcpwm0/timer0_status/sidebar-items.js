@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TIMER0_STATUS_SPEC"],"type":["R","TIMER0_DIRECTION_R","TIMER0_VALUE_R"]};

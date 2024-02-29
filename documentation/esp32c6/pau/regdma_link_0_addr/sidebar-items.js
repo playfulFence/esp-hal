@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["REGDMA_LINK_0_ADDR_SPEC"],"type":["LINK_ADDR_0_R","LINK_ADDR_0_W","R","W"]};

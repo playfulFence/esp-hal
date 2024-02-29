@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RND_ECO_SPEC"],"type":["R","REDCY_ENA_R","REDCY_ENA_W","REDCY_RESULT_R","W"]};

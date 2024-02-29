@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CPU_INT_EIP_STATUS_SPEC"],"type":["CPU_INT_EIP_STATUS_R","R"]};

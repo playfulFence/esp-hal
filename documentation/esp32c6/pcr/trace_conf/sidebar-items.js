@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TRACE_CONF_SPEC"],"type":["R","TRACE_CLK_EN_R","TRACE_CLK_EN_W","TRACE_RST_EN_R","TRACE_RST_EN_W","W"]};

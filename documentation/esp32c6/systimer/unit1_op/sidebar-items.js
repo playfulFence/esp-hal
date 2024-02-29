@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["UNIT1_OP_SPEC"],"type":["R","TIMER_UNIT1_UPDATE_W","TIMER_UNIT1_VALUE_VALID_R","W"]};

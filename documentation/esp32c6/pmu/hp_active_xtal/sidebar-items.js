@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HP_ACTIVE_XTAL_SPEC"],"type":["HP_ACTIVE_XPD_XTAL_R","HP_ACTIVE_XPD_XTAL_W","R","W"]};

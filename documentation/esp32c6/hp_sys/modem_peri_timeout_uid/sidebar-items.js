@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["MODEM_PERI_TIMEOUT_UID_SPEC"],"type":["MODEM_PERI_TIMEOUT_UID_R","R"]};

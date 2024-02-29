@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["L2_UNALLOCATE_BUFFER_CLEAR_SPEC"],"type":["L2_CACHE_UNALLOC_CLR_R","R"]};

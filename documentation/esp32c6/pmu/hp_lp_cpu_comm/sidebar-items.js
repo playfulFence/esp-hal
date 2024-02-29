@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HP_LP_CPU_COMM_SPEC"],"type":["HP_TRIGGER_LP_W","LP_TRIGGER_HP_W","W"]};

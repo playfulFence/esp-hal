@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CFG_DATA16_SPEC"],"type":["DEVICE_ID_FN2_R","DEVICE_ID_FN2_W","R","USER_ID_FN2_R","USER_ID_FN2_W","W"]};

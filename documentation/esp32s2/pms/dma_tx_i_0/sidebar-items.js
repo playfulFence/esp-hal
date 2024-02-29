@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DMA_TX_I_0_SPEC"],"type":["DMA_TX_I_LOCK_R","DMA_TX_I_LOCK_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DMA_IN_STATUS_SPEC"],"type":["IN_EMPTY_R","IN_FULL_R","R","RX_ERR_CAUSE_R"]};

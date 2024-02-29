@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HFLBADDR_SPEC"],"type":["HFLBADDR_R","HFLBADDR_W","R","W"]};

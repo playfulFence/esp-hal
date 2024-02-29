@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PWM_CLK_CONF_SPEC"],"type":["PWM_CLKM_EN_R","PWM_CLKM_EN_W","PWM_CLKM_SEL_R","PWM_CLKM_SEL_W","PWM_DIV_NUM_R","PWM_DIV_NUM_W","R","W"]};

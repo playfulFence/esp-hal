@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["WDTCONFIG1_SPEC"],"type":["R","W","WDT_CLK_PRESCALE_R","WDT_CLK_PRESCALE_W"]};

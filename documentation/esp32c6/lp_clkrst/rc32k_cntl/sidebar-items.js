@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RC32K_CNTL_SPEC"],"type":["R","RC32K_DFREQ_R","RC32K_DFREQ_W","W"]};

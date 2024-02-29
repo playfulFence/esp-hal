@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SLEEP_CONF1_SPEC"],"type":["R","W","WK_CHAR0_R","WK_CHAR0_W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["REGDMA_BACKUP_ADDR_SPEC"],"type":["BACKUP_ADDR_R","R"]};

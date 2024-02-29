@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["OUTLINK_DSCR_BF0_SPEC"],"type":["DMA_OUTLINK_DSCR_BF0_R","R"]};

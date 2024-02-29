@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CPU_SPEC"],"type":["LPCORE_DBGM_UNAVALIABLE_R","LPCORE_DBGM_UNAVALIABLE_W","R","W"]};

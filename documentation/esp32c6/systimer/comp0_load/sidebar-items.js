@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["COMP0_LOAD_SPEC"],"type":["TIMER_COMP0_LOAD_W","W"]};

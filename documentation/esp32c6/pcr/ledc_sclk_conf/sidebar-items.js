@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LEDC_SCLK_CONF_SPEC"],"type":["LEDC_SCLK_EN_R","LEDC_SCLK_EN_W","LEDC_SCLK_SEL_R","LEDC_SCLK_SEL_W","R","W"]};

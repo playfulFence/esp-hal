@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LOG_CHECK_DATA_SPEC"],"type":["LOG_CHECK_DATA_R","LOG_CHECK_DATA_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["JTAG_CTRL_2_SPEC"],"type":["CANCEL_EFUSE_DISABLE_JTAG_TEMPORARY_2_W","W"]};

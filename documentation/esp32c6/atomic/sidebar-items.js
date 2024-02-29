@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["addr_lock","counter","lock_status","lr_addr","lr_value"],"struct":["RegisterBlock"],"type":["ADDR_LOCK","COUNTER","LOCK_STATUS","LR_ADDR","LR_VALUE"]};

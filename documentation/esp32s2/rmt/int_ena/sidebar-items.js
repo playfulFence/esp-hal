@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_ENA_SPEC"],"type":["CH_ERR_R","CH_ERR_W","CH_RX_END_R","CH_RX_END_W","CH_TX_END_R","CH_TX_END_W","CH_TX_LOOP_R","CH_TX_LOOP_W","CH_TX_THR_EVENT_R","CH_TX_THR_EVENT_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RND_ECO_HIGH_SPEC"],"type":["R","REDCY_HIGH_R","REDCY_HIGH_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["FIB_ENABLE_SPEC"],"type":["ANA_FIB_ENA_R","ANA_FIB_ENA_W","R","W"]};

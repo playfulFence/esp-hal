@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DIEPDMAB2_SPEC"],"type":["D_DMABUFFERADDR2_R","R"]};

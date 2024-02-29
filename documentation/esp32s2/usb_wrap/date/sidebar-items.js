@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DATE_SPEC"],"type":["R","USB_WRAP_DATE_R","USB_WRAP_DATE_W","W"]};

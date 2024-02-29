@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["FUNC_CTRL_SPEC"],"type":["M0_PMS_FUNC_EN_R","M0_PMS_FUNC_EN_W","R","W"]};

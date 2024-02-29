@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CK_GLITCH_CNTL_SPEC"],"type":["CK_GLITCH_RESET_ENA_R","CK_GLITCH_RESET_ENA_W","R","W"]};

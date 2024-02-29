@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SPI_MEM_CLOCK_GATE_SPEC"],"type":["R","SPI_CLK_EN_R","SPI_CLK_EN_W","W"]};

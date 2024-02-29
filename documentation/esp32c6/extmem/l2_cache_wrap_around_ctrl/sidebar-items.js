@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["L2_CACHE_WRAP_AROUND_CTRL_SPEC"],"type":["L2_CACHE_WRAP_R","R"]};

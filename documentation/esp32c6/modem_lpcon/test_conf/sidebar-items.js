@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TEST_CONF_SPEC"],"type":["CLK_DEBUG_ENA_R","CLK_DEBUG_ENA_W","CLK_EN_R","CLK_EN_W","R","W"]};

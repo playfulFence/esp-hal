@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PARL_IO_CONF_SPEC"],"type":["PARL_CLK_EN_R","PARL_CLK_EN_W","PARL_RST_EN_R","PARL_RST_EN_W","R","W"]};

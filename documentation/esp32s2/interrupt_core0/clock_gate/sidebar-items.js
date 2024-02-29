@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CLOCK_GATE_SPEC"],"type":["CLK_EN_R","CLK_EN_W","PRO_NMI_MASK_HW_R","PRO_NMI_MASK_HW_W","R","W"]};

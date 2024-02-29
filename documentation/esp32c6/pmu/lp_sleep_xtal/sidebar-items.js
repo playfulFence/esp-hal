@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LP_SLEEP_XTAL_SPEC"],"type":["LP_SLEEP_XPD_XTAL_R","LP_SLEEP_XPD_XTAL_W","R","W"]};

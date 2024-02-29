@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["MAIN_BUF1_HIGH_SPEC"],"type":["MAIN_TIMER_BUF1_HIGH_R","R"]};

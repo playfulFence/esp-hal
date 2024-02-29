@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RXFIFO_START_ADDR_SPEC"],"type":["R","RXFIFO_START_ADDR_R"]};

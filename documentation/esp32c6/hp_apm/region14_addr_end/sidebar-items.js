@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["REGION14_ADDR_END_SPEC"],"type":["R","REGION14_ADDR_END_R","REGION14_ADDR_END_W","W"]};

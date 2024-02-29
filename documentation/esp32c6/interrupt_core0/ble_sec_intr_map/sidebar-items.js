@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BLE_SEC_INTR_MAP_SPEC"],"type":["BLE_SEC_INTR_MAP_R","BLE_SEC_INTR_MAP_W","R","W"]};

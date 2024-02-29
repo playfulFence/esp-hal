@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["APB_CTRL_DATE_SPEC"],"type":["APB_CTRL_DATE_R","APB_CTRL_DATE_W","R","W"]};

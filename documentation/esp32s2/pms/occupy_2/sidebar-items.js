@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["OCCUPY_2_SPEC"],"type":["OCCUPY_MAC_DUMP_R","OCCUPY_MAC_DUMP_W","R","W"]};
