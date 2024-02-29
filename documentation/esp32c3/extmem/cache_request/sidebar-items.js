@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CACHE_REQUEST_SPEC"],"type":["BYPASS_R","BYPASS_W","R","W"]};

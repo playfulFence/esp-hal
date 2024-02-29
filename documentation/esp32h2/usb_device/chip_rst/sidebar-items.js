@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CHIP_RST_SPEC"],"type":["DTR_R","R","RTS_R","USB_UART_CHIP_RST_DIS_R","USB_UART_CHIP_RST_DIS_W","W"]};

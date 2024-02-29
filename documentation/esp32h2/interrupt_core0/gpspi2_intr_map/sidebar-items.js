@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GPSPI2_INTR_MAP_SPEC"],"type":["GPSPI2_INTR_MAP_R","GPSPI2_INTR_MAP_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["MAC_INTR_MAP_SPEC"],"type":["MAC_INTR_MAP_R","MAC_INTR_MAP_W","R","W"]};

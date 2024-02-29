@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BOD_MODE1_CNTL_SPEC"],"type":["BOD_MODE1_RESET_ENA_R","BOD_MODE1_RESET_ENA_W","R","W"]};

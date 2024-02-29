@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CACHE_STATE_SPEC"],"type":["ICACHE_STATE_R","R"]};

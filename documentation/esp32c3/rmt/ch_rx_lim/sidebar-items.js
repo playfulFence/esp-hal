@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CH_RX_LIM_SPEC"],"type":["R","RX_LIM_R","RX_LIM_W","W"]};

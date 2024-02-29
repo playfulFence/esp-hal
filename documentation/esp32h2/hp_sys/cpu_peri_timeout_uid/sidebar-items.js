@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CPU_PERI_TIMEOUT_UID_SPEC"],"type":["CPU_PERI_TIMEOUT_UID_R","R"]};

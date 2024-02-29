@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ECDSA_CONF_SPEC"],"type":["ECDSA_CLK_EN_R","ECDSA_CLK_EN_W","ECDSA_READY_R","ECDSA_RST_EN_R","ECDSA_RST_EN_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["VDD_SPI_STATUS_SPEC"],"type":["R","STABLE_VDD_SPI_PWR_DRV_R"]};

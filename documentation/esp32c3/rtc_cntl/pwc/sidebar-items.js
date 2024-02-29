@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PWC_SPEC"],"type":["PAD_FORCE_HOLD_R","PAD_FORCE_HOLD_W","R","W"]};

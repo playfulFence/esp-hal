@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TEST_SPEC"],"type":["ENABLE_R","ENABLE_W","R","TX_DM_R","TX_DM_W","TX_DP_R","TX_DP_W","USB_OE_R","USB_OE_W","W"]};

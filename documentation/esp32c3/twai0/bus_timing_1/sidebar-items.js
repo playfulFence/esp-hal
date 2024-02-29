@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BUS_TIMING_1_SPEC"],"type":["R","TIME_SAMP_R","TIME_SAMP_W","TIME_SEG1_R","TIME_SEG1_W","TIME_SEG2_R","TIME_SEG2_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["ICACHE_CTRL_SPEC"],"type":["ICACHE_ENABLE_R","ICACHE_ENABLE_W","R","W"]};

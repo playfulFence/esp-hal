@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["MOSI_DLEN_SPEC"],"type":["R","USR_MOSI_DBITLEN_R","USR_MOSI_DBITLEN_W","W"]};

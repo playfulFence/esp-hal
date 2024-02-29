@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SENSOR_CTRL_SPEC"],"type":["FORCE_XPD_SAR_R","FORCE_XPD_SAR_W","R","SAR2_PWDET_CCT_R","SAR2_PWDET_CCT_W","W"]};

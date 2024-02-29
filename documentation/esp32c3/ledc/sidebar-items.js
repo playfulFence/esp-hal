@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["ch_conf0","ch_conf1","ch_duty","ch_duty_r","ch_hpoint","conf","date","int_clr","int_ena","int_raw","int_st","timer_conf","timer_value"],"struct":["RegisterBlock"],"type":["CH_CONF0","CH_CONF1","CH_DUTY","CH_DUTY_R","CH_HPOINT","CONF","DATE","INT_CLR","INT_ENA","INT_RAW","INT_ST","TIMER_CONF","TIMER_VALUE"]};

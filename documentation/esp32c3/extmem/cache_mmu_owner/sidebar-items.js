@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CACHE_MMU_OWNER_SPEC"],"type":["CACHE_MMU_OWNER_R","CACHE_MMU_OWNER_W","R","W"]};

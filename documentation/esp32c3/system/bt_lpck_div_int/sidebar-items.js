@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BT_LPCK_DIV_INT_SPEC"],"type":["BT_LPCK_DIV_NUM_R","BT_LPCK_DIV_NUM_W","R","W"]};

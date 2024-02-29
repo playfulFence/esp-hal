@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["FLASH_ACE0_SIZE_SPEC"],"type":["FLASH_ACE0_SIZE_R","FLASH_ACE0_SIZE_W","R","W"]};

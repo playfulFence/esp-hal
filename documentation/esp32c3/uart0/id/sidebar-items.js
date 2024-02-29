@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["ID_SPEC"],"type":["HIGH_SPEED_R","HIGH_SPEED_W","ID_R","ID_W","R","REG_UPDATE_R","REG_UPDATE_W","W"]};

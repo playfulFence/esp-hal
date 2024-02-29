@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["STATUS_SPEC"],"type":["BUS_OFF_ST_R","ERR_ST_R","MISS_ST_R","OVERRUN_ST_R","R","RX_BUF_ST_R","RX_ST_R","TX_BUF_ST_R","TX_COMPLETE_R","TX_ST_R"]};

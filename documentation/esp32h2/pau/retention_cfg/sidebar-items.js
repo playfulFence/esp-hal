@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RETENTION_CFG_SPEC"],"type":["R","RET_INV_CFG_R","RET_INV_CFG_W","W"]};

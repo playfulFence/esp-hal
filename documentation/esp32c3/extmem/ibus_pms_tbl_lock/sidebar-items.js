@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IBUS_PMS_TBL_LOCK_SPEC"],"type":["IBUS_PMS_LOCK_R","IBUS_PMS_LOCK_W","R","W"]};

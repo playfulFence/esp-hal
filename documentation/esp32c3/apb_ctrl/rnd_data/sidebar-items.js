@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RND_DATA_SPEC"],"type":["R","RND_DATA_R"]};

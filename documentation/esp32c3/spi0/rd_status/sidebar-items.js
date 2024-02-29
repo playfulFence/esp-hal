@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RD_STATUS_SPEC"],"type":["R","W","WB_MODE_R","WB_MODE_W"]};

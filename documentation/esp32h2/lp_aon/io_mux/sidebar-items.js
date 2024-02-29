@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IO_MUX_SPEC"],"type":["PULL_LDO_R","PULL_LDO_W","R","RESET_DISABLE_R","RESET_DISABLE_W","W"]};

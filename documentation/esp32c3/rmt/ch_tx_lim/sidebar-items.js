@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CH_TX_LIM_SPEC"],"type":["LOOP_COUNT_RESET_W","R","TX_LIM_R","TX_LIM_W","TX_LOOP_CNT_EN_R","TX_LOOP_CNT_EN_W","TX_LOOP_NUM_R","TX_LOOP_NUM_W","W"]};
