@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["WR_TIM_CONF0_SPEC"],"type":["R","THP_A_R","THP_A_W","TPGM_INACTIVE_R","TPGM_INACTIVE_W","TPGM_R","TPGM_W","W"]};

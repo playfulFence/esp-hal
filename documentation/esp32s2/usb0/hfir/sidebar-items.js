@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HFIR_SPEC"],"type":["FRINT_R","FRINT_W","HFIRRLDCTRL_R","HFIRRLDCTRL_W","R","W"]};

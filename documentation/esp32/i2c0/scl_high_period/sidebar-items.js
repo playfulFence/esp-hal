@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SCL_HIGH_PERIOD_SPEC"],"type":["R","SCL_HIGH_PERIOD_R","SCL_HIGH_PERIOD_W","W"]};

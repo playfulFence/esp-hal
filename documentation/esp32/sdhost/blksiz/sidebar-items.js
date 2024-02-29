@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BLKSIZ_SPEC"],"type":["BLOCK_SIZE_R","BLOCK_SIZE_W","R","W"]};

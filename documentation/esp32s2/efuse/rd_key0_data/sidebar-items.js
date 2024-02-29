@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RD_KEY0_DATA_SPEC"],"type":["KEY0_DATA_R","R"]};

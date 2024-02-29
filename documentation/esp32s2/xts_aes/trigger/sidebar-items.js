@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TRIGGER_SPEC"],"type":["TRIGGER_W","W"]};

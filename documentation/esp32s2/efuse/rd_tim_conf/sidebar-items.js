@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RD_TIM_CONF_SPEC"],"type":["R","READ_INIT_NUM_R","READ_INIT_NUM_W","THR_A_R","THR_A_W","TRD_R","TRD_W","TSUR_A_R","TSUR_A_W","W"]};

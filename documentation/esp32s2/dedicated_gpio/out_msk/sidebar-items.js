@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["OUT_MSK_SPEC"],"type":["OUT_MSK_W","OUT_VALUE_W","W"]};

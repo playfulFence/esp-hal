@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TEST_MUX_SPEC"],"type":["DTEST_RTC_R","DTEST_RTC_W","ENT_RTC_R","ENT_RTC_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["OCCUPY_3_SPEC"],"type":["OCCUPY_PRO_TRACE_R","OCCUPY_PRO_TRACE_W","R","W"]};

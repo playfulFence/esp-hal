@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["APP_I2S0_INT_MAP_SPEC"],"type":["APP_I2S0_INT_MAP_R","APP_I2S0_INT_MAP_W","R","W"]};

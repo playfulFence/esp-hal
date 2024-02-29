@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HAINT_SPEC"],"type":["HAINT_R","R"]};

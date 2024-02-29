@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["QUERY_KEY_WRONG_SPEC"],"type":["QUERY_KEY_WRONG_R","R"]};

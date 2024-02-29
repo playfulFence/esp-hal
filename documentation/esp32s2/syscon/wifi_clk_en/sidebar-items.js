@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["WIFI_CLK_EN_SPEC"],"type":["R","W","WIFI_CLK_EN_R","WIFI_CLK_EN_W"]};

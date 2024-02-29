@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CAP_STATUS_SPEC"],"type":["CAP0_EDGE_R","CAP1_EDGE_R","CAP2_EDGE_R","R"]};

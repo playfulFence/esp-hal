@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CHADDR_SPEC"],"type":["APB_MEM_RADDR_R","APB_MEM_WADDR_R","R"]};

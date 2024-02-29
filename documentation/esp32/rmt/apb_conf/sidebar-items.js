@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["APB_CONF_SPEC"],"type":["APB_FIFO_MASK_R","APB_FIFO_MASK_W","MEM_TX_WRAP_EN_R","MEM_TX_WRAP_EN_W","R","W"]};

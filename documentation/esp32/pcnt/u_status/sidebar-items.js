@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["U_STATUS_SPEC"],"type":["CORE_STATUS_U0_R","H_LIM_R","H_LIM_W","L_LIM_R","L_LIM_W","R","THRES0_R","THRES0_W","THRES1_R","THRES1_W","W","ZERO_MODE_R","ZERO_MODE_W","ZERO_R","ZERO_W"]};

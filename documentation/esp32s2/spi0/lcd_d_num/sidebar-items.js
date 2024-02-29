@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LCD_D_NUM_SPEC"],"type":["D_CD_NUM_R","D_CD_NUM_W","D_DE_NUM_R","D_DE_NUM_W","D_DQS_NUM_R","D_DQS_NUM_W","D_HSYNC_NUM_R","D_HSYNC_NUM_W","D_VSYNC_NUM_R","D_VSYNC_NUM_W","R","W"]};

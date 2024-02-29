@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HOST_SLCHOSTDATE_SPEC"],"type":["HOST_SLCHOST_DATE_R","HOST_SLCHOST_DATE_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SAR_TOUCH_THRES14_SPEC"],"type":["R","TOUCH_OUT_TH14_R","TOUCH_OUT_TH14_W","W"]};

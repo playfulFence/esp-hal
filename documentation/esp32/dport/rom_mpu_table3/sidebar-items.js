@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ROM_MPU_TABLE3_SPEC"],"type":["R","ROM_MPU_TABLE3_R","ROM_MPU_TABLE3_W","W"]};

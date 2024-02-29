@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PMT_RWUFFR_SPEC"],"type":["R"]};

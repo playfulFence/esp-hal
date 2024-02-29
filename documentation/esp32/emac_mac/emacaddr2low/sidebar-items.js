@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EMACADDR2LOW_SPEC"],"type":["R","W"]};

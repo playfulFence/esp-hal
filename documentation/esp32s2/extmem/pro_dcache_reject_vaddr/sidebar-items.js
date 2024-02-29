@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PRO_DCACHE_REJECT_VADDR_SPEC"],"type":["PRO_DCACHE_CPU_VADDR_R","R"]};

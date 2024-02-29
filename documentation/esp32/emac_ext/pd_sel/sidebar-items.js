@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PD_SEL_SPEC"],"type":["R","RAM_PD_EN_R","RAM_PD_EN_W","W"]};

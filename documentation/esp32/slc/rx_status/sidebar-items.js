@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RX_STATUS_SPEC"],"type":["R","SLC0_RX_EMPTY_R","SLC0_RX_FULL_R","SLC1_RX_EMPTY_R","SLC1_RX_FULL_R"]};

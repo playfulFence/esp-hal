@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PRO_IRAM0_0_SPEC"],"type":["PRO_IRAM0_LOCK_R","PRO_IRAM0_LOCK_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SDIO_CTRL_SPEC"],"type":["R","SDIO_WIN_ACCESS_EN_R","SDIO_WIN_ACCESS_EN_W","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ROM_FO_CTRL_SPEC"],"type":["APP_ROM_FO_R","APP_ROM_FO_W","PRO_ROM_FO_R","PRO_ROM_FO_W","R","SHARE_ROM_FO_R","SHARE_ROM_FO_W","W"]};

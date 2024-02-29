@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DBUS1_ABANDON_CNT_SPEC"],"type":["DBUS1_ABANDON_CNT_R","R"]};

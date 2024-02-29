@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HCDMA2_SPEC"],"type":["H_DMAADDR2_R","H_DMAADDR2_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GEN2_TSTMP_A_SPEC"],"type":["GEN2_A_R","GEN2_A_W","R","W"]};

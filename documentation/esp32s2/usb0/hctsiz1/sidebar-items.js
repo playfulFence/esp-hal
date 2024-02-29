@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HCTSIZ1_SPEC"],"type":["H_DOPNG1_R","H_DOPNG1_W","H_PID1_R","H_PID1_W","H_PKTCNT1_R","H_PKTCNT1_W","H_XFERSIZE1_R","H_XFERSIZE1_W","R","W"]};

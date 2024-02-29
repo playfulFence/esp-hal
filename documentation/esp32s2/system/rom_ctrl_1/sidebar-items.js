@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["ROM_CTRL_1_SPEC"],"type":["R","ROM_FORCE_PD_R","ROM_FORCE_PD_W","ROM_FORCE_PU_R","ROM_FORCE_PU_W","W"]};

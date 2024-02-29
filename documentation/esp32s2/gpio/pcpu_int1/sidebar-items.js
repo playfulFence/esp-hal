@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PCPU_INT1_SPEC"],"type":["PROCPU1_INT_R","R"]};

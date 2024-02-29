@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DVBUSDIS_SPEC"],"type":["DVBUSDIS_R","DVBUSDIS_W","R","W"]};

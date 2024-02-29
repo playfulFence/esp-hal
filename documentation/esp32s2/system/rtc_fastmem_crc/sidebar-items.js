@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RTC_FASTMEM_CRC_SPEC"],"type":["R","RTC_MEM_CRC_RES_R"]};

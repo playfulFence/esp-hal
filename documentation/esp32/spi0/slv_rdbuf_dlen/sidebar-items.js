@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SLV_RDBUF_DLEN_SPEC"],"type":["R","SLV_RDBUF_DBITLEN_R","SLV_RDBUF_DBITLEN_W","W"]};

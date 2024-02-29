@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["FSM_SPEC"],"type":["R","SAMPLE_CYCLE_R","SAMPLE_CYCLE_W","SAMPLE_NUM_R","SAMPLE_NUM_W","W"]};

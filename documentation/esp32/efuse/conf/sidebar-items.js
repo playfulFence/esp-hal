@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CONF_SPEC"],"type":["FORCE_NO_WR_RD_DIS_R","FORCE_NO_WR_RD_DIS_W","OP_CODE_R","OP_CODE_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BMOD_SPEC"],"type":["DE_R","DE_W","FB_R","FB_W","PBL_R","PBL_W","R","SWR_R","SWR_W","W"]};

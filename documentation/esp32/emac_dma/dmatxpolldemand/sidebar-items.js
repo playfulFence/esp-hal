@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DMATXPOLLDEMAND_SPEC"],"type":["R"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SAR_MEAS1_MUX_SPEC"],"type":["R","SAR1_DIG_FORCE_R","SAR1_DIG_FORCE_W","W"]};

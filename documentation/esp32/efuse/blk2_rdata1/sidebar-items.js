@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BLK2_RDATA1_SPEC"],"type":["R","RD_BLOCK2_1_R"]};

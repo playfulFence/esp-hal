@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SCL_ST_TIME_OUT_SPEC"],"type":["R","SCL_ST_TO_R","SCL_ST_TO_W","W"]};

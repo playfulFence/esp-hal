@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TIMER_CONF_SPEC"],"type":["CLK_DIV_R","CLK_DIV_W","DUTY_RES_R","DUTY_RES_W","PARA_UP_W","PAUSE_R","PAUSE_W","R","RST_R","RST_W","TICK_SEL_R","TICK_SEL_W","W"]};

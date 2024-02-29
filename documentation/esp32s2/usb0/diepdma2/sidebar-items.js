@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DIEPDMA2_SPEC"],"type":["D_DMAADDR2_R","D_DMAADDR2_W","R","W"]};

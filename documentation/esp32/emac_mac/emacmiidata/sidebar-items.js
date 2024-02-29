@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EMACMIIDATA_SPEC"],"type":["MII_DATA_R","MII_DATA_W","R","W"]};

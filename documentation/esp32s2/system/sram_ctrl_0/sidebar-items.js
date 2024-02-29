@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SRAM_CTRL_0_SPEC"],"type":["R","SRAM_FO_R","SRAM_FO_W","W"]};

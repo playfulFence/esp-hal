@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["UHS_SPEC"],"type":["DDR_R","DDR_W","R","W"]};

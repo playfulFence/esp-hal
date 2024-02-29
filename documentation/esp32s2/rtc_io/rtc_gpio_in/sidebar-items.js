@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RTC_GPIO_IN_SPEC"],"type":["GPIO_IN_NEXT_R","R"]};

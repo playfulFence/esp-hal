@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ULP_CP_SLEEP_CYC1_SPEC"],"type":["R","SLEEP_CYCLES_S1_R","SLEEP_CYCLES_S1_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CH_DUTY_R_SPEC"],"type":["DUTY_R_R","R"]};

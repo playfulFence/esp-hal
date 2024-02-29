@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IDSTS_SPEC"],"type":["AIS_R","AIS_W","CES_R","CES_W","DU_R","DU_W","FBE_CODE_R","FBE_CODE_W","FBE_R","FBE_W","FSM_R","FSM_W","NIS_R","NIS_W","R","RI_R","RI_W","TI_R","TI_W","W"]};

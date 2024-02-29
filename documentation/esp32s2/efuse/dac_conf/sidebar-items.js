@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DAC_CONF_SPEC"],"type":["DAC_CLK_DIV_R","DAC_CLK_DIV_W","DAC_CLK_PAD_SEL_R","DAC_CLK_PAD_SEL_W","DAC_NUM_R","DAC_NUM_W","OE_CLR_R","OE_CLR_W","R","W"]};

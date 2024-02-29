@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RTCCALICFG1_SPEC"],"type":["R","RTC_CALI_CYCLING_DATA_VLD_R","RTC_CALI_VALUE_R"]};

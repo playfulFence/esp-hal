@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["OUT_SCAN_SPEC"],"type":["OUT_STATUS_R","R"]};

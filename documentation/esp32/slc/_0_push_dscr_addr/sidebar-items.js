@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["_0_PUSH_DSCR_ADDR_SPEC"],"type":["R","SLC0_RX_PUSH_DSCR_ADDR_R"]};

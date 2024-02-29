@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BLK0_WDATA2_SPEC"],"type":["R","W","WIFI_MAC_CRC_HIGH_R","WIFI_MAC_CRC_HIGH_W"]};

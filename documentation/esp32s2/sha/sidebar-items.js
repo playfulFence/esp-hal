@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["busy","continue_","date","dma_block_num","dma_continue","dma_start","h_mem","int_clear","int_ena","m_mem","mode","start","t_length","t_string"],"struct":["RegisterBlock"],"type":["BUSY","CONTINUE","DATE","DMA_BLOCK_NUM","DMA_CONTINUE","DMA_START","H_MEM","INT_CLEAR","INT_ENA","MODE","M_MEM","START","T_LENGTH","T_STRING"]};

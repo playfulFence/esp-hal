@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SAR_TOUCH_STATUS2_SPEC"],"type":["R","TOUCH_PAD2_DATA_R","TOUCH_PAD2_DEBOUNCE_R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PLDMND_SPEC"],"type":["PD_W","W"]};

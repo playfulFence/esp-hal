@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IMMU_TABLE11_SPEC"],"type":["IMMU_TABLE11_R","IMMU_TABLE11_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PRO_AHB_3_SPEC"],"type":["PRO_AHB_ILG_CLR_R","PRO_AHB_ILG_CLR_W","PRO_AHB_ILG_EN_R","PRO_AHB_ILG_EN_W","PRO_AHB_ILG_INTR_R","R","W"]};
