@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["M0_STATUS_SPEC"],"type":["M0_EXCEPTION_STATUS_R","R"]};

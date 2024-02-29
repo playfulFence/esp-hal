@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CLK_CONF1_FORCE_ON_SPEC"],"type":["CLK_BT_FO_R","CLK_BT_FO_W","CLK_FE_FO_R","CLK_FE_FO_W","R","W"]};

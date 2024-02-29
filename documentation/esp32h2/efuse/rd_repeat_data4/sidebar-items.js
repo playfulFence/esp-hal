@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RD_REPEAT_DATA4_SPEC"],"type":["HYS_EN_PAD1_R","R","RPT4_RESERVED4_0_R","RPT4_RESERVED4_1_R"]};

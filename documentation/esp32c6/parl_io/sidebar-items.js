@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["clk","int_clr","int_ena","int_raw","int_st","rx_cfg0","rx_cfg1","st","tx_cfg0","tx_cfg1","version"],"struct":["RegisterBlock"],"type":["CLK","INT_CLR","INT_ENA","INT_RAW","INT_ST","RX_CFG0","RX_CFG1","ST","TX_CFG0","TX_CFG1","VERSION"]};

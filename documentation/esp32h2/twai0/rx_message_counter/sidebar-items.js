@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RX_MESSAGE_COUNTER_SPEC"],"type":["R","RX_MESSAGE_COUNTER_R"]};

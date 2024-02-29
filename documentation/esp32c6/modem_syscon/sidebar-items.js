@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["clk_conf","clk_conf1","clk_conf1_force_on","clk_conf_force_on","clk_conf_power_st","date","mem_conf","modem_rst_conf","test_conf","wifi_bb_cfg"],"struct":["RegisterBlock"],"type":["CLK_CONF","CLK_CONF1","CLK_CONF1_FORCE_ON","CLK_CONF_FORCE_ON","CLK_CONF_POWER_ST","DATE","MEM_CONF","MODEM_RST_CONF","TEST_CONF","WIFI_BB_CFG"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["JTAG_SEL_SPEC"],"type":["R","SOFT_R","SOFT_W","W"]};

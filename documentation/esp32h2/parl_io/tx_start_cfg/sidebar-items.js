@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TX_START_CFG_SPEC"],"type":["R","TX_START_R","TX_START_W","W"]};

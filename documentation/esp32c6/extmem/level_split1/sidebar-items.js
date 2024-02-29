@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LEVEL_SPLIT1_SPEC"],"type":["LEVEL_SPLIT1_R","R"]};

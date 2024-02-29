@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TICK_CONF_SPEC"],"type":["PWR_TICK_TARGET_R","PWR_TICK_TARGET_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CACHE_SYNC_SIZE_SPEC"],"type":["CACHE_SYNC_SIZE_R","CACHE_SYNC_SIZE_W","R","W"]};

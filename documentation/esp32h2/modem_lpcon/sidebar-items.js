@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["clk_conf","clk_conf_force_on","coex_lp_clk_conf","date","mem_conf","rst_conf","test_conf","tick_conf"],"struct":["RegisterBlock"],"type":["CLK_CONF","CLK_CONF_FORCE_ON","COEX_LP_CLK_CONF","DATE","MEM_CONF","RST_CONF","TEST_CONF","TICK_CONF"]};

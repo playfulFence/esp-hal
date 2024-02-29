@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MODEM_32K_CLK_CONF_SPEC"],"type":["CLK_MODEM_32K_SEL_R","CLK_MODEM_32K_SEL_W","R","W"]};

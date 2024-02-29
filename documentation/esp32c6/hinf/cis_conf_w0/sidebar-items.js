@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CIS_CONF_W0_SPEC"],"type":["CIS_CONF_W0_R","CIS_CONF_W0_W","R","W"]};
