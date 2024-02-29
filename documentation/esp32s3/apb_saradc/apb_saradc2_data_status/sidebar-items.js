@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["APB_SARADC2_DATA_STATUS_SPEC"],"type":["APB_SARADC2_DATA_R","R"]};

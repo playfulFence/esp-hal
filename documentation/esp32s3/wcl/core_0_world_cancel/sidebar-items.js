@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CORE_0_WORLD_CANCEL_SPEC"],"type":["CORE_0_WORLD_CANCEL_W","W"]};

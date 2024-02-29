@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EMACADDR3LOW_SPEC"],"type":["R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SHA512_BUSY_SPEC"],"type":["R","SHA512_BUSY_R"]};

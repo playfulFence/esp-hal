@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_CLR_SPEC"],"type":["ECC_ERR_INT_CLR_W","TOTAL_TRANS_END_INT_CLR_W","W"]};

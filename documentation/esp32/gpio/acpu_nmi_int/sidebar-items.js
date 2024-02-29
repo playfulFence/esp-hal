@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["ACPU_NMI_INT_SPEC"],"type":["APPCPU_NMI_INT_R","R"]};

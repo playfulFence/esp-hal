@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EXT_ADDR_SPEC"],"type":["EXT_ADDR_R","EXT_ADDR_W","R","W"]};

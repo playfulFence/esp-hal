@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TIMEOUT_SPEC"],"type":["R","TIMEOUT_R","TIMEOUT_W","W"]};

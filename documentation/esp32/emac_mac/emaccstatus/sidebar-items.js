@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EMACCSTATUS_SPEC"],"type":["JABBER_TIMEOUT_R","LINK_MODE_R","LINK_SPEED_R","R"]};

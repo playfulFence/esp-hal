@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CORE_1_WORLD_IRAM0_SPEC"],"type":["CORE_1_WORLD_IRAM0_R","CORE_1_WORLD_IRAM0_W","R","W"]};

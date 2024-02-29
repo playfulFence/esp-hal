@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["_0_DSCR_CNT_SPEC"],"type":["R","SLC0_RX_DSCR_CNT_LAT_R","SLC0_RX_GET_EOF_OCC_R"]};

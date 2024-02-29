@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CORE_1_MESSAGE_ADDR_SPEC"],"type":["CORE_1_MESSAGE_ADDR_R","CORE_1_MESSAGE_ADDR_W","R","W"]};

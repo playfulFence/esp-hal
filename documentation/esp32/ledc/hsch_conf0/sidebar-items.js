@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HSCH_CONF0_SPEC"],"type":["IDLE_LV_R","IDLE_LV_W","R","SIG_OUT_EN_R","SIG_OUT_EN_W","TIMER_SEL_R","TIMER_SEL_W","W"]};

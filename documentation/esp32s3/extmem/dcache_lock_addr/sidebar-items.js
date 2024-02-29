@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DCACHE_LOCK_ADDR_SPEC"],"type":["DCACHE_LOCK_ADDR_R","DCACHE_LOCK_ADDR_W","R","W"]};

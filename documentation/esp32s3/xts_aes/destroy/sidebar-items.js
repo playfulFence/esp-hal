@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DESTROY_SPEC"],"type":["DESTROY_W","W"]};

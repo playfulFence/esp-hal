@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HFNUM_SPEC"],"type":["FRNUM_R","FRREM_R","R"]};

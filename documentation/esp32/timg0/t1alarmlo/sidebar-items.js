@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["T1ALARMLO_SPEC"],"type":["ALARM_LO_R","ALARM_LO_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CALI_CONF_SPEC"],"type":["CALI_RTC_MAX_R","CALI_RTC_MAX_W","CALI_START_R","CALI_START_W","R","W"]};

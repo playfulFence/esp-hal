@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PRO_VECBASE_SET_SPEC"],"type":["PRO_OUT_VECBASE_R","PRO_OUT_VECBASE_W","R","W"]};

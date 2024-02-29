@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EXT3_SPEC"],"type":["INT_HOLD_ENA_R","INT_HOLD_ENA_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EDMA_BOUNDARY_2_SPEC"],"type":["EDMA_BOUNDARY_2_R","EDMA_BOUNDARY_2_W","R","W"]};

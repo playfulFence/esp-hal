@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["APP_INTRUSION_STATUS_SPEC"],"type":["APP_INTRUSION_RECORD_R","R"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["cg","misc","sigmadelta","version"],"struct":["RegisterBlock"],"type":["CG","MISC","SIGMADELTA","VERSION"]};

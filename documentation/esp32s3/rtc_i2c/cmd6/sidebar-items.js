@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CMD6_SPEC"],"type":["COMMAND6_DONE_R","COMMAND6_R","COMMAND6_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EXTMEM_REJECT_INT_CLR_SPEC"],"type":["EXTMEM_REJECT_INT_CLR_W","W"]};

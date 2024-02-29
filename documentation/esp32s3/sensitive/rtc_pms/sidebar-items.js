@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RTC_PMS_SPEC"],"type":["DIS_RTC_CPU_R","DIS_RTC_CPU_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DMATXCURRDESC_SPEC"],"type":["R"]};

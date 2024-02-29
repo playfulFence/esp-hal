@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EMACLPITIMERSCONTROL_SPEC"],"type":["LPI_LS_TIMER_R","LPI_TW_TIMER_R","R"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EXT_XTL_CONF_SPEC"],"type":["R","W","XTL_EXT_CTR_EN_R","XTL_EXT_CTR_EN_W","XTL_EXT_CTR_LV_R","XTL_EXT_CTR_LV_W"]};

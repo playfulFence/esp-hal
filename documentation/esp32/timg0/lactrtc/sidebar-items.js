@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LACTRTC_SPEC"],"type":["LACT_RTC_STEP_LEN_R","LACT_RTC_STEP_LEN_W","R","W"]};

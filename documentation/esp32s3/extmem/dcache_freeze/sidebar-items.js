@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DCACHE_FREEZE_SPEC"],"type":["DONE_R","ENA_R","ENA_W","MODE_R","MODE_W","R","W"]};

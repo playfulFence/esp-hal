@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PRO_TRACEMEM_ENA_SPEC"],"type":["PRO_TRACEMEM_ENA_R","PRO_TRACEMEM_ENA_W","R","W"]};

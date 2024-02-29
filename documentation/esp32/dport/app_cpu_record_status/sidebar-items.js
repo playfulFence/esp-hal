@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["APP_CPU_RECORD_STATUS_SPEC"],"type":["APP_CPU_RECORDING_R","R"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["APP_TIMER_INT1_MAP_SPEC"],"type":["APP_TIMER_INT1_MAP_R","APP_TIMER_INT1_MAP_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["FIFO_START_ADDR_SPEC"],"type":["R","W"]};

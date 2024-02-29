@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PRO_DCACHE_DBUG9_SPEC"],"type":["PRO_OPSDRAMADDR_IA_R","R"]};

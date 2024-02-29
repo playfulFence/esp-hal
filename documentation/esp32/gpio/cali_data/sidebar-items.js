@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CALI_DATA_SPEC"],"type":["CALI_RDY_REAL_R","CALI_RDY_SYNC2_R","CALI_VALUE_SYNC2_R","R"]};

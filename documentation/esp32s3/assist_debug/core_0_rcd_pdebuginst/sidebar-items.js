@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CORE_0_RCD_PDEBUGINST_SPEC"],"type":["CORE_0_RCD_PDEBUGINST_R","R"]};

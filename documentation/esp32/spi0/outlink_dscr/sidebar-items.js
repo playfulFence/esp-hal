@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["OUTLINK_DSCR_SPEC"],"type":["DMA_OUTLINK_DSCR_R","R"]};

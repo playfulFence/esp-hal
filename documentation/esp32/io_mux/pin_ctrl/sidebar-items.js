@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PIN_CTRL_SPEC"],"type":["CLK1_R","CLK1_W","CLK2_R","CLK2_W","CLK3_R","CLK3_W","R","W"]};

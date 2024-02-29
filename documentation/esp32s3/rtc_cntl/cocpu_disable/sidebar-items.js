@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["COCPU_DISABLE_SPEC"],"type":["DISABLE_RTC_CPU_R","DISABLE_RTC_CPU_W","R","W"]};

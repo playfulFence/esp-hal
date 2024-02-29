@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LC_REG_DATE_SPEC"],"type":["LC_DATE_R","LC_DATE_W","R","W"]};

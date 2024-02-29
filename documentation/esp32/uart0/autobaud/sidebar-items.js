@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["AUTOBAUD_SPEC"],"type":["EN_R","EN_W","GLITCH_FILT_R","GLITCH_FILT_W","R","W"]};

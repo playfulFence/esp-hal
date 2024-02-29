@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SAR_POWER_XPD_SAR_SPEC"],"type":["FORCE_XPD_SAR_R","FORCE_XPD_SAR_W","R","SARCLK_EN_R","SARCLK_EN_W","W"]};

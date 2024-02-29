@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PERI_BACKUP_INT_MAP_SPEC"],"type":["PERI_BACKUP_INT_MAP_R","PERI_BACKUP_INT_MAP_W","R","W"]};

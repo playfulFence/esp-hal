@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CMPR0_VALUE1_SPEC"],"type":["CMPR0_B_R","CMPR0_B_W","R","W"]};

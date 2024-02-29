@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TALARMHI_SPEC"],"type":["ALARM_HI_R","ALARM_HI_W","R","W"]};

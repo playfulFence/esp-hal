@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SECURE_BOOT_CTRL_SPEC"],"type":["R","SW_BOOTLOADER_SEL_R","SW_BOOTLOADER_SEL_W","W"]};

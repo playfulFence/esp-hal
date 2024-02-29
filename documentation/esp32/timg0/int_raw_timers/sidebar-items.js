@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["INT_RAW_TIMERS_SPEC"],"type":["LACT_INT_RAW_R","R","T0_INT_RAW_R","T1_INT_RAW_R","WDT_INT_RAW_R"]};

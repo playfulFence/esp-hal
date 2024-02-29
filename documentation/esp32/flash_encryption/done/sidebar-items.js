@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DONE_SPEC"],"type":["FLASH_DONE_R","R"]};

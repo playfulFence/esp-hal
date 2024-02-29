@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["apb_addr","config","date","int_clr","int_ena","int_raw","int_st","mem_addr","reg_map0","reg_map1","reg_map2","reg_map3"],"struct":["RegisterBlock"],"type":["APB_ADDR","CONFIG","DATE","INT_CLR","INT_ENA","INT_RAW","INT_ST","MEM_ADDR","REG_MAP0","REG_MAP1","REG_MAP2","REG_MAP3"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["APP_VECBASE_CTRL_SPEC"],"type":["APP_OUT_VECBASE_SEL_R","APP_OUT_VECBASE_SEL_W","R","W"]};

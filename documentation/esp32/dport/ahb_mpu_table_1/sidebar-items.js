@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["AHB_MPU_TABLE_1_SPEC"],"type":["AHB_ACCESS_GRANT_1_R","AHB_ACCESS_GRANT_1_W","R","W"]};

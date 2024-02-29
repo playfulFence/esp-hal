@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["cfg_data0","cfg_data1","cfg_data16","cfg_data7","cis_conf0","cis_conf1","cis_conf2","cis_conf3","cis_conf4","cis_conf5","cis_conf6","cis_conf7","date"],"struct":["RegisterBlock"],"type":["CFG_DATA0","CFG_DATA1","CFG_DATA16","CFG_DATA7","CIS_CONF0","CIS_CONF1","CIS_CONF2","CIS_CONF3","CIS_CONF4","CIS_CONF5","CIS_CONF6","CIS_CONF7","DATE"]};

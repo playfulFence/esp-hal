@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EMACLPI_CRS_SPEC"],"type":["LPIEN_R","LPITXA_R","PLS_R","R","RLPIEN_R","RLPIEX_R","RLPIST_R","TLPIEN_R","TLPIEX_R","TLPIST_R"]};

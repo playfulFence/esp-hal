@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SAR_TOUCH_DENOISE_SPEC"],"type":["DATA_R","R"]};

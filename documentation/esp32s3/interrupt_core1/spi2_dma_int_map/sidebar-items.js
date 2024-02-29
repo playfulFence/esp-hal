@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SPI2_DMA_INT_MAP_SPEC"],"type":["R","SPI2_DMA_INT_MAP_R","SPI2_DMA_INT_MAP_W","W"]};

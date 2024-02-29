@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CK8M_TICK_CONF_SPEC"],"type":["CK8M_TICK_NUM_R","CK8M_TICK_NUM_W","R","W"]};

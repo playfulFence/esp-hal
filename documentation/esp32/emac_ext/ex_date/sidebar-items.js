@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EX_DATE_SPEC"],"type":["R","W"]};

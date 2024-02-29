@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SRAM_ACE2_ADDR_SPEC"],"type":["R","S_R","S_W","W"]};

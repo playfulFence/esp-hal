@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DMMU_TABLE11_SPEC"],"type":["DMMU_TABLE11_R","DMMU_TABLE11_W","R","W"]};

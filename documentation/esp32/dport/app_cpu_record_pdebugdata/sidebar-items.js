@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["APP_CPU_RECORD_PDEBUGDATA_SPEC"],"type":["R","RECORD_APP_PDEBUGDATA_R"]};

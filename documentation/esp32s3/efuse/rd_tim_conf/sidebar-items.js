@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RD_TIM_CONF_SPEC"],"type":["R","READ_INIT_NUM_R","READ_INIT_NUM_W","W"]};

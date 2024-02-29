@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HOST_SLCHOSTID_SPEC"],"type":["HOST_SLCHOST_ID_R","HOST_SLCHOST_ID_W","R","W"]};

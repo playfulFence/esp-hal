@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SLP_TIMER1_SPEC"],"type":["MAIN_TIMER_ALARM_EN_W","R","SLP_VAL_HI_R","SLP_VAL_HI_W","W"]};

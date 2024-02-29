@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EMACINTS_SPEC"],"type":["LPIIS_R","PMTINTS_R","R"]};

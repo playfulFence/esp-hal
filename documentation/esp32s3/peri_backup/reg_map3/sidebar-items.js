@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["REG_MAP3_SPEC"],"type":["MAP3_R","MAP3_W","R","W"]};

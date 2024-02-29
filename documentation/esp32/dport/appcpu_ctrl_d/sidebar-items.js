@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["APPCPU_CTRL_D_SPEC"],"type":["APPCPU_BOOT_ADDR_R","APPCPU_BOOT_ADDR_W","R","W"]};

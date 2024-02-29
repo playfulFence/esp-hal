@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HALL_SENS_SPEC"],"type":["HALL_PHASE_R","HALL_PHASE_W","R","W","XPD_HALL_R","XPD_HALL_W"]};
