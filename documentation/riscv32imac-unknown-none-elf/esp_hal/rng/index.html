@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Random Number Generator"><title>esp_hal::rng - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="esp_hal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (878c8a2a6 2024-02-29)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button><a class="logo-container" href="../../esp_hal/index.html"><img src="https://avatars.githubusercontent.com/u/46717278" alt=""></a></nav><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../../esp_hal/index.html"><img src="https://avatars.githubusercontent.com/u/46717278" alt="logo"></a><h2><a href="../../esp_hal/index.html">esp_hal</a><span class="version">0.15.0</span></h2></div><h2 class="location"><a href="#">Module rng</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li></ul></section><h2><a href="../index.html">In crate esp_hal</a></h2></div></nav><div class="sidebar-resizer"></div>
+    <main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../esp_hal/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">esp_hal</a>::<wbr><a class="mod" href="#">rng</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/esp_hal/rng.rs.html#1-143">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="random-number-generator"><a class="doc-anchor" href="#random-number-generator">§</a>Random Number Generator</h2><h3 id="overview"><a class="doc-anchor" href="#overview">§</a>Overview</h3>
+<p>The Random Number Generator (RNG) Driver for ESP chips is a software module
+that provides an interface to generate random numbers using the RNG
+peripheral on ESP chips. This driver allows you to generate random numbers
+that can be used for various cryptographic, security, or general-purpose
+applications.</p>
+<p>The RNG peripheral on ESP chips produces random numbers based on physical
+noise sources, which provide true random numbers under specific conditions
+(see conditions below).</p>
+<p>To use the <a href="struct.Rng.html" title="struct esp_hal::rng::Rng">Rng</a> Driver, you need to initialize it with the RNG peripheral.
+Once initialized, you can generate random numbers by calling the <code>random</code>
+method, which returns a 32-bit unsigned integer.</p>
+<p>Additionally, this driver implements the
+<a href="../prelude/trait._embedded_hal_blocking_rng_Read.html" title="trait esp_hal::prelude::_embedded_hal_blocking_rng_Read">Read</a> trait from the <code>embedded_hal</code>
+crate, allowing you to generate random bytes by calling the <code>read</code> method.</p>
+<h2 id="important-note"><a class="doc-anchor" href="#important-note">§</a>Important Note</h2>
+<p>There are certain pre-conditions which must be met in order for the RNG to
+produce <em>true</em> random numbers. The hardware RNG produces true random numbers
+under any of the following conditions:</p>
+<ul>
+<li>RF subsystem is enabled (i.e. Wi-Fi or Bluetooth are enabled).</li>
+<li>An internal entropy source has been enabled by calling
+<code>bootloader_random_enable()</code> and not yet disabled by calling
+<code>bootloader_random_disable()</code>.</li>
+<li>While the ESP-IDF Second stage bootloader is running. This is because the
+default ESP-IDF bootloader implementation calls
+<code>bootloader_random_enable()</code> when the bootloader starts, and
+<code>bootloader_random_disable()</code> before executing the app.</li>
+</ul>
+<p>When any of these conditions are true, samples of physical noise are
+continuously mixed into the internal hardware RNG state to provide entropy.
+If none of the above conditions are true, the output of the RNG should be
+considered pseudo-random only.</p>
+<p>For more information, please refer to the ESP-IDF documentation:<br />
+<a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/random.html">https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/random.html</a></p>
+<h2 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h2><h3 id="initialization"><a class="doc-anchor" href="#initialization">§</a>Initialization</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span><span class="kw-2">mut </span>rng = Rng::new(peripherals.RNG);</code></pre></div>
+<h3 id="generate-a-random-word-u32"><a class="doc-anchor" href="#generate-a-random-word-u32">§</a>Generate a random word (u32)</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>random: u32 = rng.random();</code></pre></div>
+<h3 id="fill-a-buffer-of-arbitrary-size-with-random-bytes"><a class="doc-anchor" href="#fill-a-buffer-of-arbitrary-size-with-random-bytes">§</a>Fill a buffer of arbitrary size with random bytes</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span><span class="kw-2">mut </span>buffer = [<span class="number">0u8</span>; <span class="number">32</span>];
+rng.read(<span class="kw-2">&amp;mut </span>buffer).unwrap();</code></pre></div>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.Rng.html" title="struct esp_hal::rng::Rng">Rng</a></div><div class="desc docblock-short">Random number generator driver</div></li></ul></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","WakeupLevel"],"struct":["AnalogSleepConfig","DigitalSleepConfig","Ext1WakeupSource","HpLpParam","HpParam","LpParam","ParamSleepConfig","PowerDownFlags","PowerSleepConfig","RtcSleepConfig","TimerWakeupSource","WakeTriggers"],"trait":["WakeSource"]};

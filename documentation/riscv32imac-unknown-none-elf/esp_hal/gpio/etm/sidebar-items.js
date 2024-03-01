@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GpioEtmChannels","GpioEtmEventChannel","GpioEtmEventChannelAny","GpioEtmEventChannelFalling","GpioEtmEventChannelRising","GpioEtmTaskChannel","GpioEtmTaskClear","GpioEtmTaskSet","GpioEtmTaskToggle"]};

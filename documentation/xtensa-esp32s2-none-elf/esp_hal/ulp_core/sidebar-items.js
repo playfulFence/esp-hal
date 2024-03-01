@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["UlpCoreWakeupSource"],"struct":["UlpCore"]};

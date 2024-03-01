@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Advanced Encryption Standard (AES) support."><title>esp_hal::aes - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-ac92e1bbe349e143.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="esp_hal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (88269fa9e 2024-02-09) (1.76.0.1)" data-channel="nightly" data-search-js="search-2b6ce74ff89ae146.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-f2adc0d6ca4d09fb.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-305769736d49e732.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-feafe1bb7466e4bd.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../esp_hal/index.html"><img src="https://avatars.githubusercontent.com/u/46717278" alt=""></a></nav><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../../esp_hal/index.html"><img src="https://avatars.githubusercontent.com/u/46717278" alt="logo"></a><h2><a href="../../esp_hal/index.html">esp_hal</a><span class="version">0.15.0</span></h2></div><h2 class="location"><a href="#">Module aes</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></section><h2><a href="../index.html">In crate esp_hal</a></h2></div></nav><div class="sidebar-resizer"></div>
+    <main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../esp_hal/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">esp_hal</a>::<wbr><a class="mod" href="#">aes</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/esp_hal/aes/mod.rs.html#1-565">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="advanced-encryption-standard-aes-support"><a href="#advanced-encryption-standard-aes-support">Advanced Encryption Standard (AES) support.</a></h2><h3 id="overview"><a href="#overview">Overview</a></h3>
+<p>The AES module provides an interface to interact with the AES peripheral,
+provides encryption and decryption capabilities for ESP chips using the AES
+algorithm. We currently support the following AES encryption modes:</p>
+<ul>
+<li>AES-128</li>
+<li>AES-192</li>
+<li>AES-256</li>
+</ul>
+<h3 id="example"><a href="#example">Example</a></h3><h4 id="initialization"><a href="#initialization">Initialization</a></h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span><span class="kw-2">mut </span>aes = Aes::new(peripherals.AES);</code></pre></div>
+<h4 id="creating-key-and-block-buffer"><a href="#creating-key-and-block-buffer">Creating key and block Buffer</a></h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>keytext = <span class="string">"SUp4SeCp@sSw0rd"</span>.as_bytes();
+<span class="kw">let </span>plaintext = <span class="string">"message"</span>.as_bytes();
+
+<span class="comment">// create an array with aes128 key size
+</span><span class="kw">let </span><span class="kw-2">mut </span>keybuf = [<span class="number">0_u8</span>; <span class="number">16</span>];
+keybuf[..keytext.len()].copy_from_slice(keytext);
+
+<span class="comment">// create an array with aes block size
+</span><span class="kw">let </span><span class="kw-2">mut </span>block_buf = [<span class="number">0_u8</span>; <span class="number">16</span>];
+block_buf[..plaintext.len()].copy_from_slice(plaintext);</code></pre></div>
+<h4 id="encrypting-and-decrypting-using-hardware"><a href="#encrypting-and-decrypting-using-hardware">Encrypting and Decrypting (using hardware)</a></h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span><span class="kw-2">mut </span>block = block_buf.clone();
+aes.process(<span class="kw-2">&amp;mut </span>block, Mode::Encryption128, <span class="kw-2">&amp;</span>keybuf);
+<span class="kw">let </span>hw_encrypted = block.clone();
+
+aes.process(<span class="kw-2">&amp;mut </span>block, Mode::Decryption128, <span class="kw-2">&amp;</span>keybuf);
+<span class="kw">let </span>hw_decrypted = block;</code></pre></div>
+<h4 id="encrypting-and-decrypting-using-software"><a href="#encrypting-and-decrypting-using-software">Encrypting and Decrypting (using software)</a></h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>key = GenericArray::from(keybuf);
+
+<span class="kw">let </span><span class="kw-2">mut </span>block = GenericArray::from(block_buf);
+<span class="kw">let </span>cipher = Aes128SW::new(<span class="kw-2">&amp;</span>key);
+cipher.encrypt_block(<span class="kw-2">&amp;mut </span>block);
+
+<span class="kw">let </span>sw_encrypted = block.clone();
+cipher.decrypt_block(<span class="kw-2">&amp;mut </span>block);
+
+<span class="kw">let </span>sw_decrypted = block;</code></pre></div>
+<h4 id="implementation-state"><a href="#implementation-state">Implementation State</a></h4>
+<ul>
+<li>DMA mode is currently not supported on ESP32 and ESP32S2 ⚠️</li>
+</ul>
+<h3 id="dma-aes-mode"><a href="#dma-aes-mode">DMA-AES Mode</a></h3>
+<p>Supports 6 block cipher modes including <code>ECB/CBC/OFB/CTR/CFB8/CFB128</code>.</p>
+<ul>
+<li>Initialization vector (IV) is currently not supported ⚠️</li>
+</ul>
+<h3 id="example-1"><a href="#example-1">Example</a></h3><h4 id="initialization-1"><a href="#initialization-1">Initialization</a></h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>dma = Gdma::new(peripherals.DMA);
+<span class="kw">let </span>dma_channel = dma.channel0;
+
+<span class="kw">let </span><span class="kw-2">mut </span>descriptors = [<span class="number">0u32</span>; <span class="number">8 </span>* <span class="number">3</span>];
+<span class="kw">let </span><span class="kw-2">mut </span>rx_descriptors = [<span class="number">0u32</span>; <span class="number">8 </span>* <span class="number">3</span>];
+
+<span class="kw">let </span>aes = Aes::new(peripherals.AES).with_dma(dma_channel.configure(
+    <span class="bool-val">false</span>,
+    <span class="kw-2">&amp;mut </span>descriptors,
+    <span class="kw-2">&amp;mut </span>rx_descriptors,
+    DmaPriority::Priority0,
+));</code></pre></div>
+<h4 id="operation"><a href="#operation">Operation</a></h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>transfer = aes
+    .process(
+        plaintext,
+        hw_encrypted,
+        Mode::Encryption128,
+        CipherMode::Ecb,
+        keybuf,
+    )
+    .unwrap();
+<span class="kw">let </span>(hw_encrypted, plaintext, aes) = transfer.wait().unwrap();</code></pre></div>
+</div></details><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="dma/index.html" title="mod esp_hal::aes::dma">dma</a></div></li></ul><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.Aes.html" title="struct esp_hal::aes::Aes">Aes</a></div><div class="desc docblock-short">AES peripheral container</div></li><li><div class="item-name"><a class="struct" href="struct.Aes128.html" title="struct esp_hal::aes::Aes128">Aes128</a></div><div class="desc docblock-short">Marker type for AES-128</div></li><li><div class="item-name"><a class="struct" href="struct.Aes256.html" title="struct esp_hal::aes::Aes256">Aes256</a></div><div class="desc docblock-short">Marker type for AES-256</div></li></ul><h2 id="enums" class="section-header"><a href="#enums">Enums</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.Mode.html" title="enum esp_hal::aes::Mode">Mode</a></div></li></ul><h2 id="traits" class="section-header"><a href="#traits">Traits</a></h2><ul class="item-table"><li><div class="item-name"><a class="trait" href="trait.AesFlavour.html" title="trait esp_hal::aes::AesFlavour">AesFlavour</a></div><div class="desc docblock-short">Specifications for AES flavours</div></li></ul></section></div></main></body></html>

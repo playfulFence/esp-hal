@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["PSRAM_BYTES"],"fn":["psram_vaddr_start"]};

@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"esp_hal":[["impl&lt;'d, P, M&gt; <a class=\"trait\" href=\"esp_synopsys_usb_otg/trait.UsbPeripheral.html\" title=\"trait esp_synopsys_usb_otg::UsbPeripheral\">UsbPeripheral</a> for <a class=\"struct\" href=\"esp_hal/otg_fs/struct.USB.html\" title=\"struct esp_hal::otg_fs::USB\">USB</a>&lt;'d, P, M&gt;<div class=\"where\">where\n    P: UsbDp + Send + Sync,\n    M: UsbDm + Send + Sync,</div>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

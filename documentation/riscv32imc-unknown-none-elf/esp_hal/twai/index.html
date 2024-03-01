@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Two-wire Automotive Interface (TWAI)"><title>esp_hal::twai - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="esp_hal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (878c8a2a6 2024-02-29)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button><a class="logo-container" href="../../esp_hal/index.html"><img src="https://avatars.githubusercontent.com/u/46717278" alt=""></a></nav><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../../esp_hal/index.html"><img src="https://avatars.githubusercontent.com/u/46717278" alt="logo"></a><h2><a href="../../esp_hal/index.html">esp_hal</a><span class="version">0.15.0</span></h2></div><h2 class="location"><a href="#">Module twai</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></section><h2><a href="../index.html">In crate esp_hal</a></h2></div></nav><div class="sidebar-resizer"></div>
+    <main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../esp_hal/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">esp_hal</a>::<wbr><a class="mod" href="#">twai</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/esp_hal/twai/mod.rs.html#1-830">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="two-wire-automotive-interface-twai"><a class="doc-anchor" href="#two-wire-automotive-interface-twai">§</a>Two-wire Automotive Interface (TWAI)</h2><h3 id="overview"><a class="doc-anchor" href="#overview">§</a>Overview</h3>
+<p>The TWAI peripheral driver provides functions and structs specifically
+designed for the Two-Wire Automotive Interface (TWAI) on ESP chips. TWAI is
+a communication protocol commonly used in automotive applications for
+sending and receiving messages between electronic control units (ECUs) in a
+vehicle.</p>
+<p>The driver enables you to configure and utilize the TWAI module on ESP
+chips. It offers functions for initializing the TWAI peripheral, setting up
+the timing parameters, configuring acceptance filters, handling interrupts,
+and transmitting/receiving messages on the TWAI bus.</p>
+<p>This driver manages the ISO 11898-1 (CAN Specification 2.0) compatible TWAI
+controllers. It supports Standard Frame Format (11-bit) and Extended Frame
+Format (29-bit) frame identifiers.</p>
+<h3 id="example"><a class="doc-anchor" href="#example">§</a>Example</h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Use GPIO pins 2 and 3 to connect to the respective pins on the CAN
+// transceiver.
+</span><span class="kw">let </span>can_tx_pin = io.pins.gpio2;
+<span class="kw">let </span>can_rx_pin = io.pins.gpio3;
+
+<span class="comment">// The speed of the CAN bus.
+</span><span class="kw">const </span>CAN_BAUDRATE: twai::BaudRate = twai::BaudRate::B1000K;
+
+<span class="comment">// Begin configuring the TWAI peripheral. The peripheral is in a reset like
+// state that prevents transmission but allows configuration.
+</span><span class="kw">let </span><span class="kw-2">mut </span>can_config = twai::TwaiConfiguration::new(
+    peripherals.TWAI0,
+    can_tx_pin,
+    can_rx_pin,
+    <span class="kw-2">&amp;</span>clocks,
+    CAN_BAUDRATE,
+);
+
+<span class="comment">// Partially filter the incoming messages to reduce overhead of receiving undesired messages
+</span><span class="kw">const </span>FILTER: twai::filter::SingleStandardFilter =
+    twai::filter::SingleStandardFilter::new(<span class="string">b"xxxxxxxxxx0"</span>, <span class="string">b"x"</span>, [<span class="string">b"xxxxxxxx"</span>, <span class="string">b"xxxxxxxx"</span>]);
+can_config.set_filter(FILTER);
+
+<span class="comment">// Start the peripheral. This locks the configuration settings of the peripheral
+// and puts it into operation mode, allowing packets to be sent and
+// received.
+</span><span class="kw">let </span><span class="kw-2">mut </span>can = can_config.start();
+
+<span class="kw">loop </span>{
+    <span class="comment">// Wait for a frame to be received.
+    </span><span class="kw">let </span>frame = <span class="macro">block!</span>(can.receive()).unwrap();
+
+    <span class="macro">println!</span>(<span class="string">"Received a frame:"</span>);
+
+    <span class="comment">// Print different messages based on the frame id type.
+    </span><span class="kw">match </span>frame.id() {
+        Id::Standard(id) =&gt; {
+            <span class="macro">println!</span>(<span class="string">"\tStandard Id: {:?}"</span>, id);
+        }
+        Id::Extended(id) =&gt; {
+            <span class="macro">println!</span>(<span class="string">"\tExtended Id: {:?}"</span>, id);
+        }
+    }
+
+    <span class="comment">// Print out the frame data or the requested data length code for a remote
+    // transmission request frame.
+    </span><span class="kw">if </span>frame.is_data_frame() {
+        <span class="macro">println!</span>(<span class="string">"\tData: {:?}"</span>, frame.data());
+    } <span class="kw">else </span>{
+        <span class="macro">println!</span>(<span class="string">"\tRemote Frame. Data Length Code: {}"</span>, frame.dlc());
+    }
+
+    <span class="comment">// Transmit the frame back.
+    </span><span class="kw">let </span>_result = <span class="macro">block!</span>(can.transmit(<span class="kw-2">&amp;</span>frame)).unwrap();
+}</code></pre></div>
+</div></details><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="filter/index.html" title="mod esp_hal::twai::filter">filter</a></div><div class="desc docblock-short">Two-wire Automotive Interface (TWAI) Filters</div></li></ul><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.EspTwaiFrame.html" title="struct esp_hal::twai::EspTwaiFrame">EspTwaiFrame</a></div><div class="desc docblock-short">Structure backing the embedded_hal::can::Frame/embedded_can::Frame trait.</div></li><li><div class="item-name"><a class="struct" href="struct.TimingConfig.html" title="struct esp_hal::twai::TimingConfig">TimingConfig</a></div><div class="desc docblock-short">The underlying timings for the TWAI peripheral.</div></li><li><div class="item-name"><a class="struct" href="struct.Twai.html" title="struct esp_hal::twai::Twai">Twai</a></div><div class="desc docblock-short">An active TWAI peripheral in Normal Mode.</div></li><li><div class="item-name"><a class="struct" href="struct.TwaiConfiguration.html" title="struct esp_hal::twai::TwaiConfiguration">TwaiConfiguration</a></div><div class="desc docblock-short">An inactive TWAI peripheral in the “Reset”/configuration state.</div></li></ul><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.BaudRate.html" title="enum esp_hal::twai::BaudRate">BaudRate</a></div><div class="desc docblock-short">A selection of pre-determined baudrates for the TWAI driver.
+Currently these timings are sourced from the ESP IDF C driver which assumes
+an APB clock of 80MHz.</div></li><li><div class="item-name"><a class="enum" href="enum.EspTwaiError.html" title="enum esp_hal::twai::EspTwaiError">EspTwaiError</a></div></li></ul><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="trait" href="trait.Instance.html" title="trait esp_hal::twai::Instance">Instance</a></div></li></ul></section></div></main></body></html>

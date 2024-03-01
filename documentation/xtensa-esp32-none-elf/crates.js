@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["bare_metal","bitfield","bitflags","cfg_if","critical_section","embedded_dma","embedded_hal","enumset","esp32","esp_hal","fugit","gcd","lock_api","mutex_trait","nb","portable_atomic","r0","rand_core","scopeguard","spin","stable_deref_trait","strum","vcell","void","xtensa_lx","xtensa_lx_rt"];

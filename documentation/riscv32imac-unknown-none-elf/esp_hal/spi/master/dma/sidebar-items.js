@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SpiDma","SpiDmaTransfer","SpiDmaTransferRxTx"],"trait":["WithDmaSpi2"]};

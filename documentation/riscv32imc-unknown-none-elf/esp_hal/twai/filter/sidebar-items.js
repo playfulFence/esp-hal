@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FilterType"],"struct":["DualExtendedFilter","DualStandardFilter","SingleExtendedFilter","SingleStandardFilter"],"trait":["Filter"],"type":["BitFilter"]};

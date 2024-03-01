@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","FadeError","Number"],"mod":["config"],"struct":["Channel"],"trait":["ChannelHW","ChannelIFace"]};

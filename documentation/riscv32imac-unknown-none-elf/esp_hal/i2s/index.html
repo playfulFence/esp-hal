@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="I2S Master"><title>esp_hal::i2s - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="esp_hal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (878c8a2a6 2024-02-29)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button><a class="logo-container" href="../../esp_hal/index.html"><img src="https://avatars.githubusercontent.com/u/46717278" alt=""></a></nav><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../../esp_hal/index.html"><img src="https://avatars.githubusercontent.com/u/46717278" alt="logo"></a><h2><a href="../../esp_hal/index.html">esp_hal</a><span class="version">0.15.0</span></h2></div><h2 class="location"><a href="#">Module i2s</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></section><h2><a href="../index.html">In crate esp_hal</a></h2></div></nav><div class="sidebar-resizer"></div>
+    <main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../esp_hal/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">esp_hal</a>::<wbr><a class="mod" href="#">i2s</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/esp_hal/i2s.rs.html#1-2231">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="i2s-master"><a class="doc-anchor" href="#i2s-master">§</a>I2S Master</h2><h3 id="overview"><a class="doc-anchor" href="#overview">§</a>Overview</h3>
+<p>The I2S Master peripheral driver provides support for the I2S (Inter-IC
+Sound) Master functionality on ESP chips. It enables audio data transmission
+and reception with external audio devices, such as DACs (Digital-to-Analog
+Converters) and ADCs (Analog-to-Digital Converters) through the I2S
+interface. Also this module supports different data formats, including
+varying data and channel widths, different standards, such as the Philips
+standard and configurable pin mappings for I2S clock (BCLK), word select
+(WS), and data input/output (DOUT/DIN).</p>
+<p>The driver uses DMA (Direct Memory Access) for efficient data transfer and
+supports various configurations, such as different data formats, standards
+(e.g., Philips) and pin configurations. It relies on other peripheral
+modules, such as
+- <code>GPIO</code>
+- <code>DMA</code>
+- <code>system</code> (to configure and enable the I2S peripheral)</p>
+<h3 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h3><h4 id="initialization"><a class="doc-anchor" href="#initialization">§</a>initialization</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>i2s = I2s::new(
+    peripherals.I2S0,
+    Standard::Philips,
+    DataFormat::Data16Channel16,
+    <span class="number">44100u32</span>.Hz(),
+    dma_channel.configure(
+        <span class="bool-val">false</span>,
+        <span class="kw-2">&amp;mut </span>tx_descriptors,
+        <span class="kw-2">&amp;mut </span>rx_descriptors,
+        DmaPriority::Priority0,
+    ),
+    <span class="kw-2">&amp;</span>clocks,
+)
+.with_mclk(io.pins.gpio4);</code></pre></div>
+<h4 id="reading"><a class="doc-anchor" href="#reading">§</a>Reading</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>i2s_rx = i2s.i2s_rx.
+    .with_bclk(io.pins.gpio1)
+    .with_ws(io.pins.gpio2)
+    .with_dout(io.pins.gpio5)
+    .build();
+
+<span class="comment">// Creating DMA buffer
+</span><span class="kw">static </span><span class="kw-2">mut </span>BUFFER: [u8; <span class="number">4092 </span>* <span class="number">4</span>] = [<span class="number">0u8</span>; <span class="number">4092 </span>* <span class="number">4</span>];
+<span class="kw">let </span>buffer: <span class="kw-2">&amp;</span><span class="lifetime">'static </span><span class="kw-2">mut </span>[u8; <span class="number">4092 </span>* <span class="number">4</span>] = <span class="kw">unsafe </span>{ <span class="kw-2">&amp;mut </span>BUFFER };
+
+<span class="kw">let </span><span class="kw-2">mut </span>transfer = i2s_rx.read_dma_circular(buffer).unwrap();
+<span class="macro">println!</span>(<span class="string">"Started transfer"</span>);
+
+<span class="kw">loop </span>{
+    <span class="kw">let </span>avail = transfer.available();
+
+    <span class="kw">if </span>avail &gt; <span class="number">0 </span>{
+        <span class="kw">let </span><span class="kw-2">mut </span>rcv = [<span class="number">0u8</span>; <span class="number">5000</span>];
+        transfer.pop(<span class="kw-2">&amp;mut </span>rcv[..avail]).unwrap();
+        <span class="macro">println!</span>(<span class="string">"Received {:x?}..."</span>, <span class="kw-2">&amp;</span>rcv[..<span class="number">30</span>]);
+    }
+}</code></pre></div>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.I2s.html" title="struct esp_hal::i2s::I2s">I2s</a></div><div class="desc docblock-short">Instance of the I2S peripheral driver</div></li><li><div class="item-name"><a class="struct" href="struct.I2sReadDmaTransfer.html" title="struct esp_hal::i2s::I2sReadDmaTransfer">I2sReadDmaTransfer</a></div><div class="desc docblock-short">An in-progress DMA read transfer.</div></li><li><div class="item-name"><a class="struct" href="struct.I2sRx.html" title="struct esp_hal::i2s::I2sRx">I2sRx</a></div><div class="desc docblock-short">I2S RX channel</div></li><li><div class="item-name"><a class="struct" href="struct.I2sTx.html" title="struct esp_hal::i2s::I2sTx">I2sTx</a></div><div class="desc docblock-short">I2S TX channel</div></li><li><div class="item-name"><a class="struct" href="struct.I2sWriteDmaTransfer.html" title="struct esp_hal::i2s::I2sWriteDmaTransfer">I2sWriteDmaTransfer</a></div><div class="desc docblock-short">An in-progress DMA write transfer.</div></li></ul><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.DataFormat.html" title="enum esp_hal::i2s::DataFormat">DataFormat</a></div><div class="desc docblock-short">Supported data formats</div></li><li><div class="item-name"><a class="enum" href="enum.Error.html" title="enum esp_hal::i2s::Error">Error</a></div><div class="desc docblock-short">I2S Error</div></li><li><div class="item-name"><a class="enum" href="enum.Standard.html" title="enum esp_hal::i2s::Standard">Standard</a></div><div class="desc docblock-short">Supported standards.</div></li></ul><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="trait" href="trait.I2sRead.html" title="trait esp_hal::i2s::I2sRead">I2sRead</a></div><div class="desc docblock-short">Blocking I2S Read</div></li><li><div class="item-name"><a class="trait" href="trait.I2sReadDma.html" title="trait esp_hal::i2s::I2sReadDma">I2sReadDma</a></div><div class="desc docblock-short">Initiate a DMA rx transfer</div></li><li><div class="item-name"><a class="trait" href="trait.I2sWrite.html" title="trait esp_hal::i2s::I2sWrite">I2sWrite</a></div><div class="desc docblock-short">Blocking I2s Write</div></li><li><div class="item-name"><a class="trait" href="trait.I2sWriteDma.html" title="trait esp_hal::i2s::I2sWriteDma">I2sWriteDma</a></div><div class="desc docblock-short">Initiate a DMA tx transfer</div></li><li><div class="item-name"><a class="trait" href="trait.RegisterAccess.html" title="trait esp_hal::i2s::RegisterAccess">RegisterAccess</a></div></li></ul></section></div></main></body></html>

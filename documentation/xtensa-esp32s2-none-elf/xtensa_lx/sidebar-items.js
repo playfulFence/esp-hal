@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["debug_break","get_processor_id","get_program_counter","get_stack_pointer","is_debugger_attached","set_stack_pointer","set_vecbase"],"macro":["singleton"],"mod":["interrupt","mutex","timer"]};

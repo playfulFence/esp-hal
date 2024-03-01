@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"esp_hal":[["impl&lt;T&gt; <a class=\"trait\" href=\"esp_hal/prelude/trait._embedded_hal_blocking_delay_DelayUs.html\" title=\"trait esp_hal::prelude::_embedded_hal_blocking_delay_DelayUs\">DelayUs</a>&lt;T&gt; for <a class=\"struct\" href=\"esp_hal/delay/struct.Delay.html\" title=\"struct esp_hal::delay::Delay\">Delay</a><div class=\"where\">where\n    T: Into&lt;u32&gt;,</div>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

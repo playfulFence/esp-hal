@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Remote Control Peripheral (RMT)"><title>esp_hal::rmt - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-e935ef01ae1c1829.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="esp_hal" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (878c8a2a6 2024-02-29)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../sidebar-items.js"></script><script defer src="../../static.files/main-12cf3b4f4f9dc36d.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle" title="show sidebar"></button><a class="logo-container" href="../../esp_hal/index.html"><img src="https://avatars.githubusercontent.com/u/46717278" alt=""></a></nav><nav class="sidebar"><div class="sidebar-crate"><a class="logo-container" href="../../esp_hal/index.html"><img src="https://avatars.githubusercontent.com/u/46717278" alt="logo"></a><h2><a href="../../esp_hal/index.html">esp_hal</a><span class="version">0.15.0</span></h2></div><h2 class="location"><a href="#">Module rmt</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></section><h2><a href="../index.html">In crate esp_hal</a></h2></div></nav><div class="sidebar-resizer"></div>
+    <main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../esp_hal/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../index.html">esp_hal</a>::<wbr><a class="mod" href="#">rmt</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/esp_hal/rmt.rs.html#1-2122">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="remote-control-peripheral-rmt"><a class="doc-anchor" href="#remote-control-peripheral-rmt">§</a>Remote Control Peripheral (RMT)</h2><h3 id="overview"><a class="doc-anchor" href="#overview">§</a>Overview</h3>
+<p>Some ESP32 variants include a remote control peripheral (RMT) that
+is designed to handle infrared remote control signals. For that
+purpose, it can convert bitstreams of data (from the RAM) into
+pulse codes and even modulate those codes into a carrier wave.</p>
+<p>It can also convert received pulse codes (again, with carrier
+wave support) into data bits.</p>
+<p>A secondary use case for this peripheral is to drive RGB(W) LEDs
+that bear an internal IC and use a pulse code protocol.</p>
+<h3 id="channels"><a class="doc-anchor" href="#channels">§</a>Channels</h3>
+<p>The RMT peripheral has the following channels available
+on individual chips:</p>
+<ul>
+<li>The <strong>ESP32</strong> has 8 channels, each of them can be either receiver or
+transmitter</li>
+<li>The <strong>ESP32-C3</strong> has 4 channels, <code>Channel&lt;0&gt;</code> and <code>Channel&lt;1&gt;</code> hardcoded
+for transmitting signals and <code>Channel&lt;2&gt;</code> and <code>Channel&lt;3&gt;</code> hardcoded for
+receiving signals.</li>
+<li>The <strong>ESP32-C6</strong> has 4 channels, <code>Channel&lt;0&gt;</code> and <code>Channel&lt;1&gt;</code> hardcoded
+for transmitting signals and <code>Channel&lt;2&gt;</code> and <code>Channel&lt;3&gt;</code> hardcoded for
+receiving signals.</li>
+<li>The <strong>ESP32-H2</strong> has 4 channels, <code>Channel&lt;0&gt;</code> and <code>Channel&lt;1&gt;</code> hardcoded
+for transmitting signals and <code>Channel&lt;2&gt;</code> and <code>Channel&lt;3&gt;</code> hardcoded for
+receiving signals.</li>
+<li>The <strong>ESP32-S2</strong> has 4 channels, each of them can be either receiver or
+transmitter.</li>
+<li>The <strong>ESP32-S3</strong> has 8 channels, <code>Channel&lt;0&gt;</code>-<code>Channel&lt;3&gt;</code> hardcoded for
+transmitting signals and <code>Channel&lt;4&gt;</code>-<code>Channel&lt;7&gt;</code> hardcoded for receiving
+signals.</li>
+</ul>
+<p>For more information, please refer to the ESP-IDF documentation:
+<a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/rmt.html">https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/rmt.html</a></p>
+<h3 id="examples"><a class="doc-anchor" href="#examples">§</a>Examples</h3><h4 id="initialization"><a class="doc-anchor" href="#initialization">§</a>Initialization</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>rmt = Rmt::new(peripherals.RMT, <span class="number">80u32</span>.MHz(), <span class="kw-2">&amp;mut </span>clock_control, <span class="kw-2">&amp;</span>clocks).unwrap();
+<span class="kw">let </span><span class="kw-2">mut </span>channel = rmt
+    .channel0
+    .configure(
+        io.pins.gpio1.into_push_pull_output(),
+        TxChannelConfig {
+            clk_divider: <span class="number">1</span>,
+            idle_output_level: <span class="bool-val">false</span>,
+            idle_output: <span class="bool-val">false</span>,
+            carrier_modulation: <span class="bool-val">false</span>,
+            carrier_high: <span class="number">1</span>,
+            carrier_low: <span class="number">1</span>,
+            carrier_level: <span class="bool-val">false</span>,
+        },
+    )
+    .unwrap();</code></pre></div>
+<p>(on ESP32 and ESP32-S2 you cannot specify a base frequency other than 80
+MHz)</p>
+<h4 id="sending-a-pulse-sequence"><a class="doc-anchor" href="#sending-a-pulse-sequence">§</a>Sending a pulse sequence</h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>data = [
+    PulseCode {
+        level1: <span class="bool-val">true</span>,
+        length1: <span class="number">100</span>,
+        level2: <span class="bool-val">false</span>,
+        length2: <span class="number">300</span>,
+    },
+    PulseCode {
+        level1: <span class="bool-val">true</span>,
+        length1: <span class="number">100</span>,
+        level2: <span class="bool-val">false</span>,
+        length2: <span class="number">0</span>, <span class="comment">// a zero-length pulse marks the end of the sequence
+    </span>},
+];
+
+<span class="kw">let </span>transaction = channel.transmit(<span class="kw-2">&amp;</span>data);
+channel = transaction.wait().unwrap();</code></pre></div>
+</div></details><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.Channel.html" title="struct esp_hal::rmt::Channel">Channel</a></div><div class="desc docblock-short">RMT Channel</div></li><li><div class="item-name"><a class="struct" href="struct.ContinuousTxTransaction.html" title="struct esp_hal::rmt::ContinuousTxTransaction">ContinuousTxTransaction</a></div><div class="desc docblock-short">An in-progress continuous TX transaction</div></li><li><div class="item-name"><a class="struct" href="struct.PulseCode.html" title="struct esp_hal::rmt::PulseCode">PulseCode</a></div><div class="desc docblock-short">Convenience representation of a pulse code entry.</div></li><li><div class="item-name"><a class="struct" href="struct.Rmt.html" title="struct esp_hal::rmt::Rmt">Rmt</a></div><div class="desc docblock-short">RMT Instance</div></li><li><div class="item-name"><a class="struct" href="struct.RxChannelConfig.html" title="struct esp_hal::rmt::RxChannelConfig">RxChannelConfig</a></div><div class="desc docblock-short">Channel configuration for RX channels</div></li><li><div class="item-name"><a class="struct" href="struct.RxTransaction.html" title="struct esp_hal::rmt::RxTransaction">RxTransaction</a></div><div class="desc docblock-short">RX transaction instance</div></li><li><div class="item-name"><a class="struct" href="struct.SingleShotTxTransaction.html" title="struct esp_hal::rmt::SingleShotTxTransaction">SingleShotTxTransaction</a></div><div class="desc docblock-short">An in-progress transaction for a single shot TX transaction.</div></li><li><div class="item-name"><a class="struct" href="struct.TxChannelConfig.html" title="struct esp_hal::rmt::TxChannelConfig">TxChannelConfig</a></div><div class="desc docblock-short">Channel configuration for TX channels</div></li></ul><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.Error.html" title="enum esp_hal::rmt::Error">Error</a></div></li></ul><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><ul class="item-table"><li><div class="item-name"><a class="trait" href="trait.RxChannel.html" title="trait esp_hal::rmt::RxChannel">RxChannel</a></div></li><li><div class="item-name"><a class="trait" href="trait.RxChannelCreator.html" title="trait esp_hal::rmt::RxChannelCreator">RxChannelCreator</a></div></li><li><div class="item-name"><a class="trait" href="trait.TxChannel.html" title="trait esp_hal::rmt::TxChannel">TxChannel</a></div></li><li><div class="item-name"><a class="trait" href="trait.TxChannelCreator.html" title="trait esp_hal::rmt::TxChannelCreator">TxChannelCreator</a></div></li></ul></section></div></main></body></html>

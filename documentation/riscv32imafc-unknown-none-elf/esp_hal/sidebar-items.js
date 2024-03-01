@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":["entry"],"enum":["Cpu"],"fn":["get_core"],"mod":["clock","efuse","gpio","interrupt","peripheral","peripherals","prelude","rom","system","trapframe"],"struct":["FlashSafeDma"]};

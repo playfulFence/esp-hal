@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AdcCalSource","Attenuation","Resolution"],"struct":["ADC","AdcConfig","AdcPin"],"trait":["AdcCalScheme","AdcChannel"]};

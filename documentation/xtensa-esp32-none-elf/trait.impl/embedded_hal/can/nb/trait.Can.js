@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"esp_hal":[["impl&lt;T&gt; <a class=\"trait\" href=\"embedded_hal/can/nb/trait.Can.html\" title=\"trait embedded_hal::can::nb::Can\">Can</a> for <a class=\"struct\" href=\"esp_hal/twai/struct.Twai.html\" title=\"struct esp_hal::twai::Twai\">Twai</a>&lt;'_, T&gt;<div class=\"where\">where\n    T: <a class=\"trait\" href=\"esp_hal/twai/trait.Instance.html\" title=\"trait esp_hal::twai::Instance\">Instance</a>,</div>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

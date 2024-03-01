@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["LSGlobalClkSource"],"mod":["channel","timer"],"struct":["HighSpeed","LEDC","LowSpeed"],"trait":["Speed"]};

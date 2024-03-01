@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DelayMode","Phase","Polarity"],"mod":["i8080"],"struct":["ClockMode","Lcd"]};
