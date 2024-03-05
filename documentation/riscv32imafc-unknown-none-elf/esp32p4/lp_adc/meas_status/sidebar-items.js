@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["MEAS_STATUS_SPEC"],"type":["R","SARADC_MEAS_STATUS_R"]};

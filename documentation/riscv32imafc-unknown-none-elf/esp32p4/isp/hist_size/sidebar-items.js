@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HIST_SIZE_SPEC"],"type":["HIST_X_SIZE_R","HIST_X_SIZE_W","HIST_Y_SIZE_R","HIST_Y_SIZE_W","R","W"]};

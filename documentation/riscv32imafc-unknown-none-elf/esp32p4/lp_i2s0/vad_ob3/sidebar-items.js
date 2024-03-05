@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["VAD_OB3_SPEC"],"type":["NOISE_MEAN_OB_R","R"]};

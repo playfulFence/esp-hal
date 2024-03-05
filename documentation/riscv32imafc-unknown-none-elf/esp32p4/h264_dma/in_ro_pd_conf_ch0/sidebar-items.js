@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IN_RO_PD_CONF_CH0_SPEC"],"type":["IN_RO_RAM_CLK_FO_CH0_R","IN_RO_RAM_CLK_FO_CH0_W","R","W"]};

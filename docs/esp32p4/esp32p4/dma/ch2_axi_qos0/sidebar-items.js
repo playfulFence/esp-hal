@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CH2_AXI_QOS0_SPEC"],"type":["CH2_AXI_ARQOS_R","CH2_AXI_ARQOS_W","CH2_AXI_AWQOS_R","CH2_AXI_AWQOS_W","R","W"]};

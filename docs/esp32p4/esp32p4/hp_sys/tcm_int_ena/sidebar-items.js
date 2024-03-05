@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TCM_INT_ENA_SPEC"],"type":["R","TCM_PARITY_ERR_INT_ENA_R","TCM_PARITY_ERR_INT_ENA_W","W"]};

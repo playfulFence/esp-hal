@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CTYPE_SPEC"],"type":["CARD_WIDTH4_R","CARD_WIDTH4_W","CARD_WIDTH8_R","CARD_WIDTH8_W","R","W"]};

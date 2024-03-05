@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["FLASH_ACE1_ATTR_SPEC"],"type":["FLASH_ACE1_ATTR_R","FLASH_ACE1_ATTR_W","R","W"]};

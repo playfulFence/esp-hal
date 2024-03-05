@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["L2_CACHE_CTRL_SPEC"],"type":["L2_CACHE_SHUT_DMA_R","L2_CACHE_UNDEF_OP_R","R"]};

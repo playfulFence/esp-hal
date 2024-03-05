@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DBI_PARTITIONING_EN_SPEC"],"type":["PARTITIONING_EN_R","PARTITIONING_EN_W","R","W"]};

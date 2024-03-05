@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HCDMAB3_SPEC"],"type":["H_HCDMAB3_R","R"]};

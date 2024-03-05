@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LP_STORE6_SPEC"],"type":["LP_SCRATCH6_R","LP_SCRATCH6_W","R","W"]};

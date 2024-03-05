@@ -1,3 +1,0 @@
-(function() {var implementors = {
-"esp_synopsys_usb_otg":[["impl&lt;USB: <a class=\"trait\" href=\"esp_synopsys_usb_otg/trait.UsbPeripheral.html\" title=\"trait esp_synopsys_usb_otg::UsbPeripheral\">UsbPeripheral</a>&gt; <a class=\"trait\" href=\"usb_device/bus/trait.UsbBus.html\" title=\"trait usb_device::bus::UsbBus\">UsbBus</a> for <a class=\"struct\" href=\"esp_synopsys_usb_otg/bus/struct.UsbBus.html\" title=\"struct esp_synopsys_usb_otg::bus::UsbBus\">UsbBus</a>&lt;USB&gt;"]]
-};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

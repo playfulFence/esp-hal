@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RD_MAC_SPI_SYS_3_SPEC"],"type":["R","SPI_PAD_CONF_2_R","SYS_DATA_PART0_0_R"]};

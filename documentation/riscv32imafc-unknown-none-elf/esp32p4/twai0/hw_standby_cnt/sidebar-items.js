@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HW_STANDBY_CNT_SPEC"],"type":["R","STANDBY_WAIT_CNT_R","STANDBY_WAIT_CNT_W","W"]};

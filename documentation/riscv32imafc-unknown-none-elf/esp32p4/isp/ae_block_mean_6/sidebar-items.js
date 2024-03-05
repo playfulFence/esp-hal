@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["AE_BLOCK_MEAN_6_SPEC"],"type":["AE_B44_MEAN_R","R"]};

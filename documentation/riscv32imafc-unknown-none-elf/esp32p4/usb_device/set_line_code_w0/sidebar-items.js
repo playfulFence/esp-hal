@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SET_LINE_CODE_W0_SPEC"],"type":["DW_DTE_RATE_R","R"]};

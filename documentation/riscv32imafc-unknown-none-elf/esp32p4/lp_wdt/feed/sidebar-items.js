@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["FEED_SPEC"],"type":["FEED_W","W"]};

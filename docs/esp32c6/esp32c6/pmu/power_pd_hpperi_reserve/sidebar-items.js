@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["POWER_PD_HPPERI_RESERVE_SPEC"],"type":["HP_PERI_RESERVE_W","W"]};

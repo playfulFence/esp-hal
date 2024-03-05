@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IDLE_SPEC"],"type":["IDLE_R","R"]};

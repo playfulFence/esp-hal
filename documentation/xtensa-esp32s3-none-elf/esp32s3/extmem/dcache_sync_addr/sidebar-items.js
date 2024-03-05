@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DCACHE_SYNC_ADDR_SPEC"],"type":["DCACHE_SYNC_ADDR_R","DCACHE_SYNC_ADDR_W","R","W"]};

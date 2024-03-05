@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CPU_PERI_RST_EN_SPEC"],"type":["R","RST_EN_DEDICATED_GPIO_R","RST_EN_DEDICATED_GPIO_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EDMA_PMS_UHCI0_LOCK_SPEC"],"type":["EDMA_PMS_UHCI0_LOCK_R","EDMA_PMS_UHCI0_LOCK_W","R","W"]};

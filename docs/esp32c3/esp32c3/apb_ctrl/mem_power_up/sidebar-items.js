@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MEM_POWER_UP_SPEC"],"type":["R","ROM_POWER_UP_R","ROM_POWER_UP_W","SRAM_POWER_UP_R","SRAM_POWER_UP_W","W"]};

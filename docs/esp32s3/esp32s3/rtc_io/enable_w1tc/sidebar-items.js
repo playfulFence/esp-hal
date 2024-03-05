@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ENABLE_W1TC_SPEC"],"type":["ENABLE_W1TC_W","W"]};

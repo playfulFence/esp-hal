@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DEBUG_DMA_SEL_SPEC"],"type":["DBG_DMA_SEL_R","DBG_DMA_SEL_W","R","W"]};

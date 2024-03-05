@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["HWFC_CONF_SYNC_SPEC"],"type":["R","RX_FLOW_EN_R","RX_FLOW_EN_W","RX_FLOW_THRHD_R","RX_FLOW_THRHD_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HP_MODEM_HP_REGULATOR1_SPEC"],"type":["HP_MODEM_HP_REGULATOR_DRV_B_W","W"]};

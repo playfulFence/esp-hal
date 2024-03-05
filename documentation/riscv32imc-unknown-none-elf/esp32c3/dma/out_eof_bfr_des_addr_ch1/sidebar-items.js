@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["OUT_EOF_BFR_DES_ADDR_CH1_SPEC"],"type":["OUT_EOF_BFR_DES_ADDR_R","R"]};

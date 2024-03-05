@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SHA1_CONTINUE_SPEC"],"type":["SHA1_CONTINUE_W","W"]};

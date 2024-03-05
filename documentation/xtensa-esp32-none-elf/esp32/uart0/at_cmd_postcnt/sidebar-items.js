@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["AT_CMD_POSTCNT_SPEC"],"type":["POST_IDLE_NUM_R","POST_IDLE_NUM_W","R","W"]};

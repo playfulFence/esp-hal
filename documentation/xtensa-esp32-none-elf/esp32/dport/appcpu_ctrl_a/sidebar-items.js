@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["APPCPU_CTRL_A_SPEC"],"type":["APPCPU_RESETTING_R","APPCPU_RESETTING_W","R","W"]};

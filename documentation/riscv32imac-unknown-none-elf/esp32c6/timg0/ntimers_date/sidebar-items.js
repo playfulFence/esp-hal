@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["NTIMERS_DATE_SPEC"],"type":["NTIMGS_DATE_R","NTIMGS_DATE_W","R","W"]};

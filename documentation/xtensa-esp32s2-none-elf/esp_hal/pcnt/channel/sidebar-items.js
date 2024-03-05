@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["CtrlMode","EdgeMode","Number"],"struct":["Channel","Config","PcntSource"]};

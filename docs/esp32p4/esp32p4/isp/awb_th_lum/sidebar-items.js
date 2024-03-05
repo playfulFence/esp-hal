@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AWB_TH_LUM_SPEC"],"type":["AWB_MAX_LUM_R","AWB_MAX_LUM_W","AWB_MIN_LUM_R","AWB_MIN_LUM_W","R","W"]};

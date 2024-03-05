@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CONF_SPEC"],"type":["CFG_ECDSA_BLK_R","CFG_ECDSA_BLK_W","OP_CODE_R","OP_CODE_W","R","W"]};

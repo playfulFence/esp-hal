@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ICACHE_LOCK_ADDR_SPEC"],"type":["ICACHE_LOCK_ADDR_R","ICACHE_LOCK_ADDR_W","R","W"]};

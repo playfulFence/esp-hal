@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DPI_H_CFG1_SPEC"],"type":["HBANK_R","HBANK_W","HSYNC_R","HSYNC_W","R","W"]};

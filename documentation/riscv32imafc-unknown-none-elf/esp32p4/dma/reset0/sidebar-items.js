@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RESET0_SPEC"],"type":["DMAC_RST_R","DMAC_RST_W","R","W"]};

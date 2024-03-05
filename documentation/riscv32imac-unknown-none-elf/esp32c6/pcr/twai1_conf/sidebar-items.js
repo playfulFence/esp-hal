@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TWAI1_CONF_SPEC"],"type":["R","TWAI1_CLK_EN_R","TWAI1_CLK_EN_W","TWAI1_RST_EN_R","TWAI1_RST_EN_W","W"]};

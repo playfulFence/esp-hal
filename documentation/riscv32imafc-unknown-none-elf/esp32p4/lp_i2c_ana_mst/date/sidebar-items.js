@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DATE_SPEC"],"type":["DATE_R","DATE_W","I2C_MST_CLK_EN_R","I2C_MST_CLK_EN_W","R","W"]};

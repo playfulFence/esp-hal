@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SHA_START_SPEC"],"type":["SHA_START_W","W"]};

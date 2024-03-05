@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RTC_GPIO_ENABLE_W1TS_SPEC"],"type":["RTC_GPIO_ENABLE_W1TS_W","W"]};

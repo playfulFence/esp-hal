@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PERI1_APB_POSTW_EN_SPEC"],"type":["PERI1_APB_POSTW_EN_R","PERI1_APB_POSTW_EN_W","R","W"]};

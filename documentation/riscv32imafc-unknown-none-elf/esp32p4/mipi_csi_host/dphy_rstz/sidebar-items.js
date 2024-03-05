@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DPHY_RSTZ_SPEC"],"type":["DPHY_RSTZ_R","DPHY_RSTZ_W","R","W"]};

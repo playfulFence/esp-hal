@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SARDATE_SPEC"],"type":["R","SAR_DATE_R","SAR_DATE_W","W"]};

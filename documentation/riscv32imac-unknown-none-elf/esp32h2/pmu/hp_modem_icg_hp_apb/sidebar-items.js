@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HP_MODEM_ICG_HP_APB_SPEC"],"type":["HP_MODEM_DIG_ICG_APB_EN_R","HP_MODEM_DIG_ICG_APB_EN_W","R","W"]};

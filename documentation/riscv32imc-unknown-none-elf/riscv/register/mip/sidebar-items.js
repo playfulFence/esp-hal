@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"fn":["clear_sext","clear_ssoft","clear_stimer","read","set_sext","set_ssoft","set_stimer"],"struct":["Mip"]};

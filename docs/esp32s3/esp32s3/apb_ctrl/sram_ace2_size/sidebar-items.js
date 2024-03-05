@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SRAM_ACE2_SIZE_SPEC"],"type":["R","SRAM_ACE2_SIZE_R","SRAM_ACE2_SIZE_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SLICE_HEADER_BYTE0_SPEC"],"type":["R","SLICE_BYTE_LSB_R","SLICE_BYTE_LSB_W","W"]};

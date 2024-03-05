@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CLEAR_IRQ_SPEC"],"type":["CLEAR_INTERRUPT_W","W"]};

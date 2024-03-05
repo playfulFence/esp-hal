@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LUT_CMD_SPEC"],"type":["LUT_ADDR_W","LUT_CMD_W","LUT_NUM_W","W"]};

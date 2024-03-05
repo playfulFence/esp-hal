@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"esp_hal":[["impl&lt;T&gt; <a class=\"trait\" href=\"esp_hal/prelude/trait._embedded_hal_blocking_i2c_WriteRead.html\" title=\"trait esp_hal::prelude::_embedded_hal_blocking_i2c_WriteRead\">WriteRead</a> for <a class=\"struct\" href=\"esp_hal/i2c/struct.I2C.html\" title=\"struct esp_hal::i2c::I2C\">I2C</a>&lt;'_, T&gt;<div class=\"where\">where\n    T: <a class=\"trait\" href=\"esp_hal/i2c/trait.Instance.html\" title=\"trait esp_hal::i2c::Instance\">Instance</a>,</div>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

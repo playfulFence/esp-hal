@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CSI_INT_MAP_SPEC"],"type":["CORE0_CSI_INT_MAP_R","CORE0_CSI_INT_MAP_W","R","W"]};

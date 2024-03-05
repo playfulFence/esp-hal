@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PRO_DCACHE_DBUG4_SPEC"],"type":["PRO_DRAM1ADDR0_IA_R","R"]};

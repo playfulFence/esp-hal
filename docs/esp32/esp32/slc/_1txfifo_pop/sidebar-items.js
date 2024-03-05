@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["_1TXFIFO_POP_SPEC"],"type":["R","SLC1_TXFIFO_POP_R","SLC1_TXFIFO_POP_W","SLC1_TXFIFO_RDATA_R","W"]};

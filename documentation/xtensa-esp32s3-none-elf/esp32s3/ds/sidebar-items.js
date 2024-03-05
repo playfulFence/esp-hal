@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["c_mem","date","iv_","query_busy","query_check","query_key_wrong","set_finish","set_me","set_start","x_mem","z_mem"],"struct":["RegisterBlock"],"type":["C_MEM","DATE","IV_","QUERY_BUSY","QUERY_CHECK","QUERY_KEY_WRONG","SET_FINISH","SET_ME","SET_START","X_MEM","Z_MEM"]};

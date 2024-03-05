@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PKT_THRES_SPEC"],"type":["PKT_THRS_R","PKT_THRS_W","R","W"]};

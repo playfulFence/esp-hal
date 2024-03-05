@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["AHB_FREQ_CONF_SPEC"],"type":["AHB_DIV_NUM_R","AHB_DIV_NUM_W","R","W"]};

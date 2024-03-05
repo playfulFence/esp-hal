@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RX_TAILING_BITS_SPEC"],"type":["R","RX_TAILING_BITS_R","RX_TAILING_BITS_W","W"]};

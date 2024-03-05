@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BUS_CLK_UPDATE_SPEC"],"type":["BUS_CLOCK_UPDATE_R","BUS_CLOCK_UPDATE_W","R","W"]};

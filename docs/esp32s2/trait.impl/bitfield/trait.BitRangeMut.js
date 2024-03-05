@@ -1,0 +1,4 @@
+(function() {var implementors = {
+"bitfield":[],
+"esp_hal":[["impl&lt;T&gt; <a class=\"trait\" href=\"bitfield/trait.BitRangeMut.html\" title=\"trait bitfield::BitRangeMut\">BitRangeMut</a>&lt;T&gt; for <a class=\"struct\" href=\"esp_hal/dma/struct.DmaDescriptorFlags.html\" title=\"struct esp_hal::dma::DmaDescriptorFlags\">DmaDescriptorFlags</a><div class=\"where\">where\n    u32: <a class=\"trait\" href=\"bitfield/trait.BitRangeMut.html\" title=\"trait bitfield::BitRangeMut\">BitRangeMut</a>&lt;T&gt;,</div>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

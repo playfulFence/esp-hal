@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DBADDR_SPEC"],"type":["DBADDR_R","DBADDR_W","R","W"]};

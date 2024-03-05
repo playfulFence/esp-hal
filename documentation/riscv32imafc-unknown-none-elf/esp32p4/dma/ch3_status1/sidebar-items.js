@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CH3_STATUS1_SPEC"],"type":["CH3_DATA_LEFT_IN_FIFO_R","R"]};

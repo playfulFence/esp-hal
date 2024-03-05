@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SLEEP_CONF_SPEC"],"type":["ACTIVE_THRESHOLD_R","ACTIVE_THRESHOLD_W","R","W"]};

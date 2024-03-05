@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DIEPTSIZ0_SPEC"],"type":["D_PKTCNT0_R","D_PKTCNT0_W","D_XFERSIZE0_R","D_XFERSIZE0_W","R","W"]};

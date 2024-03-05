@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["WAKEUP_STATE_SPEC"],"type":["R","W","WAKEUP_ENA_R","WAKEUP_ENA_W"]};

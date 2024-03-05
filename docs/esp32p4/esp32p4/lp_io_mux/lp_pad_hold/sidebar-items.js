@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LP_PAD_HOLD_SPEC"],"type":["R","REG_LP_GPIO_HOLD_R","REG_LP_GPIO_HOLD_W","W"]};

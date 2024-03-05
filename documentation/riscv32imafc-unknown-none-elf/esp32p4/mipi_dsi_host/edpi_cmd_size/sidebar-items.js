@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EDPI_CMD_SIZE_SPEC"],"type":["EDPI_ALLOWED_CMD_SIZE_R","EDPI_ALLOWED_CMD_SIZE_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["STATE1_SPEC"],"type":["ENCODE_STATE_R","R"]};

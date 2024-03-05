@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["T2QNR_SPEC"],"type":["R","T2_QNR_VAL_R"]};

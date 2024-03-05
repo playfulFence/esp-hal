@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CH4_DSTAT0_SPEC"],"type":["CH4_DSTAT_R","R"]};

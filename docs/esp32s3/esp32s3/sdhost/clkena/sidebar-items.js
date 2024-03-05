@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CLKENA_SPEC"],"type":["CCLK_ENABLE_R","CCLK_ENABLE_W","LP_ENABLE_R","LP_ENABLE_W","R","W"]};

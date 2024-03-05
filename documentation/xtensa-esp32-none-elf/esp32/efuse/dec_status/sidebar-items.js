@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DEC_STATUS_SPEC"],"type":["DEC_WARNINGS_R","R"]};

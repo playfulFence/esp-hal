@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IDINTEN_SPEC"],"type":["AI_R","AI_W","CES_R","CES_W","DU_R","DU_W","FBE_R","FBE_W","NI_R","NI_W","R","RI_R","RI_W","TI_R","TI_W","W"]};

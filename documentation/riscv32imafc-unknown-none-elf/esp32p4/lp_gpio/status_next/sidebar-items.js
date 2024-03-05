@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["STATUS_NEXT_SPEC"],"type":["R","REG_GPIO_STATUS_INTERRUPT_NEXT_R"]};

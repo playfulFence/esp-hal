@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SPI_MEM_XTS_DESTROY_SPEC"],"type":["SPI_XTS_DESTROY_W","W"]};

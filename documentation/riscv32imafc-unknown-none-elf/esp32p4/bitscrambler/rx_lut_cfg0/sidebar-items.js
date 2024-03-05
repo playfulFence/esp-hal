@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RX_LUT_CFG0_SPEC"],"type":["R","RX_LUT_IDX_R","RX_LUT_IDX_W","RX_LUT_MODE_R","RX_LUT_MODE_W","W"]};

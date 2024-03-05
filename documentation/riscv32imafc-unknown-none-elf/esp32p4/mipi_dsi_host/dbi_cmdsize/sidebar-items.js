@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DBI_CMDSIZE_SPEC"],"type":["ALLOWED_CMD_SIZE_R","ALLOWED_CMD_SIZE_W","R","W","WR_CMD_SIZE_R","WR_CMD_SIZE_W"]};

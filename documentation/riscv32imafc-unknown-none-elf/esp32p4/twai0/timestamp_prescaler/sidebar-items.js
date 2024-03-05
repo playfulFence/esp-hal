@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["TIMESTAMP_PRESCALER_SPEC"],"type":["R","TS_DIV_NUM_R","TS_DIV_NUM_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SLAVE_ADDR_SPEC"],"type":["ADDR_10BIT_EN_R","ADDR_10BIT_EN_W","R","SLAVE_ADDR_R","SLAVE_ADDR_W","W"]};

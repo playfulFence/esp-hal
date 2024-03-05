@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["SleepSource"],"fn":["get_reset_reason","get_wakeup_cause","software_reset","software_reset_cpu"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RX_CH_ARB_WEIGH_CH_SPEC"],"type":["R","RX_CH_ARB_WEIGH_CH_R","RX_CH_ARB_WEIGH_CH_W","W"]};

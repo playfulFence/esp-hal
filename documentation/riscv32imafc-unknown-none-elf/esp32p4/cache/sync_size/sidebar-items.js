@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SYNC_SIZE_SPEC"],"type":["R","SYNC_SIZE_R","SYNC_SIZE_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["MAIN_OVERFLOW_SPEC"],"type":["MAIN_TIMER_ALARM_LOAD_W","W"]};

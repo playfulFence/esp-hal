@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DOEPDMA4_SPEC"],"type":["DMAADDR4_R","DMAADDR4_W","R","W"]};

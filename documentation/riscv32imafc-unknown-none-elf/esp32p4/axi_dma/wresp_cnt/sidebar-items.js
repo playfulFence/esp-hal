@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["WRESP_CNT_SPEC"],"type":["R","WRESP_CNT_R"]};

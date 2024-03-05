@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DBIAS_CMD4_SPEC"],"type":["DBIAS_CMD4_R","DBIAS_CMD4_W","R","W"]};

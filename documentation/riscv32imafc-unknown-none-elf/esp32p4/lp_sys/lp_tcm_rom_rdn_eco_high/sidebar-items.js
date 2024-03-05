@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LP_TCM_ROM_RDN_ECO_HIGH_SPEC"],"type":["LP_TCM_ROM_RDN_ECO_HIGH_R","LP_TCM_ROM_RDN_ECO_HIGH_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DMARXBASEADDR_SPEC"],"type":["R","W"]};

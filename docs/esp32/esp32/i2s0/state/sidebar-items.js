@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["STATE_SPEC"],"type":["R","RX_FIFO_RESET_BACK_R","TX_FIFO_RESET_BACK_R","TX_IDLE_R"]};

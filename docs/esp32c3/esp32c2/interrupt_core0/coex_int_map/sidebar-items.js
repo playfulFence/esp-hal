@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["COEX_INT_MAP_SPEC"],"type":["COEX_INT_MAP_R","COEX_INT_MAP_W","R","W"]};

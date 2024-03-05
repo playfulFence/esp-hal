@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SPI_MEM_ECC_ERR_ADDR_SPEC"],"type":["R","SPI_MEM_ECC_ERR_ADDR_R"]};

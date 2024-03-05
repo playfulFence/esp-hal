@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IMM_MODEM_ICG_SPEC"],"type":["UPDATE_DIG_ICG_MODEM_EN_W","W"]};

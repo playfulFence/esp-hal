@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["L2_IBUS2_ACS_MISS_CNT_SPEC"],"type":["L2_IBUS2_MISS_CNT_R","R"]};

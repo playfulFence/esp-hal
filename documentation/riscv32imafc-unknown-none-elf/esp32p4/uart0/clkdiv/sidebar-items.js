@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CLKDIV_SPEC"],"type":["CLKDIV_FRAG_R","CLKDIV_FRAG_W","CLKDIV_R","CLKDIV_W","R","W"]};

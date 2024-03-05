@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RX_DATA_PORT_SPEC"],"type":["R","RX_DATA_PORT_R"]};

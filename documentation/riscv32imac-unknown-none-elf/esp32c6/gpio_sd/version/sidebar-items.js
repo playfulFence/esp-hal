@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["VERSION_SPEC"],"type":["GPIO_SD_DATE_R","GPIO_SD_DATE_W","R","W"]};

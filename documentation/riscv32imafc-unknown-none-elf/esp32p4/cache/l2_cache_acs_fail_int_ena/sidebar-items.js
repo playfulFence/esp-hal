@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["L2_CACHE_ACS_FAIL_INT_ENA_SPEC"],"type":["L2_CACHE_FAIL_INT_ENA_R","L2_CACHE_FAIL_INT_ENA_W","R","W"]};

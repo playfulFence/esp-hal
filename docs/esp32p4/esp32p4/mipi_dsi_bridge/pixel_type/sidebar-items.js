@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PIXEL_TYPE_SPEC"],"type":["DATA_IN_TYPE_R","DATA_IN_TYPE_W","DPI_CONFIG_R","DPI_CONFIG_W","R","RAW_TYPE_R","RAW_TYPE_W","W"]};

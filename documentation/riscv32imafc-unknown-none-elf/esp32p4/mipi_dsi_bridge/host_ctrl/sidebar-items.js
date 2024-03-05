@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HOST_CTRL_SPEC"],"type":["DSI_CFG_REF_CLK_EN_R","DSI_CFG_REF_CLK_EN_W","R","W"]};

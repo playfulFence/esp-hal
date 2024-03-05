@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error"],"mod":["lp_i2c"],"struct":["I2C"],"trait":["Instance"]};

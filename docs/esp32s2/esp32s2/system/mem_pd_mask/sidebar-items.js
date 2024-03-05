@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MEM_PD_MASK_SPEC"],"type":["LSLP_MEM_PD_MASK_R","LSLP_MEM_PD_MASK_W","R","W"]};

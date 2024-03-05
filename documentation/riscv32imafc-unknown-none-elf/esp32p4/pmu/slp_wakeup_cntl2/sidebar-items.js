@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SLP_WAKEUP_CNTL2_SPEC"],"type":["R","W","WAKEUP_ENA_R","WAKEUP_ENA_W"]};

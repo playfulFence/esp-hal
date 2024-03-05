@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["DataFormat","Error","Standard"],"struct":["I2s","I2sReadDmaTransfer","I2sRx","I2sTx","I2sWriteDmaTransfer"],"trait":["I2sRead","I2sReadDma","I2sWrite","I2sWriteDma","RegisterAccess"]};

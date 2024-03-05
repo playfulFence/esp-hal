@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CMD9_SPEC"],"type":["COMMAND9_DONE_R","COMMAND9_R","COMMAND9_W","R","W"]};

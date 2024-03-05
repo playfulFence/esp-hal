@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["VID_PKT_SIZE_SPEC"],"type":["R","VID_PKT_SIZE_R","VID_PKT_SIZE_W","W"]};

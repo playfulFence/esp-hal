@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["QUERY_BUSY_SPEC"],"type":["QUERY_BUSY_R","R"]};

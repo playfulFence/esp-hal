@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["GDMA_CTRL_SPEC"],"type":["DEBUG_CH_NUM_R","DEBUG_CH_NUM_W","R","W"]};

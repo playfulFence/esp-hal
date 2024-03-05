@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AHB_MPU_TABLE_0_SPEC"],"type":["AHB_ACCESS_GRANT_0_R","AHB_ACCESS_GRANT_0_W","R","W"]};

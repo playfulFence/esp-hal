@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["L1_ICACHE3_PRELOAD_SIZE_SPEC"],"type":["L1_ICACHE3_PRELOAD_SIZE_R","R"]};

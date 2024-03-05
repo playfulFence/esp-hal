@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RX_FILT_SPEC"],"type":["GLITCH_FILT_EN_R","GLITCH_FILT_EN_W","GLITCH_FILT_R","GLITCH_FILT_W","R","W"]};

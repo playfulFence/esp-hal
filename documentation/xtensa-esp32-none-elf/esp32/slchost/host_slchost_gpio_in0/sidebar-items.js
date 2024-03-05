@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HOST_SLCHOST_GPIO_IN0_SPEC"],"type":["HOST_GPIO_SDIO_IN0_R","R"]};

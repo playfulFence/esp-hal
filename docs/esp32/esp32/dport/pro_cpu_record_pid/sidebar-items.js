@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PRO_CPU_RECORD_PID_SPEC"],"type":["R","RECORD_PRO_PID_R"]};

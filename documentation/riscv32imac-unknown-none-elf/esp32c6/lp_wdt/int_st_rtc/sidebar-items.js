@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["INT_ST_RTC_SPEC"],"type":["R","SUPER_WDT_INT_ST_R","WDT_INT_ST_R"]};

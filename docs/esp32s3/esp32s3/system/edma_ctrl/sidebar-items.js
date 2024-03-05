@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["EDMA_CTRL_SPEC"],"type":["EDMA_CLK_ON_R","EDMA_CLK_ON_W","EDMA_RESET_R","EDMA_RESET_W","R","W"]};

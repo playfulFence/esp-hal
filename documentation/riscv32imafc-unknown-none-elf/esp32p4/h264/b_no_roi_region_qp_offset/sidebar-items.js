@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["B_NO_ROI_REGION_QP_OFFSET_SPEC"],"type":["B_NO_ROI_REGION_QP_R","B_NO_ROI_REGION_QP_W","R","W"]};

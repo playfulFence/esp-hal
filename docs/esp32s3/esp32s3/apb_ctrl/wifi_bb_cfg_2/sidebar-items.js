@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["WIFI_BB_CFG_2_SPEC"],"type":["R","W","WIFI_BB_CFG_2_R","WIFI_BB_CFG_2_W"]};

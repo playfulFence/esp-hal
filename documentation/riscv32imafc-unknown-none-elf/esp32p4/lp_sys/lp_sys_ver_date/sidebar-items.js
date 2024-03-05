@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LP_SYS_VER_DATE_SPEC"],"type":["R","VER_DATE_R","VER_DATE_W","W"]};

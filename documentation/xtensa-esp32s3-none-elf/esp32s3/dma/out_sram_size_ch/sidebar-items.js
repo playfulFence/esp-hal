@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["OUT_SRAM_SIZE_CH_SPEC"],"type":["OUT_SIZE_R","OUT_SIZE_W","R","W"]};

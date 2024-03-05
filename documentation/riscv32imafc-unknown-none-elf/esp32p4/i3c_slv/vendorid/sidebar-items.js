@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["VENDORID_SPEC"],"type":["R","VID_R","VID_W","W"]};

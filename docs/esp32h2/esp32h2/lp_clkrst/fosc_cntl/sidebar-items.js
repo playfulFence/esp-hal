@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FOSC_CNTL_SPEC"],"type":["FOSC_DFREQ_R","FOSC_DFREQ_W","R","W"]};

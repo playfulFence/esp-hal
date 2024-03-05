@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IN_BUF_HB_RCV_CH5_SPEC"],"type":["IN_CMDFIFO_BUF_HB_RCV_CH5_R","R"]};

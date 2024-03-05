@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RX_START_CFG_SPEC"],"type":["R","RX_START_R","RX_START_W","W"]};

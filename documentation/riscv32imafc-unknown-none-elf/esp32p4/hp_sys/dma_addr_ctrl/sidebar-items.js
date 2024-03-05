@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DMA_ADDR_CTRL_SPEC"],"type":["R","REG_SYS_DMA_ADDR_SEL_R","REG_SYS_DMA_ADDR_SEL_W","W"]};

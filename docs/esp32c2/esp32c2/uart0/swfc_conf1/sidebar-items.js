@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SWFC_CONF1_SPEC"],"type":["R","W","XON_CHAR_R","XON_CHAR_W","XON_THRESHOLD_R","XON_THRESHOLD_W"]};

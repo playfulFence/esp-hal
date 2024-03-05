@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["GEN_TSTMP_A_SPEC"],"type":["CMPR_A_R","CMPR_A_W","R","W"]};

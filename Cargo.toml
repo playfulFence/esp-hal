@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members  = ["xtask"]
+exclude  = [
+    "esp-hal",
+    "esp-hal-procmacros",
+    "esp-hal-smartled",
+    "esp-lp-hal",
+    "esp-riscv-rt",
+    "examples",
+]

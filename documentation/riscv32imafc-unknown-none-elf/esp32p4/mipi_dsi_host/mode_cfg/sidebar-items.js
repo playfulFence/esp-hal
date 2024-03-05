@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["MODE_CFG_SPEC"],"type":["CMD_VIDEO_MODE_R","CMD_VIDEO_MODE_W","R","W"]};

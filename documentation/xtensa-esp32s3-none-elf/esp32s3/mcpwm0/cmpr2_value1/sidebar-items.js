@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CMPR2_VALUE1_SPEC"],"type":["CMPR2_B_R","CMPR2_B_W","R","W"]};

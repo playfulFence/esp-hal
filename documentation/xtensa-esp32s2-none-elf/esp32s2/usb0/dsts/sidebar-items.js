@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DSTS_SPEC"],"type":["DEVLNSTS_R","ENUMSPD_R","ERRTICERR_R","R","SOFFN_R","SUSPSTS_R"]};

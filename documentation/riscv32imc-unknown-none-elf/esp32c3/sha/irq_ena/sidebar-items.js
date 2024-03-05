@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IRQ_ENA_SPEC"],"type":["INTERRUPT_ENA_R","INTERRUPT_ENA_W","R","W"]};

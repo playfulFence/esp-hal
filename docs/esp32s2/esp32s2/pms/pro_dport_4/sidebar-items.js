@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["PRO_DPORT_4_SPEC"],"type":["PRO_DPORT_RESERVE_FIFO_2_R","PRO_DPORT_RESERVE_FIFO_2_W","R","W"]};

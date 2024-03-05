@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SPI_CMD_SPEC"],"type":["R","SPI_CONF_BITLEN_R","SPI_CONF_BITLEN_W","SPI_UPDATE_W","SPI_USR_R","SPI_USR_W","W"]};

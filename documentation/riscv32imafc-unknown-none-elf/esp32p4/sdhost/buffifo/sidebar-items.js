@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BUFFIFO_SPEC"],"type":["BUFFIFO_R","BUFFIFO_W","R","W"]};

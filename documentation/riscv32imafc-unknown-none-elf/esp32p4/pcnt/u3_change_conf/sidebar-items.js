@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["U3_CHANGE_CONF_SPEC"],"type":["CNT_STEP_LIM_U3_R","CNT_STEP_LIM_U3_W","CNT_STEP_U3_R","CNT_STEP_U3_W","R","W"]};

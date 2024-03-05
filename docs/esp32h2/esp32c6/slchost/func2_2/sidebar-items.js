@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FUNC2_2_SPEC"],"type":["R","SLC_FUNC1_MDSTAT_R","SLC_FUNC1_MDSTAT_W","W"]};

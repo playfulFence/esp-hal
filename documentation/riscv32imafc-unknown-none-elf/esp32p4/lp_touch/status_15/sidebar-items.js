@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["STATUS_15_SPEC"],"type":["R","SLP_DATA_R","SLP_DEBOUNCE_CNT_R","SLP_NEG_NOISE_CNT_R"]};

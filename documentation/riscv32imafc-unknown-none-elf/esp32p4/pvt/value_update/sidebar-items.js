@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["VALUE_UPDATE_SPEC"],"type":["BYPASS_R","BYPASS_W","R","VALUE_UPDATE_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PRO_MPU_IA_INT_MAP_SPEC"],"type":["PRO_MPU_IA_INT_MAP_R","PRO_MPU_IA_INT_MAP_W","R","W"]};

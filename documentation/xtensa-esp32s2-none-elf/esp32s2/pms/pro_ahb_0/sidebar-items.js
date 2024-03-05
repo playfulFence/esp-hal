@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PRO_AHB_0_SPEC"],"type":["PRO_AHB_LOCK_R","PRO_AHB_LOCK_W","R","W"]};

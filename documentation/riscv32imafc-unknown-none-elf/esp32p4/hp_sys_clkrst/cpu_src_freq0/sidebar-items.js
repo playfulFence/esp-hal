@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CPU_SRC_FREQ0_SPEC"],"type":["CPU_SRC_FREQ_R","R"]};

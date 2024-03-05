@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DIAG0_SPEC"],"type":["LOW_POWER_DIAG1_R","LOW_POWER_DIAG1_W","R","W"]};

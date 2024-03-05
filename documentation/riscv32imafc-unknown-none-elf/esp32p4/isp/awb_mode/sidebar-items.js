@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["AWB_MODE_SPEC"],"type":["AWB_MODE_R","AWB_MODE_W","AWB_SAMPLE_R","AWB_SAMPLE_W","R","W"]};

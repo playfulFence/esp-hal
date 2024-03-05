@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["STORE4_SPEC"],"type":["R","SCRATCH4_R","SCRATCH4_W","W"]};

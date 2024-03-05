@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TRACEMEM_MUX_MODE_SPEC"],"type":["R","TRACEMEM_MUX_MODE_R","TRACEMEM_MUX_MODE_W","W"]};

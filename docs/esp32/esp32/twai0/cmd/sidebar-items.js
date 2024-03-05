@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CMD_SPEC"],"type":["ABORT_TX_W","CLR_OVERRUN_W","RELEASE_BUF_W","SELF_RX_REQ_W","TX_REQ_W","W"]};

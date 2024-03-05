@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SET_LINE_CODE_W1_SPEC"],"type":["BCHAR_FORMAT_R","BDATA_BITS_R","BPARITY_TYPE_R","R"]};

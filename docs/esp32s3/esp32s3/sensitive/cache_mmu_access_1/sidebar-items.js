@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CACHE_MMU_ACCESS_1_SPEC"],"type":["PRO_MMU_RD_ACS_R","PRO_MMU_RD_ACS_W","PRO_MMU_WR_ACS_R","PRO_MMU_WR_ACS_W","R","W"]};

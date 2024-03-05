@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SET_MESSAGE_PAD_SPEC"],"type":["SET_TEXT_PAD_W","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ENSHIFT_SPEC"],"type":["ENABLE_SHIFT_R","ENABLE_SHIFT_W","R","W"]};

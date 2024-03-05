@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PHY_IF_CFG_SPEC"],"type":["N_LANES_R","N_LANES_W","PHY_STOP_WAIT_TIME_R","PHY_STOP_WAIT_TIME_W","R","W"]};

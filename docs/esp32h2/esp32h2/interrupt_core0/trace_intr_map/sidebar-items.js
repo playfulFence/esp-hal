@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TRACE_INTR_MAP_SPEC"],"type":["R","TRACE_INTR_MAP_R","TRACE_INTR_MAP_W","W"]};

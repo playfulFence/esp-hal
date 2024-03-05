@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["L2_CACHE_PRELOAD_RST_CTRL_SPEC"],"type":["L2_CACHE_PLD_RST_R","L2_CACHE_PLD_RST_W","R","W"]};

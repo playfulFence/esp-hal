@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BF_GAU1_SPEC"],"type":["GAU_TEMPLATE22_R","GAU_TEMPLATE22_W","R","W"]};

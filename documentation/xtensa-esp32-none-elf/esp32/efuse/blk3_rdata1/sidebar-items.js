@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BLK3_RDATA1_SPEC"],"type":["R","RD_CUSTOM_MAC_1_R","RESERVED_3_56_R"]};

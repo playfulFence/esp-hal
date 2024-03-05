@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RDN_RESULT_SPEC"],"type":["R","RDN_ENA_R","RDN_ENA_W","RDN_RESULT_R","W"]};

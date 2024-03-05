@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["endian","idle","key","mode","start","text"],"struct":["RegisterBlock"],"type":["ENDIAN","IDLE","KEY","MODE","START","TEXT"]};

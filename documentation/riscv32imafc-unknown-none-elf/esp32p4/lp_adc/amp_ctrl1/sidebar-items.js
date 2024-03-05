@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["AMP_CTRL1_SPEC"],"type":["R","SAR_AMP_WAIT1_R","SAR_AMP_WAIT1_W","SAR_AMP_WAIT2_R","SAR_AMP_WAIT2_W","W"]};

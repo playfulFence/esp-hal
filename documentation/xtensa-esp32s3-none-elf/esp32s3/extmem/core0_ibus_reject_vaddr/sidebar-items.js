@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CORE0_IBUS_REJECT_VADDR_SPEC"],"type":["CORE0_IBUS_VADDR_R","R"]};

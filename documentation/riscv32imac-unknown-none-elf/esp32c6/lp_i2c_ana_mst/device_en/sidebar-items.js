@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DEVICE_EN_SPEC"],"type":["LP_I2C_ANA_MAST_I2C_DEVICE_EN_R","LP_I2C_ANA_MAST_I2C_DEVICE_EN_W","R","W"]};

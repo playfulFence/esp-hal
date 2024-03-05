@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["ECC_ERR_BIT_SPEC"],"type":["ECC_BYTE_ERR_R","ECC_CHK_ERR_BIT_R","ECC_DATA_ERR_BIT_R","ECC_ERR_CNT_R","R"]};

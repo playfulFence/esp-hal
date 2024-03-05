@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["WDTFEED_SPEC"],"type":["R","W","WDT_FEED_R","WDT_FEED_W"]};

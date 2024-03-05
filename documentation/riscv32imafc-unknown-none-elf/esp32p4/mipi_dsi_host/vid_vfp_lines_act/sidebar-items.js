@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["VID_VFP_LINES_ACT_SPEC"],"type":["R","VFP_LINES_ACT_R"]};

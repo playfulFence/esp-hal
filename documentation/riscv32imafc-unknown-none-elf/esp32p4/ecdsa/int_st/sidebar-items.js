@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["INT_ST_SPEC"],"type":["CALC_DONE_INT_ST_R","R","SHA_RELEASE_INT_ST_R"]};

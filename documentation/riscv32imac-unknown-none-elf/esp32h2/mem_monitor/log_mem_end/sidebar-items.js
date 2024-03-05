@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LOG_MEM_END_SPEC"],"type":["LOG_MEM_END_R","LOG_MEM_END_W","R","W"]};

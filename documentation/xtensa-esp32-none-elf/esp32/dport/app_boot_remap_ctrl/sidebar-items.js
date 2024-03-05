@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["APP_BOOT_REMAP_CTRL_SPEC"],"type":["APP_BOOT_REMAP_R","APP_BOOT_REMAP_W","R","W"]};

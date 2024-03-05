@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SCRAMBLING_SPEC"],"type":["R","SCRAMBLE_ENABLE_R","SCRAMBLE_ENABLE_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DBI_CFG_SPEC"],"type":["IN_DBI_CONF_R","IN_DBI_CONF_W","LUT_SIZE_CONF_R","LUT_SIZE_CONF_W","OUT_DBI_CONF_R","OUT_DBI_CONF_W","R","W"]};

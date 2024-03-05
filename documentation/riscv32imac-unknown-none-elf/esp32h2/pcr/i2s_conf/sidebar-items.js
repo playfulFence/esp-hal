@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["I2S_CONF_SPEC"],"type":["I2S_CLK_EN_R","I2S_CLK_EN_W","I2S_RST_EN_R","I2S_RST_EN_W","I2S_RX_READY_R","I2S_TX_READY_R","R","W"]};

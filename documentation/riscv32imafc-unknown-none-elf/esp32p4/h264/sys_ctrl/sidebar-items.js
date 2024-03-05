@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SYS_CTRL_SPEC"],"type":["DMA_MOVE_START_W","FRAME_MODE_R","FRAME_MODE_W","FRAME_START_W","R","SYS_RST_PULSE_W","W"]};

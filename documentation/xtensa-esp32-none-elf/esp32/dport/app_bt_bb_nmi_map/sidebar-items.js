@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["APP_BT_BB_NMI_MAP_SPEC"],"type":["APP_BT_BB_NMI_MAP_R","APP_BT_BB_NMI_MAP_W","R","W"]};

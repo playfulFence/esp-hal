@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CAP_TIMER_PHASE_SPEC"],"type":["CAP_PHASE_R","CAP_PHASE_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BACKUP_CFG_SPEC"],"type":["BACKUP_SYS_CLK_NO_DIV_R","BACKUP_SYS_CLK_NO_DIV_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["INT_ENA_SPEC"],"type":["LP_WDT_INT_ENA_R","LP_WDT_INT_ENA_W","R","SUPER_WDT_INT_ENA_R","SUPER_WDT_INT_ENA_W","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BUF_FLOW_CTL_SPEC"],"type":["CSI_BUF_AFULL_THRD_R","CSI_BUF_AFULL_THRD_W","CSI_BUF_DEPTH_R","R","W"]};

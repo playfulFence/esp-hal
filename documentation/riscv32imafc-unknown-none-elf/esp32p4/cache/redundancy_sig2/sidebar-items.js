@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["REDUNDANCY_SIG2_SPEC"],"type":["R","REDCY_SIG2_R","REDCY_SIG2_W","W"]};

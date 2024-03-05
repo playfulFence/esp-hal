@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EXT_WAKEUP_CONF_SPEC"],"type":["GPIO_WAKEUP_FILTER_R","GPIO_WAKEUP_FILTER_W","R","W"]};

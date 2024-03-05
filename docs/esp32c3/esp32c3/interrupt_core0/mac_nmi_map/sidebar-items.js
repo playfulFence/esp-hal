@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["MAC_NMI_MAP_SPEC"],"type":["MAC_NMI_MAP_R","MAC_NMI_MAP_W","R","W"]};

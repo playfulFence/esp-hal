@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["TO_CNT_CFG_SPEC"],"type":["HSTX_TO_CNT_R","HSTX_TO_CNT_W","LPRX_TO_CNT_R","LPRX_TO_CNT_W","R","W"]};

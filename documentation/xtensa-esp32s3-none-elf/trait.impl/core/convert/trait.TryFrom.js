@@ -1,5 +1,0 @@
-(function() {var implementors = {
-"fugit":[["impl&lt;const NOM: u32, const DENOM: u32&gt; TryFrom&lt;<a class=\"struct\" href=\"fugit/struct.Duration.html\" title=\"struct fugit::Duration\">Duration</a>&lt;u64, NOM, DENOM&gt;&gt; for <a class=\"struct\" href=\"fugit/struct.Duration.html\" title=\"struct fugit::Duration\">Duration</a>&lt;u32, NOM, DENOM&gt;"],["impl&lt;const NOM: u32, const DENOM: u32&gt; TryFrom&lt;<a class=\"struct\" href=\"fugit/struct.Rate.html\" title=\"struct fugit::Rate\">Rate</a>&lt;u64, NOM, DENOM&gt;&gt; for <a class=\"struct\" href=\"fugit/struct.Rate.html\" title=\"struct fugit::Rate\">Rate</a>&lt;u32, NOM, DENOM&gt;"]],
-"heapless":[["impl&lt;'a, T: Clone, const N: usize&gt; TryFrom&lt;&amp;'a [T]&gt; for <a class=\"struct\" href=\"heapless/struct.Vec.html\" title=\"struct heapless::Vec\">Vec</a>&lt;T, N&gt;"]],
-"usb_device":[["impl TryFrom&lt;u16&gt; for <a class=\"enum\" href=\"usb_device/descriptor/lang_id/enum.LangID.html\" title=\"enum usb_device::descriptor::lang_id::LangID\">LangID</a>"]]
-};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

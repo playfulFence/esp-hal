@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BYTCNT_SPEC"],"type":["BYTE_COUNT_R","BYTE_COUNT_W","R","W"]};

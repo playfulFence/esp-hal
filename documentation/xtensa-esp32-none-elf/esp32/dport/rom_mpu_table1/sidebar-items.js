@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["ROM_MPU_TABLE1_SPEC"],"type":["R","ROM_MPU_TABLE1_R","ROM_MPU_TABLE1_W","W"]};

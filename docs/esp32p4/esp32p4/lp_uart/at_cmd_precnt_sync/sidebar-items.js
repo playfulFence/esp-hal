@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["AT_CMD_PRECNT_SYNC_SPEC"],"type":["PRE_IDLE_NUM_R","PRE_IDLE_NUM_W","R","W"]};

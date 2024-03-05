@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SpiDma","SpiDmaTransferRx","SpiDmaTransferRxTx","SpiDmaTransferTx"],"trait":["WithDmaSpi2"]};

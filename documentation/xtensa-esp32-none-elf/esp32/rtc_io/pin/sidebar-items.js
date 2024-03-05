@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PIN_SPEC"],"type":["INT_TYPE_R","INT_TYPE_W","PAD_DRIVER_R","PAD_DRIVER_W","R","W","WAKEUP_ENABLE_R","WAKEUP_ENABLE_W"]};

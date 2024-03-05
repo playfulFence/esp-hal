@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DMA_RAW_DATA_SPEC"],"type":["DMA_RAW_NUM_TOTAL_R","DMA_RAW_NUM_TOTAL_SET_W","DMA_RAW_NUM_TOTAL_W","R","W"]};

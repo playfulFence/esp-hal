@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["L1_CACHE_ACS_FAIL_ID_ATTR_SPEC"],"type":["L1_CACHE_FAIL_ATTR_R","L1_CACHE_FAIL_ID_R","R"]};

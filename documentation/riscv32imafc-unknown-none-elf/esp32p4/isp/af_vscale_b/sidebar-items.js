@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["AF_VSCALE_B_SPEC"],"type":["AF_BPOINT_B_R","AF_BPOINT_B_W","AF_TPOINT_B_R","AF_TPOINT_B_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SPI_MEM_TX_CRC_SPEC"],"type":["DATA_R","R"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RX_MEM_CONF_SPEC"],"type":["R","RX_MEM_FIFO_CNT_R","RX_MEM_THRESHOLD_R","RX_MEM_THRESHOLD_W","W"]};

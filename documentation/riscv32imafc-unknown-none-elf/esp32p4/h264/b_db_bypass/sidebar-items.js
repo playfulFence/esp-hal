@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["B_DB_BYPASS_SPEC"],"type":["B_BYPASS_DB_FILTER_R","B_BYPASS_DB_FILTER_W","R","W"]};

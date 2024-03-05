@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EXT_WAKEUP_LV_SPEC"],"type":["EXT_WAKEUP_LV_R","EXT_WAKEUP_LV_W","R","W"]};

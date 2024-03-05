@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CORE_0_RCD_PDEBUGLS0STAT_SPEC"],"type":["CORE_0_RCD_PDEBUGLS0STAT_R","R"]};

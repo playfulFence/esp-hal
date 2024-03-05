@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["INT_ST_SPEC"],"type":["PAD_COMP_INT_ST_R","R"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CpuClock","XtalClock"],"struct":["ClockControl","Clocks"],"trait":["Clock"]};

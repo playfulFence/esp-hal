@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["POSPULSE_SPEC"],"type":["POSEDGE_MIN_CNT_R","R"]};

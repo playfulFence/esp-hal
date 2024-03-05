@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HIST_BIN7_SPEC"],"type":["HIST_BIN_7_R","R"]};

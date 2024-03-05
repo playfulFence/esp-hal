@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RS485_CONF_SPEC"],"type":["DL0_EN_R","DL0_EN_W","DL1_EN_R","DL1_EN_W","R","W"]};

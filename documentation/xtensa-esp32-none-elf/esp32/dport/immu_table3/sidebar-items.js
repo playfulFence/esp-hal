@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IMMU_TABLE3_SPEC"],"type":["IMMU_TABLE3_R","IMMU_TABLE3_W","R","W"]};

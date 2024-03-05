@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SDIO_CRC_ST1_SPEC"],"type":["CMD_CRC_ERR_CNT_R","ERR_CNT_CLR_R","ERR_CNT_CLR_W","R","W"]};

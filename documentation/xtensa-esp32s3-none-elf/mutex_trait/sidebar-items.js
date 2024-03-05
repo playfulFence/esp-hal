@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["prelude"],"struct":["Exclusive"],"trait":["Mutex"]};

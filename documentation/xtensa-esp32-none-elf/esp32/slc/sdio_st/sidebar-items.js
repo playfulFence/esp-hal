@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SDIO_ST_SPEC"],"type":["BUS_ST_R","CMD_ST_R","FUNC1_ACC_STATE_R","FUNC2_ACC_STATE_R","FUNC_ST_R","R","SDIO_WAKEUP_R"]};

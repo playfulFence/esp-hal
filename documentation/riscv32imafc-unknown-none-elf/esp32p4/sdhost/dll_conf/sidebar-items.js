@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DLL_CONF_SPEC"],"type":["DLL_CAL_END_R","DLL_CAL_STOP_R","DLL_CAL_STOP_W","R","W"]};

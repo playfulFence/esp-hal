@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LP_ANA_TOUCH_PAD6_TH2_SPEC"],"type":["LP_ANA_TOUCH_PAD6_TH2_R","LP_ANA_TOUCH_PAD6_TH2_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CORE_1_NMI_MASK_DISABLE_SPEC"],"type":["CORE_1_NMI_MASK_DISABLE_W","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["M12_MODE_CTRL_SPEC"],"type":["M12_MODE_R","M12_MODE_W","R","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["STATUS2_SPEC"],"type":["LAST_BLOCK_R","LAST_DC_R","LAST_MCU_R","PACKFIFO_READY_R","R","SOURCE_PIXEL_R"]};

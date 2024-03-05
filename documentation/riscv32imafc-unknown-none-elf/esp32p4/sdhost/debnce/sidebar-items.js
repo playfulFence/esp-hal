@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DEBNCE_SPEC"],"type":["DEBOUNCE_COUNT_R","DEBOUNCE_COUNT_W","R","W"]};

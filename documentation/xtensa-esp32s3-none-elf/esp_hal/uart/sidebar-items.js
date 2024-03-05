@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["Error"],"mod":["config"],"struct":["AllPins","TxRxPins","Uart","UartRx","UartTx"],"trait":["Instance","UartPins"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["EMMCDDR_SPEC"],"type":["HALFSTARTBIT_R","HALFSTARTBIT_W","HS400_MODE_R","HS400_MODE_W","R","W"]};

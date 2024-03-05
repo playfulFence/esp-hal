@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["WRTPRT_SPEC"],"type":["R","WRITE_PROTECT_R"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["BaudRate","EspTwaiError"],"mod":["filter"],"struct":["EspTwaiFrame","TimingConfig","Twai","TwaiConfiguration"],"trait":["Instance"]};

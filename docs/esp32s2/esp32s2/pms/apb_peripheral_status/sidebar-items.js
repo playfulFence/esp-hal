@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["APB_PERIPHERAL_STATUS_SPEC"],"type":["APB_PERI_BYTE_ERROR_ADDR_R","R"]};

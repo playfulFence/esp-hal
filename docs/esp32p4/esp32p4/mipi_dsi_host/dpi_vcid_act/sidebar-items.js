@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["DPI_VCID_ACT_SPEC"],"type":["DPI_VCID_ACT_R","R"]};

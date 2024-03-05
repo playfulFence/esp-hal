@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["FRAM_NUM_SPEC"],"type":["R","SOF_FRAME_INDEX_R"]};

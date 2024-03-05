@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CH2_STATUS0_SPEC"],"type":["CH2_CMPLTD_BLK_TFR_SIZE_R","R"]};

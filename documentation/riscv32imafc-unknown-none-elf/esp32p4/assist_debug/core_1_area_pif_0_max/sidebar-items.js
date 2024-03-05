@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CORE_1_AREA_PIF_0_MAX_SPEC"],"type":["CORE_1_AREA_PIF_0_MAX_R","CORE_1_AREA_PIF_0_MAX_W","R","W"]};

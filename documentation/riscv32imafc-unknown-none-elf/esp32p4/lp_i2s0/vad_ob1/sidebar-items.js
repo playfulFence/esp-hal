@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["VAD_OB1_SPEC"],"type":["MAX_SIGNAL1_OB_R","MAX_SIGNAL2_OB_R","R"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CALI_SPEC"],"type":["APB_SARADC_CALI_CFG_R","APB_SARADC_CALI_CFG_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["WDTFEED_SPEC"],"type":["W","WDT_FEED_W"]};

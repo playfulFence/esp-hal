@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["ULP_CP_TIMER_1_SPEC"],"type":["R","ULP_CP_TIMER_SLP_CYCLE_R","ULP_CP_TIMER_SLP_CYCLE_W","W"]};

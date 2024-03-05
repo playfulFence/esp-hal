@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CPU_INTR_FROM_CPU_1_SPEC"],"type":["CPU_INTR_FROM_CPU_1_R","CPU_INTR_FROM_CPU_1_W","R","W"]};

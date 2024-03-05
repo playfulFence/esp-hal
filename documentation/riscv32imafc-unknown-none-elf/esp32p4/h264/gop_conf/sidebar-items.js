@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["GOP_CONF_SPEC"],"type":["DUAL_STREAM_MODE_R","DUAL_STREAM_MODE_W","GOP_NUM_R","GOP_NUM_W","R","W"]};

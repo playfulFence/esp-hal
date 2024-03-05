@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Error","SpiDataMode","SpiMode"],"mod":["master"],"struct":["FullDuplexMode","HalfDuplexMode"],"trait":["DuplexMode","IsFullDuplex","IsHalfDuplex"]};

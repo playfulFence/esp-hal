@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BLEND_TX_SIZE_SPEC"],"type":["BLEND_HB_R","BLEND_HB_W","BLEND_VB_R","BLEND_VB_W","R","W"]};

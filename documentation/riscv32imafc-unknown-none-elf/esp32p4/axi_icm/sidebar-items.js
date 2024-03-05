@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["cmd","data","hw_cfg","verid_fileds"],"struct":["RegisterBlock"],"type":["CMD","DATA","HW_CFG","VERID_FILEDS"]};

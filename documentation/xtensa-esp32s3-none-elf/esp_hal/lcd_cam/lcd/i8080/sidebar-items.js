@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["Command"],"struct":["Config","I8080","Transfer","TxEightBits","TxSixteenBits"]};

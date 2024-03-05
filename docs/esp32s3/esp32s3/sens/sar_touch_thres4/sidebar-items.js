@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SAR_TOUCH_THRES4_SPEC"],"type":["R","SAR_TOUCH_OUT_TH4_R","SAR_TOUCH_OUT_TH4_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LP_ANA_LP_INT_ST_SPEC"],"type":["LP_ANA_BOD_MODE0_LP_INT_ST_R","R"]};

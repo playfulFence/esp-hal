@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LP_PMU_RDN_ECO_LOW_SPEC"],"type":["PMU_RDN_ECO_LOW_R","PMU_RDN_ECO_LOW_W","R","W"]};

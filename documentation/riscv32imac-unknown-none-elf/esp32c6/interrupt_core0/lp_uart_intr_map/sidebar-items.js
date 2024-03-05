@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LP_UART_INTR_MAP_SPEC"],"type":["LP_UART_INTR_MAP_R","LP_UART_INTR_MAP_W","R","W"]};

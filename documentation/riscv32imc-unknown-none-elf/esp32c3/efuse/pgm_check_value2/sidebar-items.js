@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PGM_CHECK_VALUE2_SPEC"],"type":["PGM_RS_DATA_2_R","PGM_RS_DATA_2_W","R","W"]};

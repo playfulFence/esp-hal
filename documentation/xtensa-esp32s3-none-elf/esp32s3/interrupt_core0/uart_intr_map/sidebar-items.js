@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["UART_INTR_MAP_SPEC"],"type":["R","UART_INTR_MAP_R","UART_INTR_MAP_W","W"]};

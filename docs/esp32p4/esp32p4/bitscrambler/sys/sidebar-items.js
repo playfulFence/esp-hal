@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SYS_SPEC"],"type":["CLK_EN_R","CLK_EN_W","LOOP_MODE_R","LOOP_MODE_W","R","W"]};

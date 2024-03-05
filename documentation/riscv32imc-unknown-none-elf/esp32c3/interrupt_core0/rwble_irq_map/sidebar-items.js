@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RWBLE_IRQ_MAP_SPEC"],"type":["R","RWBLE_IRQ_MAP_R","RWBLE_IRQ_MAP_W","W"]};

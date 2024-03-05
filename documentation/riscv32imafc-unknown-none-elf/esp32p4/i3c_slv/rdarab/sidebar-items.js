@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["RDARAB_SPEC"],"type":["DATA0_R","R"]};

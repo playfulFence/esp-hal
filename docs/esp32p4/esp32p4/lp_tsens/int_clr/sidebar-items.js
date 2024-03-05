@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["INT_CLR_SPEC"],"type":["COCPU_TSENS_WAKE_INT_CLR_W","W"]};

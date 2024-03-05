@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["PIN_CTRL_SPEC"],"type":["CLK_OUT1_R","CLK_OUT1_W","CLK_OUT2_R","CLK_OUT2_W","CLK_OUT3_R","CLK_OUT3_W","R","W"]};

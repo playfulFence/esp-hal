@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["INT_CLR_SPEC"],"type":["POST_DONE_INT_CLR_W","PREP_DONE_INT_CLR_W","PROC_DONE_INT_CLR_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IN_DSCR_CH2_SPEC"],"type":["INLINK_DSCR_R","R"]};

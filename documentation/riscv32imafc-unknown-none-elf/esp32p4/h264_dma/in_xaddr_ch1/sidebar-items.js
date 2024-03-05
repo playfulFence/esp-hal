@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IN_XADDR_CH1_SPEC"],"type":["IN_CMDFIFO_XADDR_CH1_R","R"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BOOT_ADDR_HP_LP_SPEC"],"type":["BOOT_ADDR_HP_LP_R","BOOT_ADDR_HP_LP_W","R","W"]};

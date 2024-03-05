@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CLK_CONF_SPEC"],"type":["R","RX_RST_CORE_R","RX_RST_CORE_W","RX_SCLK_EN_R","RX_SCLK_EN_W","TX_RST_CORE_R","TX_RST_CORE_W","TX_SCLK_EN_R","TX_SCLK_EN_W","W"]};

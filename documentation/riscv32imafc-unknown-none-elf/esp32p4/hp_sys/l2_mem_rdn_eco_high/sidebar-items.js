@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["L2_MEM_RDN_ECO_HIGH_SPEC"],"type":["R","REG_L2_MEM_RDN_ECO_HIGH_R","REG_L2_MEM_RDN_ECO_HIGH_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DPA_CTRL0_SPEC"],"type":["R","SEC_DPA_CFG_SEL_R","SEC_DPA_CFG_SEL_W","SEC_DPA_LEVEL_R","SEC_DPA_LEVEL_W","W"]};

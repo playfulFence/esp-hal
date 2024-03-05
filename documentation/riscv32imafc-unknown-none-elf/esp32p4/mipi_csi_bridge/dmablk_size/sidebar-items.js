@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DMABLK_SIZE_SPEC"],"type":["DMABLK_SIZE_R","DMABLK_SIZE_W","R","W"]};

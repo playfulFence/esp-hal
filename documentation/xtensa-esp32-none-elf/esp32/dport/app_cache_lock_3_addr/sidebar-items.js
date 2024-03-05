@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["APP_CACHE_LOCK_3_ADDR_SPEC"],"type":["MAX_R","MAX_W","MIN_R","MIN_W","PRE_R","PRE_W","R","W"]};

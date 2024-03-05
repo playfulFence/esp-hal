@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["GDMA_CONF_SPEC"],"type":["GDMA_CLK_EN_R","GDMA_CLK_EN_W","GDMA_RST_EN_R","GDMA_RST_EN_W","R","W"]};

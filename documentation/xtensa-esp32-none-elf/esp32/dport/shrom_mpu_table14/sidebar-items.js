@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SHROM_MPU_TABLE14_SPEC"],"type":["R","SHROM_MPU_TABLE14_R","SHROM_MPU_TABLE14_W","W"]};

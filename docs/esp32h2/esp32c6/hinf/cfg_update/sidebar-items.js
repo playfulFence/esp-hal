@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CFG_UPDATE_SPEC"],"type":["CONF_UPDATE_W","W"]};

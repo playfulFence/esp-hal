@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["MAC_DUMP_1_SPEC"],"type":["MAC_DUMP_CONNECT_R","MAC_DUMP_CONNECT_W","R","W"]};

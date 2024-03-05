@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LP_ANA_TOUCH_PAD3_TH1_SPEC"],"type":["LP_ANA_TOUCH_PAD3_TH1_R","LP_ANA_TOUCH_PAD3_TH1_W","R","W"]};

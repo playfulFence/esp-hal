@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CACHE_ACS_CNT_CLR_SPEC"],"type":["DCACHE_ACS_CNT_CLR_W","ICACHE_ACS_CNT_CLR_W","W"]};

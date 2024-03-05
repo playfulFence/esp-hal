@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CMD12_SPEC"],"type":["COMMAND12_DONE_R","COMMAND12_R","COMMAND12_W","R","W"]};

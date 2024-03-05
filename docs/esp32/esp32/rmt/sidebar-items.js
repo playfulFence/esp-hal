@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["apb_conf","ch_tx_lim","chaddr","chcarrier_duty","chconf0","chconf1","chdata","chstatus","date","int_clr","int_ena","int_raw","int_st"],"struct":["RegisterBlock"],"type":["APB_CONF","CHADDR","CHCARRIER_DUTY","CHCONF0","CHCONF1","CHDATA","CHSTATUS","CH_TX_LIM","DATE","INT_CLR","INT_ENA","INT_RAW","INT_ST"]};

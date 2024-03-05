@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["BLK7_W8_SPEC"],"type":["BLOCK7_W8_R","R"]};

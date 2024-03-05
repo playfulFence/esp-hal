@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["IMM_HP_APB_ICG_SPEC"],"type":["UPDATE_DIG_ICG_APB_EN_W","W"]};

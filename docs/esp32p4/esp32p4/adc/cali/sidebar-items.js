@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CALI_SPEC"],"type":["CFG_R","CFG_W","R","W"]};

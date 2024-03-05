@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["CPU_FREQ_CONF_SPEC"],"type":["CPU_DIV_NUM_R","CPU_DIV_NUM_W","R","W"]};

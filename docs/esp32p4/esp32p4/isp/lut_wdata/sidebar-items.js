@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["LUT_WDATA_SPEC"],"type":["LUT_WDATA_R","LUT_WDATA_W","R","W"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RTC_GPIO_STATUS_W1TC_SPEC"],"type":["RTC_GPIO_STATUS_INT_W1TC_W","W"]};

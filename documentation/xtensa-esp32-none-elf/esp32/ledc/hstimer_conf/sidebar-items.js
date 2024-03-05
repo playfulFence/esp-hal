@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HSTIMER_CONF_SPEC"],"type":["DIV_NUM_R","DIV_NUM_W","DUTY_RES_R","DUTY_RES_W","PAUSE_R","PAUSE_W","R","RST_R","RST_W","TICK_SEL_R","TICK_SEL_W","W"]};

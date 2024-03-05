@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["GMAC_CTRL1_SPEC"],"type":["PTP_TIMESTAMP_L_R","R"]};

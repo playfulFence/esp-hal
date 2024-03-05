@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["SIGMADELTA_SPEC"],"type":["R","SD_IN_R","SD_IN_W","SD_PRESCALE_R","SD_PRESCALE_W","W"]};

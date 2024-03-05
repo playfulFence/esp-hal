@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["HP_CK_POWERON_SPEC"],"type":["I2C_POR_WAIT_TARGET_R","I2C_POR_WAIT_TARGET_W","R","W"]};

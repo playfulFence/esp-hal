@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SCL_START_PERIOD_SPEC"],"type":["R","SCL_START_PERIOD_R","SCL_START_PERIOD_W","W"]};

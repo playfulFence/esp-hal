@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["DPI_CONFIG_UPDATE_SPEC"],"type":["DPI_CONFIG_UPDATE_W","W"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["ETM_CONF_SPEC"],"type":["ETM_CLK_EN_R","ETM_CLK_EN_W","ETM_RST_EN_R","ETM_RST_EN_W","R","W"]};

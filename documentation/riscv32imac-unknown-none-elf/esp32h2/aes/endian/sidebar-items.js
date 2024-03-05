@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["ENDIAN_SPEC"],"type":["ENDIAN_R","ENDIAN_W","R","W"]};

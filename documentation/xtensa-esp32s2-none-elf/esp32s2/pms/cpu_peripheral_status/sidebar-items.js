@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CPU_PERIPHERAL_STATUS_SPEC"],"type":["CPU_PERI_BYTE_ERROR_ADDR_R","R"]};

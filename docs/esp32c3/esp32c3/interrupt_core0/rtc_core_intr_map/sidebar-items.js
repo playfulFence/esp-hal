@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["RTC_CORE_INTR_MAP_SPEC"],"type":["R","RTC_CORE_INTR_MAP_R","RTC_CORE_INTR_MAP_W","W"]};

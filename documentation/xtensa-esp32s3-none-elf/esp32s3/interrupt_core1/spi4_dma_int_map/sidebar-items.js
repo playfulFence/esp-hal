@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SPI4_DMA_INT_MAP_SPEC"],"type":["R","SPI4_DMA_INT_MAP_R","SPI4_DMA_INT_MAP_W","W"]};

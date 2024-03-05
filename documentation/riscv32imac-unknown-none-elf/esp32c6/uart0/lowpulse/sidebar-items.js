@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["LOWPULSE_SPEC"],"type":["MIN_CNT_R","R"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["COMD4_SPEC"],"type":["COMMAND4_DONE_R","COMMAND4_DONE_W","COMMAND4_R","COMMAND4_W","R","W"]};

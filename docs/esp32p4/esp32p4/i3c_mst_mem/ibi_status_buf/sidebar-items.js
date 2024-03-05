@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["IBI_STATUS_BUF_SPEC"],"type":["DATA_LENGTH_R","IBI_ID_R","IBI_STS_R","R"]};

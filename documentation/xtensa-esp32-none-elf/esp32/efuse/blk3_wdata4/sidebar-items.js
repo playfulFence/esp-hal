@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["BLK3_WDATA4_SPEC"],"type":["R","SECURE_VERSION_R"]};

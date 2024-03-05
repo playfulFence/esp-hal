@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["CFG0_SPEC"],"type":["DMAC_EN_R","DMAC_EN_W","INT_EN_R","INT_EN_W","R","W"]};

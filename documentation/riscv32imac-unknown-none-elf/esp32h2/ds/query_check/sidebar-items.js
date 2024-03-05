@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["QUERY_CHECK_SPEC"],"type":["MD_ERROR_R","PADDING_BAD_R","R"]};

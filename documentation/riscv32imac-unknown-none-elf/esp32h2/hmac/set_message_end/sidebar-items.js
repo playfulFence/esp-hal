@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["SET_MESSAGE_END_SPEC"],"type":["SET_TEXT_END_W","W"]};
