@@ -7,6 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <style>
+    * {
+        box-sizing: border-box;
+    }
     body {
         background-color: rgb(53, 53, 53);
         font-family: 'Fira Sans', sans-serif;
@@ -17,7 +20,7 @@
         height: 100vh;
         width:  100vw;
         justify-content: center;
-        box-sizing: border-box;
+        align-items: center;
     }
     .logo {
         text-align: center;
@@ -32,12 +35,22 @@
     }
     .content {
         width: 900px;
+        max-width: 100%;
+        max-height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .crate-container {
+        flex: 1;
+        overflow: auto;
+        min-height: 300px;
     }
     .crate {
         display: flex;
         align-items: center;
         padding: 10px;
         border-bottom: 2px solid #454444;
+        gap: 10px;
     }
     .crate-description {
         flex: 1;
@@ -62,12 +75,6 @@
         text-align: center;
         width: 120px;
     }
-
-    @media screen and (min-height: 650px) {
-        body {
-            align-items: center;
-        }
-    }
 </style>
 </head>
 <body>
@@ -79,52 +86,55 @@
         <img src="esp-rs.svg" alt="esp-rs logo">
         <div>esp-rs docs</div>
     </div>
-    <!-- Crate entry -->
-    <div class="crate">
-        <span class="crate-name"><a href="docs/esp32/esp_hal/index.html">esp32</a></span>
-        <span class="crate-description">Crate esp-hal (targeting ESP32)</span>
-        <span class="crate-version">0.18.0</span> 
-    </div>
 
-    <div class="crate">
-        <span class="crate-name"><a href="docs/esp32c2/esp_hal/index.html">esp32c2</a></span>
-        <span class="crate-description">Crate esp-hal (targeting ESP32-C2)</span>
-        <span class="crate-version">0.13.0</span> 
-    </div>
-
-    <div class="crate">
-        <span class="crate-name"><a href="docs/esp32c3/esp_hal/index.html">esp32c3</a></span>
-        <span class="crate-description">Crate esp-hal (targeting ESP32-C3)</span>
-        <span class="crate-version">0.15.0</span> 
-    </div>
-
-    <div class="crate">
-        <span class="crate-name"><a href="docs/esp32c6/esp_hal/index.html">esp32c6</a></span>
-        <span class="crate-description">Crate esp-hal (targeting ESP32-C6)</span>
-        <span class="crate-version">0.8.0</span> 
-    </div>
-
-    <div class="crate">
-        <span class="crate-name"><a href="docs/esp32h2/esp_hal/index.html">esp32h2</a></span>
-        <span class="crate-description">Crate esp-hal (targeting ESP32-H2)</span>
-        <span class="crate-version">0.6.0</span> 
-    </div>
-
-    <div class="crate">
-        <span class="crate-name"><a href="docs/esp32p4/esp_hal/index.html">esp32p4</a></span>
-        <span class="crate-description">Work in progress...</span>
-        <span class="crate-version">-</span> 
-    </div>
-    <div class="crate">
-        <span class="crate-name"><a href="docs/esp32s2/esp_hal/index.html">esp32s2</a></span>
-        <span class="crate-description">Crate esp-hal (targeting ESP32-S2)</span>
-        <span class="crate-version">0.15.0</span> 
-    </div>
-
-    <div class="crate">
-        <span class="crate-name"><a href="docs/esp32s3/esp_hal/index.html">esp32s3</a></span>
-        <span class="crate-description">Crate esp-hal (targeting ESP32-S3)</span>
-        <span class="crate-version">0.15.0</span> 
+    <!-- Crates -->
+    <div class="crate-container">
+        <div class="crate">
+            <span class="crate-name"><a href="docs/esp32/esp_hal/index.html">esp32</a></span>
+            <span class="crate-description">Crate esp-hal (targeting ESP32)</span>
+            <span class="crate-version">0.18.0</span> 
+        </div>
+    
+        <div class="crate">
+            <span class="crate-name"><a href="docs/esp32c2/esp_hal/index.html">esp32c2</a></span>
+            <span class="crate-description">Crate esp-hal (targeting ESP32-C2)</span>
+            <span class="crate-version">0.13.0</span> 
+        </div>
+    
+        <div class="crate">
+            <span class="crate-name"><a href="docs/esp32c3/esp_hal/index.html">esp32c3</a></span>
+            <span class="crate-description">Crate esp-hal (targeting ESP32-C3)</span>
+            <span class="crate-version">0.15.0</span> 
+        </div>
+    
+        <div class="crate">
+            <span class="crate-name"><a href="docs/esp32c6/esp_hal/index.html">esp32c6</a></span>
+            <span class="crate-description">Crate esp-hal (targeting ESP32-C6)</span>
+            <span class="crate-version">0.8.0</span> 
+        </div>
+    
+        <div class="crate">
+            <span class="crate-name"><a href="docs/esp32h2/esp_hal/index.html">esp32h2</a></span>
+            <span class="crate-description">Crate esp-hal (targeting ESP32-H2)</span>
+            <span class="crate-version">0.6.0</span> 
+        </div>
+    
+        <div class="crate">
+            <span class="crate-name"><a href="docs/esp32p4/esp_hal/index.html">esp32p4</a></span>
+            <span class="crate-description">Work in progress...</span>
+            <span class="crate-version">-</span> 
+        </div>
+        <div class="crate">
+            <span class="crate-name"><a href="docs/esp32s2/esp_hal/index.html">esp32s2</a></span>
+            <span class="crate-description">Crate esp-hal (targeting ESP32-S2)</span>
+            <span class="crate-version">0.15.0</span> 
+        </div>
+    
+        <div class="crate">
+            <span class="crate-name"><a href="docs/esp32s3/esp_hal/index.html">esp32s3</a></span>
+            <span class="crate-description">Crate esp-hal (targeting ESP32-S3)</span>
+            <span class="crate-version">0.15.0</span> 
+        </div>
     </div>
 </div>
 
