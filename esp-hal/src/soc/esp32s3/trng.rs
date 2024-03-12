@@ -63,6 +63,8 @@ const ADC_SARADC_ENT_RTC_ADDR_LSB: u32 = 3;
 const ADC_SARADC_DTEST_RTC_ADDR: u32 = 0x7;
 const ADC_SARADC_DTEST_RTC_ADDR_MSB: u32 = 1;
 const ADC_SARADC_DTEST_RTC_ADDR_LSB: u32 = 0;
+const SYSTEM_PERIP_RST_EN0_REG: u32 = DR_REG_SYSTEM_BASE + 0x20;
+const SYSTEM_APB_SARADC_RST: u32 = 1 << 28;
 
 use crate::regi2c_write_mask;
 
@@ -179,6 +181,25 @@ pub(crate) fn ensure_randomness() {
     regi2c_write_mask!(I2C_SAR_ADC, ADC_SARADC_ENT_RTC_ADDR, 1);
 
     regi2c_write_mask!(I2C_SAR_ADC, ADC_SARADC_DTEST_RTC_ADDR, 1);
+}
+
+pub fn revert_trng()
+{
+    regi2c_write_mask!(I2C_SAR_ADC, ADC_SARADC_ENCAL_REF_ADDR, 0);
+
+    regi2c_write_mask!(I2C_SAR_ADC, ADC_SARADC_ENT_TSENS_ADDR, 0);
+
+    regi2c_write_mask!(I2C_SAR_ADC, ADC_SARADC_ENT_RTC_ADDR, 0);
+
+    regi2c_write_mask!(I2C_SAR_ADC, ADC_SARADC_DTEST_RTC_ADDR, 0);
+
+    reg_set_field(SENS_SAR_POWER_XPD_SAR_REG, SENS_FORCE_XPD_SAR_V, SENS_FORCE_XPD_SAR_S, 0);
+
+    clear_peri_reg_mask(APB_SARADC_CTRL2_REG, APB_SARADC_TIMER_EN);
+
+    clear_peri_reg_mask(SYSTEM_PERIP_CLK_EN0_REG, APB_SARADC_CLK_EN);
+
+    set_peri_reg_mask(SYSTEM_PERIP_RST_EN0_REG, SYSTEM_APB_SARADC_RST);
 }
 
 fn reg_set_bit(reg: u32, bit: u32) {

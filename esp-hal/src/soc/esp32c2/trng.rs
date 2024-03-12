@@ -169,6 +169,11 @@ pub(crate) fn ensure_randomness() {
     set_peri_reg_mask(APB_SARADC_CTRL2_REG, APB_SARADC_TIMER_EN);
 }
 
+pub fn revert_trng()
+{
+    regi2c_write_mask!(I2C_SAR_ADC, ADC_SARADC_ENCAL_REF_ADDR, 0);
+}
+
 fn reg_set_field(reg: u32, field_v: u32, field_s: u32, value: u32) {
     unsafe {
         (reg as *mut u32).write_volatile(

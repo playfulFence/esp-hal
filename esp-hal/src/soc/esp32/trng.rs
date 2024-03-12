@@ -43,6 +43,7 @@ const I2S_LCD_EN: u32 = 1 << 5;
 const I2S_DATA_ENABLE: u32 = 1 << 4;
 const I2S_DATA_ENABLE_TEST_EN: u32 = 1 << 3;
 const I2S_RX_START: u32 = 1 << 5;
+const I2S_RX_RESET: u32 = 1 << 1;
 
 const DR_REG_SENS_BASE: u32 = 0x3ff48800;
 const SENS_SAR_MEAS_WAIT2_REG: u32 = DR_REG_SENS_BASE + 0x000c;
@@ -52,6 +53,8 @@ const SENS_FORCE_XPD_SAR: u32 = 0x00000003;
 const SENS_FORCE_XPD_SAR_S: u32 = 18;
 const SENS_SAR1_DIG_FORCE: u32 = 1 << 27;
 const SENS_SAR2_DIG_FORCE: u32 = 1 << 28;
+
+const I2S_CONF_REG0: u32 = DR_REG_I2S_BASE + 0x00a8;
 
 pub fn ensure_randomness() {
     set_peri_reg_bits(
@@ -133,6 +136,17 @@ pub fn ensure_randomness() {
     set_peri_reg_mask(DR_REG_I2S_BASE + 0x00a8, I2S_DATA_ENABLE);
     set_peri_reg_mask(DR_REG_I2S_BASE + 0x00a8, I2S_DATA_ENABLE_TEST_EN);
     set_peri_reg_mask(DR_REG_I2S_BASE + 0x00a8, I2S_RX_START);
+}
+
+pub fn revert_trng()
+{
+    clear_peri_reg_mask(I2S_CONF_REG0, I2S_RX_START);
+    set_peri_reg_mask(I2S_CONF_REG0, I2S_RX_RESET);
+    clear_peri_reg_mask(I2S_CONF_REG0, I2S_RX_RESET);
+    clear_peri_reg_mask(I2S_CONF_REG0, I2S_CAMERA_EN);
+    clear_peri_reg_mask(I2S_CONF_REG0, I2S_LCD_EN);
+    clear_peri_reg_mask(I2S_CONF_REG0, I2S_DATA_ENABLE_TEST_EN);
+    clear_peri_reg_mask(I2S_CONF_REG0, I2S_DATA_ENABLE);
 }
 
 fn set_peri_reg_bits(reg: u32, bitmap: u32, value: u32, shift: u32) {
