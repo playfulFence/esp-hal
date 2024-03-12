@@ -46,6 +46,7 @@ const APB_SARADC_WORK_MODE_S: u32 = 3;
 const APB_SARADC_CTRL2_REG: u32 = DR_REG_APB_SARADC_BASE + 0x004;
 const APB_SARADC_MEAS_NUM_LIMIT: u32 = 1 << 0;
 const SENS_SAR_POWER_XPD_SAR_REG: u32 = DR_REG_SENS_BASE + 0x003c;
+const SENS_FORCE_XPD_SAR: u32 = 0x00000003;
 const SENS_FORCE_XPD_SAR_V: u32 = 0x3;
 const SENS_FORCE_XPD_SAR_S: u32 = 29;
 const APB_SARADC_TIMER_SEL: u32 = 1 << 11;
@@ -195,6 +196,61 @@ pub(crate) fn ensure_randomness() {
     set_peri_reg_mask(APB_SARADC_CTRL2_REG, APB_SARADC_TIMER_EN);
 }
 
+pub fn revert_trng()
+{
+    // Restore internal I2C bus state
+    regi2c_write_mask(
+        I2C_SAR_ADC,
+        I2C_SAR_ADC_HOSTID,
+        ADC_SAR1_DREF_ADDR,
+        ADC_SAR1_DREF_ADDR_MSB,
+        ADC_SAR1_DREF_ADDR_LSB,
+        0x1
+    );
+
+    regi2c_write_mask(
+        I2C_SAR_ADC,
+        I2C_SAR_ADC_HOSTID,
+        ADC_SAR2_DREF_ADDR,
+        ADC_SAR2_DREF_ADDR_MSB,
+        ADC_SAR2_DREF_ADDR_LSB,
+        0x1
+    );
+
+    regi2c_write_mask(
+        I2C_SAR_ADC,
+        I2C_SAR_ADC_HOSTID,
+        ADC_SARADC_ENCAL_REF_ADDR,
+        ADC_SARADC_ENCAL_REF_ADDR_MSB,
+        ADC_SARADC_ENCAL_REF_ADDR_LSB,
+        0,
+    );
+
+    regi2c_write_mask(
+        I2C_SAR_ADC,
+        I2C_SAR_ADC_HOSTID,
+        ADC_SARADC_ENT_TSENS_ADDR,
+        ADC_SARADC_ENT_TSENS_ADDR_MSB,
+        ADC_SARADC_ENT_TSENS_ADDR_LSB,
+        0,
+    );
+
+    regi2c_write_mask(
+        I2C_SAR_ADC,
+        I2C_SAR_ADC_HOSTID,
+        ADC_SARADC_ENT_RTC_ADDR,
+        ADC_SARADC_ENT_RTC_ADDR_MSB,
+        ADC_SARADC_ENT_RTC_ADDR_LSB,
+        0,
+    );
+
+    // Restore SARADC to default mode
+    clear_peri_reg_mask(SENS_SAR_MEAS1_MUX_REG, SENS_SAR1_DIG_FORCE);
+    set_peri_reg_mask(DPORT_PERIP_CLK_EN0_REG, DPORT_APB_SARADC_CLK_EN);
+    set_peri_reg_bits(SENS_SAR_POWER_XPD_SAR_REG, SENS_FORCE_XPD_SAR, 0, SENS_FORCE_XPD_SAR_S);
+    clear_peri_reg_mask(APB_SARADC_CTRL2_REG, APB_SARADC_TIMER_EN);
+}
+
 fn reg_set_bit(reg: u32, bit: u32) {
     unsafe {
         (reg as *mut u32).write_volatile((reg as *mut u32).read_volatile() | bit);
@@ -308,6 +364,15 @@ fn reg_set_field(reg: u32, field_v: u32, field_s: u32, value: u32) {
 fn set_peri_reg_mask(reg: u32, mask: u32) {
     unsafe {
         (reg as *mut u32).write_volatile((reg as *mut u32).read_volatile() | mask);
+    }
+}
+
+fn set_peri_reg_bits(reg: u32, bitmap: u32, value: u32, shift: u32) {
+    unsafe {
+        (reg as *mut u32).write_volatile(
+            ((reg as *mut u32).read_volatile() & !(bitmap << shift))
+                | ((value & bitmap) << shift),
+        );
     }
 }
 

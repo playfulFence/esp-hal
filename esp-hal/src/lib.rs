@@ -140,7 +140,7 @@ pub mod trapframe {
 
 // The `soc` module contains chip-specific implementation details and should not
 // be directly exposed.
-mod soc;
+pub mod soc;
 
 #[cfg(xtensa)]
 #[no_mangle]
