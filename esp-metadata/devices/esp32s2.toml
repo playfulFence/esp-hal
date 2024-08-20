@@ -58,6 +58,7 @@ symbols = [
     "psram",
     "ulp_riscv_core",
     "timg_timer1",
+    "touch",
     "large_intr_status",
 
     # ROM capabilities

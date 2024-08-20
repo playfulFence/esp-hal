@@ -735,7 +735,7 @@ pub(crate) fn errata36(pin_num: u8, pull_up: Option<bool>, pull_down: Option<boo
 
     match pin_num {
         0 => {
-            rtcio.touch_pad1().modify(|_, w| {
+            rtcio.touch_pad(1).modify(|_, w| {
                 if let Some(pull_up) = pull_up {
                     w.rue().bit(pull_up);
                 }
@@ -746,7 +746,7 @@ pub(crate) fn errata36(pin_num: u8, pull_up: Option<bool>, pull_down: Option<boo
             });
         }
         2 => {
-            rtcio.touch_pad2().modify(|_, w| {
+            rtcio.touch_pad(2).modify(|_, w| {
                 if let Some(pull_up) = pull_up {
                     w.rue().bit(pull_up);
                 }
@@ -757,7 +757,7 @@ pub(crate) fn errata36(pin_num: u8, pull_up: Option<bool>, pull_down: Option<boo
             });
         }
         4 => {
-            rtcio.touch_pad0().modify(|_, w| {
+            rtcio.touch_pad(0).modify(|_, w| {
                 if let Some(pull_up) = pull_up {
                     w.rue().bit(pull_up);
                 }
@@ -768,7 +768,7 @@ pub(crate) fn errata36(pin_num: u8, pull_up: Option<bool>, pull_down: Option<boo
             });
         }
         12 => {
-            rtcio.touch_pad5().modify(|_, w| {
+            rtcio.touch_pad(5).modify(|_, w| {
                 if let Some(pull_up) = pull_up {
                     w.rue().bit(pull_up);
                 }
@@ -779,7 +779,7 @@ pub(crate) fn errata36(pin_num: u8, pull_up: Option<bool>, pull_down: Option<boo
             });
         }
         13 => {
-            rtcio.touch_pad4().modify(|_, w| {
+            rtcio.touch_pad(4).modify(|_, w| {
                 if let Some(pull_up) = pull_up {
                     w.rue().bit(pull_up);
                 }
@@ -790,7 +790,7 @@ pub(crate) fn errata36(pin_num: u8, pull_up: Option<bool>, pull_down: Option<boo
             });
         }
         14 => {
-            rtcio.touch_pad6().modify(|_, w| {
+            rtcio.touch_pad(6).modify(|_, w| {
                 if let Some(pull_up) = pull_up {
                     w.rue().bit(pull_up);
                 }
@@ -801,7 +801,7 @@ pub(crate) fn errata36(pin_num: u8, pull_up: Option<bool>, pull_down: Option<boo
             });
         }
         15 => {
-            rtcio.touch_pad3().modify(|_, w| {
+            rtcio.touch_pad(3).modify(|_, w| {
                 if let Some(pull_up) = pull_up {
                     w.rue().bit(pull_up);
                 }
@@ -834,7 +834,7 @@ pub(crate) fn errata36(pin_num: u8, pull_up: Option<bool>, pull_down: Option<boo
             });
         }
         27 => {
-            rtcio.touch_pad7().modify(|_, w| {
+            rtcio.touch_pad(7).modify(|_, w| {
                 if let Some(pull_up) = pull_up {
                     w.rue().bit(pull_up);
                 }
@@ -920,14 +920,14 @@ crate::gpio::analog! {
      (26, 7,  pad_dac2(),             mux_sel,        fun_sel,        fun_ie, rue,       rde)
      (33, 8,  xtal_32k_pad(),    x32n_mux_sel,   x32n_fun_sel,   x32n_fun_ie, x32n_rue,  x32n_rde )
      (32, 9,  xtal_32k_pad(),    x32p_mux_sel,   x32p_fun_sel,   x32p_fun_ie, x32p_rue,  x32p_rde )
-     (4,  10, touch_pad0(),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
-     (0,  11, touch_pad1(),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
-     (2,  12, touch_pad2(),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
-     (15, 13, touch_pad3(),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
-     (13, 14, touch_pad4(),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
-     (12, 15, touch_pad5(),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
-     (14, 16, touch_pad6(),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
-     (27, 17, touch_pad7(),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
+     (4,  10, touch_pad(0),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
+     (0,  11, touch_pad(1),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
+     (2,  12, touch_pad(2),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
+     (15, 13, touch_pad(3),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
+     (13, 14, touch_pad(4),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
+     (12, 15, touch_pad(5),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
+     (14, 16, touch_pad(6),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
+     (27, 17, touch_pad(7),           mux_sel,        fun_sel,        fun_ie, rue,       rde      )
 }
 
 crate::gpio::rtc_pins! {
@@ -941,14 +941,14 @@ crate::gpio::rtc_pins! {
         (26, 7,  pad_dac2(),       "",      pdac2_hold_force,      rue,       rde )
         (33, 8,  xtal_32k_pad(),   x32n_,   x32n_hold_force,       x32n_rue,  x32n_rde  )
         (32, 9,  xtal_32k_pad(),   x32p_,   x32p_hold_force,       x32p_rue,  x32p_rde  )
-        (4,  10, touch_pad0(),     "",      touch_pad0_hold_force, rue,       rde       )
-        (0,  11, touch_pad1(),     "",      touch_pad1_hold_force, rue,       rde       )
-        (2,  12, touch_pad2(),     "",      touch_pad2_hold_force, rue,       rde       )
-        (15, 13, touch_pad3(),     "",      touch_pad3_hold_force, rue,       rde       )
-        (13, 14, touch_pad4(),     "",      touch_pad4_hold_force, rue,       rde       )
-        (12, 15, touch_pad5(),     "",      touch_pad5_hold_force, rue,       rde       )
-        (14, 16, touch_pad6(),     "",      touch_pad6_hold_force, rue,       rde       )
-        (27, 17, touch_pad7(),     "",      touch_pad7_hold_force, rue,       rde       )
+        (4,  10, touch_pad(0),     "",      touch_pad0_hold_force, rue,       rde       )
+        (0,  11, touch_pad(1),     "",      touch_pad1_hold_force, rue,       rde       )
+        (2,  12, touch_pad(2),     "",      touch_pad2_hold_force, rue,       rde       )
+        (15, 13, touch_pad(3),     "",      touch_pad3_hold_force, rue,       rde       )
+        (13, 14, touch_pad(4),     "",      touch_pad4_hold_force, rue,       rde       )
+        (12, 15, touch_pad(5),     "",      touch_pad5_hold_force, rue,       rde       )
+        (14, 16, touch_pad(6),     "",      touch_pad6_hold_force, rue,       rde       )
+        (27, 17, touch_pad(7),     "",      touch_pad7_hold_force, rue,       rde       )
 }
 
 crate::gpio::touch_into! {

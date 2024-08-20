@@ -6,7 +6,7 @@
 //! GPIO pins 2 and 4 must be connected to a touch pad (usually a larger copper
 //! pad on a PCB).
 
-//% CHIPS: esp32
+//% CHIPS: esp32 esp32s2
 
 #![no_std]
 #![no_main]

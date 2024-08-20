@@ -495,13 +495,13 @@ where
             .modify(|_, w| w.level_int_en().set_bit());
 
         self.register_block()
-            .int_ena_timers()
+            .int_ena()
             .modify(|_, w| w.t(self.timer_number()).bit(state));
     }
 
     fn clear_interrupt(&self) {
         self.register_block()
-            .int_clr_timers()
+            .int_clr()
             .write(|w| w.t(self.timer_number()).clear_bit_by_one());
     }
 
@@ -525,7 +525,7 @@ where
 
     fn is_interrupt_set(&self) -> bool {
         self.register_block()
-            .int_raw_timers()
+            .int_raw()
             .read()
             .t(self.timer_number())
             .bit_is_set()
@@ -720,19 +720,19 @@ where
             .modify(|_, w| w.level_int_en().set_bit());
 
         self.register_block()
-            .int_ena_timers()
+            .int_ena()
             .modify(|_, w| w.t(T).set_bit());
     }
 
     fn unlisten(&self) {
         self.register_block()
-            .int_ena_timers()
+            .int_ena()
             .modify(|_, w| w.t(T).clear_bit());
     }
 
     fn clear_interrupt(&self) {
         self.register_block()
-            .int_clr_timers()
+            .int_clr()
             .write(|w| w.t(T).clear_bit_by_one());
     }
 
@@ -766,7 +766,7 @@ where
 
     fn is_interrupt_set(&self) -> bool {
         self.register_block()
-            .int_raw_timers()
+            .int_raw()
             .read()
             .t(T)
             .bit_is_set()

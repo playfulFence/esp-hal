@@ -29,6 +29,8 @@
 
 use core::marker::PhantomData;
 
+#[cfg(esp32s2)]
+use crate::soc::constants::{TOUCH_LL_TIMER_DONE, TOUCH_LL_TIMER_FORCE_DONE};
 use crate::{
     gpio::TouchPin,
     peripheral::{Peripheral, PeripheralRef},
@@ -98,7 +100,11 @@ impl<'d, TOUCHMODE: TouchMode, MODE: Mode> Touch<'d, TOUCHMODE, MODE> {
         let sens = unsafe { &*SENS::ptr() };
 
         let mut threshold_mode = false;
+        
+        #[cfg(esp32)]
         let mut meas_dur = 0x7fff;
+        #[cfg(esp32s2)]
+        let mut meas_dur = 500;
 
         if let Some(config) = config {
             threshold_mode = match config.threshold_mode {
@@ -112,38 +118,102 @@ impl<'d, TOUCHMODE: TouchMode, MODE: Mode> Touch<'d, TOUCHMODE, MODE> {
         }
 
         // stop touch fsm
+        #[cfg(esp32)]
         rtccntl
             .state0()
             .write(|w| w.touch_slp_timer_en().clear_bit());
+        #[cfg(esp32s2)]
+        {
+            rtccntl.touch_ctrl2().write(|w| {
+                w.touch_start_en()
+                    .clear_bit()
+                    .touch_slp_timer_en()
+                    .clear_bit()
+                    .touch_timer_force_done()
+                    .bits(TOUCH_LL_TIMER_FORCE_DONE)
+            });
+
+            rtccntl
+                .touch_ctrl2()
+                .write(|w| w.touch_start_en().bits(TOUCH_LL_TIMER_DONE));
+        }
+
         // Disable touch interrupt
+        #[cfg(esp32)]
         rtccntl.int_ena().write(|w| w.touch().clear_bit());
+        #[cfg(esp32s2)]
+        {
+            rtccntl.int_ena().write(|w| {
+                w.touch_done()
+                    .clear_bit()
+                    .touch_active()
+                    .clear_bit()
+                    .touch_inactive()
+                    .clear_bit()
+                    .touch_scan_done()
+                    .clear_bit()
+                    .touch_timeout()
+                    .clear_bit()
+            });
+        }
+
         // Clear pending interrupts
+        #[cfg(esp32)]
         rtccntl.int_clr().write(|w| w.touch().bit(true));
 
-        // Disable all interrupts and touch pads
-        sens.sar_touch_enable().write(|w| unsafe {
-            w.touch_pad_outen1()
-                .bits(0b0)
-                .touch_pad_outen2()
-                .bits(0b0)
-                .touch_pad_worken()
-                .bits(0b0)
-        });
+        #[cfg(esp32s2)]
+        {
+            rtccntl.int_clr().write(|w| {
+                w.touch_done()
+                    .set_bit()
+                    .touch_active()
+                    .set_bit()
+                    .touch_inactive()
+                    .set_bit()
+                    .touch_scan_done()
+                    .set_bit()
+                    .touch_timeout()
+                    .set_bit()
+            });
+        }
 
-        sens.sar_touch_ctrl1().write(|w| unsafe {
-            w
-                // Default to trigger when touch is below threshold
-                .touch_out_sel()
-                .bit(threshold_mode)
-                // Interrupt only on set 1
-                .touch_out_1en()
-                .set_bit()
-                .touch_meas_delay()
-                .bits(meas_dur)
-                // TODO Chip Specific
-                .touch_xpd_wait()
-                .bits(0xff)
-        });
+        // Disable all interrupts and touch pads
+        #[cfg(esp32)] 
+        {
+            sens.sar_touch_enable().write(|w| unsafe {
+                w.touch_pad_outen1()    // clear_group_mask
+                    .bits(0b0)
+                    .touch_pad_outen2() // clear_group_mask
+                    .bits(0b0)
+                    .touch_pad_worken() // clear_channel_mask
+                    .bits(0b0)
+            });
+
+            sens.sar_touch_ctrl1().write(|w| unsafe {
+                w
+                    // Default to trigger when touch is below threshold
+                    .touch_out_sel()
+                    .bit(threshold_mode) // set_trigger_mode 
+                    // Interrupt only on set 1
+                    .touch_out_1en() // set_trigger_source
+                    .set_bit()
+                    .touch_meas_delay() // set_meas_time
+                    .bits(meas_dur)
+                    // TODO Chip Specific
+                    .touch_xpd_wait() // set_meas_time
+                    .bits(0xff)
+            });
+        }
+        #[cfg(esp32s2)] 
+        {
+            // clear_channel_mask
+            sens.sar_touch_conf().write(|w| w.touch_outen().bits(0b0));
+            rtccntl.touch_scan_ctrl().write(|w| w.touch_scan_pad_map().bits(0b0));
+
+            // set_meas_times
+            rtccntl.touch_ctrl1().write(|w| w.touch_meas_num().bits(meas_dur));
+            rtccntl.touch_ctrl2().write(|w| w.touch_xpd_wait().bits(0xff));
+        }
     }
 
     /// Common parts of the continous mode initialization.
@@ -329,7 +399,7 @@ impl<P: TouchPin> TouchPad<P, OneShot, Blocking> {
     /// calling [`read`](Self::read) once it is finished.
     pub fn start_measurement(&mut self) {
         unsafe { &*crate::peripherals::RTC_IO::ptr() }
-            .touch_pad2()
+            .touch_pad(2)
             .write(|w| unsafe {
                 w.start()
                     .set_bit()
@@ -506,17 +576,41 @@ fn internal_disable_interrupts() {
 
 fn internal_clear_interrupt() {
     let rtccntl = unsafe { &*RTC_CNTL::ptr() };
+    #[cfg(esp32)]
     rtccntl.int_clr().write(|w| w.touch().clear_bit_by_one());
+    #[cfg(esp32s2)]
+    rtccntl.int_clr().write(|w| {
+        w.touch_done()
+            .set_bit()
+            .touch_active()
+            .set_bit()
+            .touch_inactive()
+            .set_bit()
+            .touch_scan_done()
+            .set_bit()
+            .touch_timeout()
+            .set_bit()
+    });
+
     let sens = unsafe { &*SENS::ptr() };
+
+    #[cfg(esp32)]
     sens.sar_touch_ctrl2()
         .write(|w| w.touch_meas_en_clr().set_bit());
+
+    #[cfg(esp32s2)]
+    sens.sar_touch_conf()
+        .write(|w| w.touch_status_clr().set_bit());
 }
 
 fn internal_pins_touched() -> u16 {
     let sens = unsafe { &*SENS::ptr() };
     // Only god knows, why the "interrupt flag" register is called "meas_en" on this
     // chip...
-    sens.sar_touch_ctrl2().read().touch_meas_en().bits()
+    #[cfg(esp32)]
+    return sens.sar_touch_ctrl2().read().touch_meas_en().bits();
+    #[cfg(esp32s2)]
+    return sens.sar_touch_chn_st().read().touch_pad_active().bits();
 }
 
 fn internal_is_interrupt_set(touch_nr: u8) -> bool {

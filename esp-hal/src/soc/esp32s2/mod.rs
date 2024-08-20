@@ -48,6 +48,9 @@ pub(crate) mod constants {
     pub const SOC_DRAM_HIGH: u32 = 0x4000_0000;
 
     pub const REF_TICK: fugit::HertzU32 = fugit::HertzU32::MHz(1);
+
+    pub const TOUCH_LL_TIMER_FORCE_DONE: u8 = 0x3;
+    pub const TOUCH_LL_TIMER_DONE: u8 = 0x0;
 }
 
 /// Function initializes ESP32 specific memories (RTC slow and fast) and

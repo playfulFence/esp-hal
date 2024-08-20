@@ -1423,7 +1423,7 @@ macro_rules! gpio {
 
             procmacros::make_gpio_enum_dispatch_macro!(
                 handle_gpio_output
-                { InputOutputAnalogTouch, InputOutputAnalog, InputOutput, }
+                { InputOutputAnalog, InputOutput, }
                 {
                     $(
                         $type,$gpionum
@@ -1433,7 +1433,7 @@ macro_rules! gpio {
 
             procmacros::make_gpio_enum_dispatch_macro!(
                 handle_gpio_input
-                { InputOutputAnalogTouch, InputOutputAnalog, InputOutput, InputOnlyAnalog }
+                { InputOutputAnalog, InputOutput, InputOnlyAnalog }
                 {
                     $(
                         $type,$gpionum
@@ -1704,7 +1704,7 @@ macro_rules! touch_into {
                                     )
                                 });
 
-                            rtcio.[< touch_pad $touch_num >]().write(|w| unsafe {
+                            rtcio.touch_pad($touch_num).write(|w| unsafe {
                                 w
                                 .xpd().set_bit()
                                 // clear input_enable
@@ -1746,7 +1746,7 @@ macro_rules! touch_into {
                                     )
                                 });
 
-                            rtcio.[< touch_pad $touch_numx >]().write(|w|
+                            rtcio.touch_pad($touch_num).write(|w|
                                 w
                                 .xpd().set_bit()
                                 .tie_opt().clear_bit()
@@ -1809,7 +1809,7 @@ macro_rules! touch_common {
                             unsafe { &* $crate::peripherals::SENS::ptr() }
                                 . $touch_thres_reg ()
                                 .write(|w| unsafe {
-                                    w. $touch_thres_field ().bits(threshold)
+                                    w. $touch_thres_field ().bits(threshold.into())
                                 });
                         }
                     },
