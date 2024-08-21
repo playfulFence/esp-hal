@@ -399,7 +399,7 @@ impl<P: TouchPin> TouchPad<P, OneShot, Blocking> {
     /// calling [`read`](Self::read) once it is finished.
     pub fn start_measurement(&mut self) {
         unsafe { &*crate::peripherals::RTC_IO::ptr() }
-            .touch_pad(2)
+            .touch_pad2()
             .write(|w| unsafe {
                 w.start()
                     .set_bit()
