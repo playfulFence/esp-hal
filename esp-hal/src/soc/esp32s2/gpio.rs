@@ -553,7 +553,6 @@ crate::gpio::touch_into! {
      (12, 12, 12, sar_touch_thres12, touch_out_th12, true )
      (13, 13, 13, sar_touch_thres13, touch_out_th13, true )
      (14, 14, 14, sar_touch_thres14, touch_out_th14, true )
-     ---
 }
 
 crate::gpio::touch_common! {

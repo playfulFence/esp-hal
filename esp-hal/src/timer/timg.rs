@@ -765,11 +765,7 @@ where
     }
 
     fn is_interrupt_set(&self) -> bool {
-        self.register_block()
-            .int_raw()
-            .read()
-            .t(T)
-            .bit_is_set()
+        self.register_block().int_raw().read().t(T).bit_is_set()
     }
 
     fn set_divider(&self, divider: u16) {

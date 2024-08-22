@@ -1423,7 +1423,7 @@ macro_rules! gpio {
 
             procmacros::make_gpio_enum_dispatch_macro!(
                 handle_gpio_output
-                { InputOutputAnalog, InputOutput, }
+                { InputOutputAnalogTouch, InputOutputAnalog, InputOutput, }
                 {
                     $(
                         $type,$gpionum
@@ -1433,7 +1433,7 @@ macro_rules! gpio {
 
             procmacros::make_gpio_enum_dispatch_macro!(
                 handle_gpio_input
-                { InputOutputAnalog, InputOutput, InputOnlyAnalog }
+                { InputOutputAnalogTouch, InputOutputAnalog, InputOutput, InputOnlyAnalog }
                 {
                     $(
                         $type,$gpionum
@@ -1672,6 +1672,8 @@ macro_rules! analog {
 
 /// normal touch pin initialization. This is separate from touch_common, as we
 /// need to handle some touch_pads differently
+
+#[cfg(esp32)]
 #[doc(hidden)]
 #[macro_export]
 macro_rules! touch_into {
@@ -1704,7 +1706,7 @@ macro_rules! touch_into {
                                     )
                                 });
 
-                            rtcio.touch_pad($touch_num).write(|w| unsafe {
+                            rtcio.[< touch_pad $touch_num >]().write(|w| unsafe {
                                 w
                                 .xpd().set_bit()
                                 // clear input_enable
@@ -1746,7 +1748,7 @@ macro_rules! touch_into {
                                     )
                                 });
 
-                            rtcio.touch_pad($touch_num).write(|w|
+                            rtcio.[< touch_pad $touch_numx >]().write(|w|
                                 w
                                 .xpd().set_bit()
                                 .tie_opt().clear_bit()
@@ -1763,6 +1765,84 @@ macro_rules! touch_into {
                     }
                 )*
                 _ => unreachable!(),
+            }
+        }
+    };
+}
+
+#[cfg(esp32s2)]
+#[doc(hidden)]
+#[macro_export]
+macro_rules! touch_into {
+    (
+        $( ( $touch_num:expr, $pin_num:expr, $rtc_pin:expr, $touch_thres_reg:expr, $touch_thres_field:expr , true ) )+
+    ) => {
+        
+        pub(crate) fn internal_into_touch(pin: u8) {
+            use $crate::peripherals::{GPIO, RTC_IO, SENS, RTC_CNTL};
+
+            let rtcio = unsafe { &*RTC_IO::ptr() };
+            let sens = unsafe { &*SENS::ptr() };
+            let rtc_cntl = unsafe { &*RTC_CNTL::ptr() };
+            let gpio = unsafe { &*GPIO::ptr() };
+
+            match pin {
+                $(
+                    $pin_num => {
+                        paste::paste! {
+                        // Pad to normal mode (not open-drain)
+                        gpio.pin($rtc_pin).write(|w| w.pad_driver().clear_bit());
+
+                        // clear output
+                        rtcio
+                            .enable_w1tc()
+                            .write(|w| unsafe { w.enable_w1tc().bits(1 << $rtc_pin) });
+                        sens.$touch_thres_reg().write(|w| unsafe {
+                            w.$touch_thres_field().bits(
+                                0b0, // Default: 0 for esp32 gets overridden later anyway.
+                            )
+                        });
+
+                        rtcio.touch_pad($touch_num).write(|w| unsafe {
+                            w.xpd()
+                                .set_bit()
+                                // clear input_enable
+                                .fun_ie()
+                                .clear_bit()
+                                // Connect pin to analog / RTC module instead of standard GPIO
+                                .mux_sel()
+                                .set_bit()
+                                // Disable pull-up and pull-down resistors on the pin
+                                .rue()
+                                .clear_bit()
+                                .rde()
+                                .clear_bit()
+                                .tie_opt()
+                                .clear_bit()
+                                // Select function "RTC function 1" (GPIO) for analog use
+                                .fun_sel()
+                                .bits(0b00)
+                        });
+
+                        // RTCCNTL.touch_scan_ctrl.touch_scan_pad_map  |= (enable_mask &
+                        // TOUCH_PAD_BIT_MASK_ALL); SENS.sar_touch_conf.touch_outen |= (enable_mask
+                        // & TOUCH_PAD_BIT_MASK_ALL);
+
+                        rtc_cntl.touch_scan_ctrl().modify(|r, w| unsafe {
+                            w.touch_scan_pad_map()
+                                .bits(r.touch_scan_pad_map().bits() | ((1 << $touch_num) & ((1 << 15) - 1)))
+                        });
+
+                        sens.sar_touch_conf().modify(|r, w| unsafe {
+                            w
+                                // enable the pin
+                                .touch_outen()
+                                .bits(r.touch_outen().bits() | ((1 << $touch_num) & ((1 << 15) - 1)))
+                        });
+                    }
+                }
+                )+
+                _ => unreachable!()
             }
         }
     };
@@ -1788,7 +1868,7 @@ macro_rules! touch_common {
                             . $touch_out_reg ()
                             .read()
                             . $meas_field ()
-                            .bits()
+                            .bits() as u16
                         }
                     },
                 )+
