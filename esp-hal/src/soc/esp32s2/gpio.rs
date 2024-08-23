@@ -441,7 +441,7 @@ pub enum OutputSignal {
 }
 
 crate::gpio::gpio! {
-    (0, 0, InputOutputAnalog)
+    (0, 0, InputOutputAnalogTouch)
     (1, 0, InputOutputAnalogTouch)
     (2, 0, InputOutputAnalogTouch)
     (3, 0, InputOutputAnalogTouch)

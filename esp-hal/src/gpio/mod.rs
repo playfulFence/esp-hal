@@ -1797,8 +1797,8 @@ macro_rules! touch_into {
                         rtcio
                             .enable_w1tc()
                             .write(|w| unsafe { w.enable_w1tc().bits(1 << $rtc_pin) });
-                        sens.$touch_thres_reg().write(|w| unsafe {
-                            w.$touch_thres_field().bits(
+                        sens. $touch_thres_reg ().write(|w| unsafe {
+                            w. $touch_thres_field ().bits(
                                 0b0, // Default: 0 for esp32 gets overridden later anyway.
                             )
                         });
@@ -1825,7 +1825,8 @@ macro_rules! touch_into {
                         });
 
                         // RTCCNTL.touch_scan_ctrl.touch_scan_pad_map  |= (enable_mask &
-                        // TOUCH_PAD_BIT_MASK_ALL); SENS.sar_touch_conf.touch_outen |= (enable_mask
+                        // TOUCH_PAD_BIT_MASK_ALL); 
+                        /// SENS.sar_touch_conf.touch_outen |= (enable_mask
                         // & TOUCH_PAD_BIT_MASK_ALL);
 
                         rtc_cntl.touch_scan_ctrl().modify(|r, w| unsafe {

@@ -212,7 +212,7 @@ impl<'d, TOUCHMODE: TouchMode, MODE: Mode> Touch<'d, TOUCHMODE, MODE> {
                 .touch_scan_ctrl()
                 .write(|w| w.touch_scan_pad_map().bits(0b0));
 
-            // set_meas_times
+             // set_meas_times
             rtccntl
                 .touch_ctrl1()
                 .write(|w| w.touch_meas_num().bits(meas_dur));
@@ -271,31 +271,64 @@ impl<'d, TOUCHMODE: TouchMode, MODE: Mode> Touch<'d, TOUCHMODE, MODE> {
             });
 
             rtccntl.touch_ctrl2().write(|w| unsafe{
-                w.touch_start_force().clear_bit()
+                w.touch_dbias().set_bit()
             });
 
-            unsafe {
-                rtccntl.touch_ctrl2().write(|w| {
-                    w.touch_start_en()
-                        .clear_bit()
-                        .touch_slp_timer_en()
-                        .clear_bit()
-                        .touch_timer_force_done()
-                        .bits(TOUCH_LL_TIMER_FORCE_DONE)
-                });
+            rtccntl.touch_ctrl2().write(|w| unsafe{
+                w.touch_drefh().bits(3)
+            });
 
-                rtccntl
-                    .touch_ctrl2()
-                    .write(|w| w.touch_timer_force_done().bits(TOUCH_LL_TIMER_FORCE_DONE));
+            rtccntl.touch_ctrl2().write(|w| unsafe{
+                w.touch_drefl().bits(0)
+            });
 
-                rtccntl
-                    .touch_ctrl2()
-                    .write(|w| w.touch_timer_force_done().bits(TOUCH_LL_TIMER_DONE));
-            }
+            rtccntl.touch_ctrl2().write(|w| unsafe{
+                w.touch_drange().bits(2)
+            });
 
-            rtccntl
-                .touch_ctrl2()
-                .write(|w| w.touch_slp_timer_en().set_bit());
+            rtccntl.touch_scan_ctrl().write(|w| unsafe{
+                w.touch_inactive_connection().bit(true)
+            });
+
+            rtccntl.touch_ctrl2().write(|w| unsafe{
+                w.touch_clkgate_en().set_bit()
+            });
+
+            sens.sar_touch_chn_st().write(|w| unsafe{
+                w.touch_channel_clr().bits((1 << 15) - 1)
+            });
+
+            rtccntl.touch_approach().write(|w| unsafe{
+                w.touch_slp_channel_clr().bit(true)
+            });
+
+
+            // rtccntl.touch_ctrl2().write(|w| unsafe{
+            //     w.touch_start_force().clear_bit()
+            // });
+
+            // unsafe {
+            //     rtccntl.touch_ctrl2().write(|w| {
+            //         w.touch_start_en()
+            //             .clear_bit()
+            //             .touch_slp_timer_en()
+            //             .clear_bit()
+            //             .touch_timer_force_done()
+            //             .bits(TOUCH_LL_TIMER_FORCE_DONE)
+            //     });
+
+            //     rtccntl
+            //         .touch_ctrl2()
+            //         .write(|w| w.touch_timer_force_done().bits(TOUCH_LL_TIMER_FORCE_DONE));
+
+            //     rtccntl
+            //         .touch_ctrl2()
+            //         .write(|w| w.touch_timer_force_done().bits(TOUCH_LL_TIMER_DONE));
+            // }
+
+            // rtccntl
+            //     .touch_ctrl2()
+            //     .write(|w| w.touch_slp_timer_en().set_bit());
         }
 
   
@@ -377,9 +410,7 @@ impl<'d> Touch<'d, OneShot, Blocking> {
 
             unsafe {
                 rtccntl.touch_ctrl2().write(|w| {
-                    w.touch_start_en()
-                        .clear_bit()
-                        .touch_slp_timer_en()
+                    w.touch_slp_timer_en()
                         .clear_bit()
                         .touch_timer_force_done()
                         .bits(TOUCH_LL_TIMER_FORCE_DONE)
@@ -387,15 +418,11 @@ impl<'d> Touch<'d, OneShot, Blocking> {
 
                 rtccntl
                     .touch_ctrl2()
-                    .write(|w| w.touch_timer_force_done().bits(TOUCH_LL_TIMER_FORCE_DONE));
-
-                rtccntl
-                    .touch_ctrl2()
                     .write(|w| w.touch_timer_force_done().bits(TOUCH_LL_TIMER_DONE));
 
                 rtccntl
                     .touch_ctrl2()
-                    .write(|w| w.touch_slp_timer_en().set_bit());
+                    .write(|w| w.touch_slp_timer_en().clear_bit());
             }
         }
 
