@@ -122,6 +122,7 @@ impl<'d, TOUCHMODE: TouchMode, MODE: Mode> Touch<'d, TOUCHMODE, MODE> {
         rtccntl
             .state0()
             .write(|w| w.touch_slp_timer_en().clear_bit());
+
         #[cfg(esp32s2)]
         unsafe {
             rtccntl.touch_ctrl2().write(|w| {
@@ -302,36 +303,25 @@ impl<'d, TOUCHMODE: TouchMode, MODE: Mode> Touch<'d, TOUCHMODE, MODE> {
                 w.touch_slp_channel_clr().bit(true)
             });
 
+            // TOUCH_PAD_SET_FSM_MODE (CONT)
+            rtccntl.touch_ctrl2().write(|w| unsafe{
+                w.touch_start_force().clear_bit()
+            });
 
-            // rtccntl.touch_ctrl2().write(|w| unsafe{
-            //     w.touch_start_force().clear_bit()
-            // });
+            // TOUCH_LL_START_FSM 
+            rtccntl
+                .touch_ctrl2()
+                .write(|w| unsafe{ w.touch_timer_force_done().bits(TOUCH_LL_TIMER_FORCE_DONE)});
 
-            // unsafe {
-            //     rtccntl.touch_ctrl2().write(|w| {
-            //         w.touch_start_en()
-            //             .clear_bit()
-            //             .touch_slp_timer_en()
-            //             .clear_bit()
-            //             .touch_timer_force_done()
-            //             .bits(TOUCH_LL_TIMER_FORCE_DONE)
-            //     });
+            rtccntl
+                .touch_ctrl2()
+                .write(|w| unsafe{ w.touch_timer_force_done().bits(TOUCH_LL_TIMER_DONE) });
+        
 
-            //     rtccntl
-            //         .touch_ctrl2()
-            //         .write(|w| w.touch_timer_force_done().bits(TOUCH_LL_TIMER_FORCE_DONE));
-
-            //     rtccntl
-            //         .touch_ctrl2()
-            //         .write(|w| w.touch_timer_force_done().bits(TOUCH_LL_TIMER_DONE));
-            // }
-
-            // rtccntl
-            //     .touch_ctrl2()
-            //     .write(|w| w.touch_slp_timer_en().set_bit());
+            rtccntl
+                .touch_ctrl2()
+                .write(|w| w.touch_slp_timer_en().clear_bit());
         }
-
-  
     }
 }
 // Async mode and OneShot does not seem to be a sensible combination....
@@ -551,11 +541,11 @@ impl<P: TouchPin> TouchPad<P, OneShot, Blocking> {
 
         #[cfg(esp32)]
         unsafe { 
-            &*crate::peripherals::SENS::PTR 
+            {&*crate::peripherals::SENS::PTR}
                 .sar_touch_ctrl2()
                 .modify(|_, w| w.touch_start_en().clear_bit());
 
-            &*crate::peripherals::SENS::PTR 
+            {&*crate::peripherals::SENS::PTR}
                 .sar_touch_ctrl2()
                 .modify(|_, w| w.touch_start_en().set_bit());
         }
@@ -645,13 +635,19 @@ impl<P: TouchPin, TOUCHMODE: TouchMode> TouchPad<P, TOUCHMODE, Blocking> {
             .bit_is_clear()
         {}
 
-        #[cfg(esp32)]
-        while unsafe { &*crate::peripherals::SENS::ptr() }
-            .sar_touch_chn_st()
-            .read()
-            .touch_meas_done()
-            .bit_is_clear()
-        {}
+        // #[cfg(esp32s2)]
+        // while unsafe { &*crate::peripherals::SENS::ptr() }
+        //     .sar_touch_chn_st()
+        //     .read()
+        //     .touch_meas_done()
+        //     .bit_is_clear()
+        // {}
+
+        #[cfg(esp32s2)]
+        unsafe{
+            {&*crate::peripherals::SENS::ptr()}
+            .sar_touch_conf().write(|w| w.touch_data_sel().bits(0x0))
+        }
 
         self.pin.get_touch_measurement(Internal)
     }
@@ -772,8 +768,8 @@ fn internal_clear_interrupt() {
     let rtccntl = unsafe { &*RTC_CNTL::ptr() };
     #[cfg(esp32)]
     rtccntl.int_clr().write(|w| w.touch().clear_bit_by_one());
-    #[cfg(esp32s2)]
     
+    #[cfg(esp32s2)]
     rtccntl.int_clr().write(|w| {
         w.touch_done()
             .bit(true)

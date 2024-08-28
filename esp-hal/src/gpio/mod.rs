@@ -1775,7 +1775,7 @@ macro_rules! touch_into {
 #[macro_export]
 macro_rules! touch_into {
     (
-        $( ( $touch_num:expr, $pin_num:expr, $rtc_pin:expr, $touch_thres_reg:expr, $touch_thres_field:expr , true ) )+
+        $( ( $touch_num:expr, $pin_num:expr, $rtc_pin:expr, $touch_thres_reg:expr, $touch_thres_field:expr) )+
     ) => {
         
         pub(crate) fn internal_into_touch(pin: u8) {
@@ -1797,9 +1797,10 @@ macro_rules! touch_into {
                         rtcio
                             .enable_w1tc()
                             .write(|w| unsafe { w.enable_w1tc().bits(1 << $rtc_pin) });
+                        
                         sens. $touch_thres_reg ().write(|w| unsafe {
                             w. $touch_thres_field ().bits(
-                                0b0, // Default: 0 for esp32 gets overridden later anyway.
+                                0x1FFFFF, // IDF: SOC_TOUCH_SENSOR_VERSION == 2
                             )
                         });
 
