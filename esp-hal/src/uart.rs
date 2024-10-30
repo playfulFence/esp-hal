@@ -153,6 +153,11 @@ use crate::{
 
 const UART_FIFO_SIZE: u16 = 128;
 
+#[cfg(not(any(esp32, esp32p4, esp32s2)))]
+use crate::soc::constants::RC_FAST_CLK;
+#[cfg(any(esp32, esp32s2))]
+use crate::soc::constants::REF_TICK;
+
 /// UART Error
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
@@ -207,7 +212,7 @@ pub enum ClockSource {
     /// APB_CLK clock source (default for UART on all the chips except of
     /// esp32c6 and esp32h2)
     Apb,
-    #[cfg(not(any(esp32, esp32s2)))]
+    #[cfg(not(any(esp32, esp32p4, esp32s2)))]
     /// RC_FAST_CLK clock source (17.5 MHz)
     RcFast,
     #[cfg(not(any(esp32, esp32s2)))]
@@ -221,7 +226,6 @@ pub enum ClockSource {
 
 /// UART Configuration
 pub mod config {
-
     // see <https://github.com/espressif/esp-idf/blob/8760e6d2a/components/esp_driver_uart/src/uart.c#L61>
     const UART_FULL_THRESH_DEFAULT: u16 = 120;
     // see <https://github.com/espressif/esp-idf/blob/8760e6d2a/components/esp_driver_uart/src/uart.c#L63>
@@ -818,6 +822,8 @@ where
         const MAX_THRHD: u16 = 0xFF;
         #[cfg(any(esp32c3, esp32c2, esp32s2))]
         const MAX_THRHD: u16 = 0x1FF;
+        #[cfg(esp32p4)]
+        const MAX_THRHD: u16 = 0x0; // FIXME
         #[cfg(esp32s3)]
         const MAX_THRHD: u16 = 0x3FF;
 
@@ -1085,7 +1091,7 @@ where
     pub fn set_at_cmd(&mut self, config: config::AtCmdConfig) {
         let register_block = self.register_block();
 
-        #[cfg(not(any(esp32, esp32s2)))]
+        #[cfg(not(any(esp32, esp32p4, esp32s2)))] // FIXME? 
         register_block
             .clk_conf()
             .modify(|_, w| w.sclk_en().clear_bit());
@@ -1113,7 +1119,7 @@ where
                 .write(|w| unsafe { w.rx_gap_tout().bits(gap_timeout as _) });
         }
 
-        #[cfg(not(any(esp32, esp32s2)))]
+        #[cfg(not(any(esp32, esp32p4, esp32s2)))]
         register_block
             .clk_conf()
             .modify(|_, w| w.sclk_en().set_bit());
@@ -1342,6 +1348,11 @@ where
             .write(|w| unsafe { w.clkdiv().bits(divider).frag().bits(0) });
 
         self.sync_regs();
+    }
+
+    #[cfg(esp32p4)]
+    fn change_baud_internal(&self, baudrate: u32, clock_source: ClockSource) {
+        // TODO: Implement me :)
     }
 
     #[cfg(any(esp32, esp32s2))]
