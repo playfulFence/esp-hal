@@ -818,12 +818,12 @@ where
     fn set_rx_fifo_full_threshold(&mut self, threshold: u16) -> Result<(), Error> {
         #[cfg(esp32)]
         const MAX_THRHD: u16 = 0x7F;
-        #[cfg(any(esp32c6, esp32h2))]
+        #[cfg(any(esp32c6, esp32h2, esp32p4))]
         const MAX_THRHD: u16 = 0xFF;
         #[cfg(any(esp32c3, esp32c2, esp32s2))]
         const MAX_THRHD: u16 = 0x1FF;
-        #[cfg(esp32p4)]
-        const MAX_THRHD: u16 = 0x0; // FIXME
+        // #[cfg(esp32p4)]
+        // const MAX_THRHD: u16 = 0x0; // FIXME
         #[cfg(esp32s3)]
         const MAX_THRHD: u16 = 0x3FF;
 
@@ -876,7 +876,7 @@ where
             cfg_if::cfg_if! {
                 if #[cfg(esp32)] {
                     let reg_thrhd = register_block.conf1();
-                } else if #[cfg(any(esp32c6, esp32h2))] {
+                } else if #[cfg(any(esp32c6, esp32h2, esp32p4))] {
                     let reg_thrhd = register_block.tout_conf();
                 } else {
                     let reg_thrhd = register_block.mem_conf();
@@ -886,7 +886,7 @@ where
         }
 
         cfg_if::cfg_if! {
-            if #[cfg(any(esp32c6, esp32h2))] {
+            if #[cfg(any(esp32c6, esp32h2, esp32p4))] {
                 let reg_en = register_block.tout_conf();
             } else {
                 let reg_en = register_block.conf1();
@@ -1091,7 +1091,7 @@ where
     pub fn set_at_cmd(&mut self, config: config::AtCmdConfig) {
         let register_block = self.register_block();
 
-        #[cfg(not(any(esp32, esp32p4, esp32s2)))] // FIXME? 
+        #[cfg(not(any(esp32, esp32p4, esp32s2)))] // FIXME?
         register_block
             .clk_conf()
             .modify(|_, w| w.sclk_en().clear_bit());
@@ -2614,6 +2614,10 @@ impl_instance!(UART0, U0TXD, U0RXD, U0CTS, U0RTS);
 impl_instance!(UART1, U1TXD, U1RXD, U1CTS, U1RTS);
 #[cfg(uart2)]
 impl_instance!(UART2, U2TXD, U2RXD, U2CTS, U2RTS);
+#[cfg(uart3)]
+impl_instance!(UART3, U3TXD, U3RXD, U3CTS, U3RTS);
+#[cfg(uart4)]
+impl_instance!(UART4, U4TXD, U4RXD, U4CTS, U4RTS);
 
 crate::any_peripheral! {
     /// Any UART peripheral.
@@ -2624,6 +2628,10 @@ crate::any_peripheral! {
         Uart1(crate::peripherals::UART1),
         #[cfg(uart2)]
         Uart2(crate::peripherals::UART2),
+        #[cfg(uart3)]
+        Uart3(crate::peripherals::UART3),
+        #[cfg(uart4)]
+        Uart4(crate::peripherals::UART4),
     }
 }
 
@@ -2637,6 +2645,10 @@ impl Instance for AnyUart {
             AnyUartInner::Uart1(uart) => uart.parts(),
             #[cfg(uart2)]
             AnyUartInner::Uart2(uart) => uart.parts(),
+            #[cfg(uart3)]
+            AnyUartInner::Uart3(uart) => uart.parts(),
+            #[cfg(uart4)]
+            AnyUartInner::Uart4(uart) => uart.parts(),
         }
     }
 }

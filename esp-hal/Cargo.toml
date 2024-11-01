@@ -60,6 +60,7 @@ esp32c2 = { version = "0.22.0", git = "https://github.com/esp-rs/esp-pacs.git", 
 esp32c3 = { version = "0.25.0", git = "https://github.com/esp-rs/esp-pacs.git", rev = "390c88b", features = ["critical-section", "rt"], optional = true }
 esp32c6 = { version = "0.16.0", git = "https://github.com/esp-rs/esp-pacs.git", rev = "390c88b", features = ["critical-section", "rt"], optional = true }
 esp32h2 = { version = "0.12.0", git = "https://github.com/esp-rs/esp-pacs.git", rev = "390c88b", features = ["critical-section", "rt"], optional = true }
+esp32p4 = { path = "/Users/playfulfence/esp/esp-pacs/esp32p4", features = ["critical-section", "rt"], optional = true }
 esp32s2 = { version = "0.24.0", git = "https://github.com/esp-rs/esp-pacs.git", rev = "390c88b", features = ["critical-section", "rt"], optional = true }
 esp32s3 = { version = "0.28.0", git = "https://github.com/esp-rs/esp-pacs.git", rev = "390c88b", features = ["critical-section", "rt"], optional = true }
 
