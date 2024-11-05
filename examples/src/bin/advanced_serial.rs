@@ -4,8 +4,8 @@
 //! of the configuration change the output signal.
 //!
 //! The following wiring is assumed:
-//! - TX => GPIO4
-//! - RX => GPIO5
+//! - TX => GPIO4 (GPIO21 - `esp32p4`)
+//! - RX => GPIO5 (GPIO22 - `esp32p4`)
 
 //% CHIPS: esp32 esp32c2 esp32c3 esp32c6 esp32h2 esp32p4 esp32s2 esp32s3
 
@@ -23,7 +23,13 @@ fn main() -> ! {
 
     let io = Io::new(peripherals.GPIO, peripherals.IO_MUX);
 
-    let mut serial1 = Uart::new(peripherals.UART1, io.pins.gpio4, io.pins.gpio5).unwrap();
+    cfg_if::cfg_if! {
+        if #[cfg(feature = "esp32p4")] {
+            let mut serial1 = Uart::new(peripherals.UART1, io.pins.gpio21, io.pins.gpio22).unwrap();
+        } else if #[cfg(not(feature = "esp32p4"))] {
+            let mut serial1 = Uart::new(peripherals.UART1, io.pins.gpio4, io.pins.gpio5).unwrap();
+        }
+    }
 
     let delay = Delay::new();
 
