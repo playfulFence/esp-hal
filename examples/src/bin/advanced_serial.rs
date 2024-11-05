@@ -7,7 +7,7 @@
 //! - TX => GPIO4
 //! - RX => GPIO5
 
-//% CHIPS: esp32 esp32c2 esp32c3 esp32c6 esp32h2 esp32s2 esp32s3 esp32p4
+//% CHIPS: esp32 esp32c2 esp32c3 esp32c6 esp32h2 esp32p4 esp32s2 esp32s3
 
 #![no_std]
 #![no_main]
@@ -23,7 +23,7 @@ fn main() -> ! {
 
     let io = Io::new(peripherals.GPIO, peripherals.IO_MUX);
 
-    let mut serial1 = Uart::new(peripherals.UART0, io.pins.gpio21, io.pins.gpio22).unwrap();
+    let mut serial1 = Uart::new(peripherals.UART1, io.pins.gpio4, io.pins.gpio5).unwrap();
 
     let delay = Delay::new();
 
