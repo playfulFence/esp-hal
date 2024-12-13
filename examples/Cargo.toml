@@ -22,6 +22,8 @@ embedded-can        = "0.4.1"
 embedded-hal-async  = "1.0.0"
 embedded-io         = { version = "0.6.1", default-features = false }
 embedded-io-async   = "0.6.1"
+embedded-hal        = "1.0.0"
+embedded-hal-bus    = "0.2.0"
 embedded-storage    = "0.3.1"
 esp-alloc           = { path = "../esp-alloc" }
 esp-backtrace       = { path = "../esp-backtrace", features = ["exception-handler", "panic-handler", "println"] }
@@ -47,6 +49,12 @@ static_cell         = { version = "2.1.0", features = ["nightly"] }
 trouble-host        = { git = "https://github.com/embassy-rs/trouble", package = "trouble-host", rev = "4f1114ce58e96fe54f5ed7e726f66e1ad8d9ce54", features = [ "log", "gatt" ] }
 usb-device          = "0.3.2"
 usbd-serial         = "0.2.2"
+
+embedded-graphics   = "0.8.1"
+bme280              = "0.5.0"
+display-interface-spi = "0.5.0"
+profont             = { version = "0.6.1", git = "https://github.com/sambenko/profont.git", branch = "embedded-graphics-0.8.0-fixes" }
+mipidsi             = "0.8.0"
 
 [features]
 esp32   = ["esp-hal/esp32",   "esp-backtrace/esp32",   "esp-hal-embassy?/esp32",   "esp-println/esp32",   "esp-storage?/esp32",   "esp-wifi?/esp32"]
