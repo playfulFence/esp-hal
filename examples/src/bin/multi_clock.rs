@@ -8,7 +8,7 @@ use core::fmt::Write as coreWrite;
 extern crate alloc;
 
 use blocking_network_stack::{Socket, Stack};
-use bme280::i2c::BME280;
+use embedded_aht20::Aht20;
 use display_interface_spi::SPIInterface;
 use embedded_graphics::{
     geometry::*,
@@ -83,8 +83,8 @@ pub const DEFAULT_STYLE_LARGE: MonoTextStyle<Rgb565> = MonoTextStyleBuilder::new
     .text_color(RgbColor::BLACK)
     .build();
 
-const SSID: &str = "EspressifSystems";
-const PASSWORD: &str = "Espressif32";
+const SSID: &str = "iPhone Kirill";
+const PASSWORD: &str = "esptesty";
 
 #[entry]
 fn main() -> ! {
@@ -96,15 +96,17 @@ fn main() -> ! {
     let mut delay = Delay::new();
     let mut rng = Rng::new(peripherals.RNG);
 
+    println!("About to init i2c");
     let i2c = I2c::new(peripherals.I2C0, esp_hal::i2c::master::Config::default())
         .unwrap()
         .with_sda(peripherals.GPIO6)
         .with_scl(peripherals.GPIO7);
 
+    println!("About to init SPI");
     let spi = Spi::new(
         peripherals.SPI2,
         Config::default()
-            .with_frequency(100.kHz())
+            .with_frequency(40.MHz())
             .with_mode(SpiMode::Mode0),
     )
     .unwrap()
@@ -113,22 +115,31 @@ fn main() -> ! {
     .with_mosi(peripherals.GPIO2)
     .with_cs(peripherals.GPIO5);
 
+    // let mut bclt = Output::new(peripherals.GPIO3, Level::Low);
+
+    // bclt.set_high();
+
     let di = SPIInterface::new(
-        ExclusiveDevice::new(spi, NoPin, delay).unwrap(),
-        Output::new(peripherals.GPIO9, Level::Low),
+        ExclusiveDevice::new_no_delay(spi, NoPin).unwrap(),
+        Output::new(peripherals.GPIO15, Level::Low),
     );
 
+    delay.delay_millis(500u32);
+
+    println!("About to init display");
     let mut display = Builder::new(mipidsi::models::ILI9341Rgb565, di)
+        // .display_size(240, 320)
         .reset_pin(Output::new(peripherals.GPIO10, Level::Low))
         .color_order(mipidsi::options::ColorOrder::Rgb)
-        // .orientation()
+        .orientation(mipidsi::options::Orientation::new().flip_vertical().flip_horizontal().rotate(mipidsi::options::Rotation::Deg90))
         .init(&mut delay)
         .unwrap();
 
     display.clear(Rgb565::WHITE).unwrap();
 
-    let mut sensor = BME280::new_primary(i2c);
-    sensor.init(&mut delay).unwrap();
+    println!("Display inited"); 
+
+    let mut sensor = Aht20::new(i2c, embedded_aht20::DEFAULT_I2C_ADDRESS, delay).unwrap();
 
     let init = init(timg0.timer0, rng.clone(), peripherals.RADIO_CLK).unwrap();
 
@@ -203,9 +214,7 @@ fn main() -> ! {
     let mut tx_buffer = [0u8; 1536];
     let mut socket = stack.get_socket(&mut rx_buffer, &mut tx_buffer);
 
-    socket
-        .open(IpAddress::Ipv4(Ipv4Address::new(213, 188, 196, 246)), 80)
-        .unwrap();
+    socket.work();
 
     write_segment_name(
         &mut display,
@@ -223,13 +232,35 @@ fn main() -> ! {
 
     // We'll need it to convert numbers to strings, writable on display
     let mut data: String<32> = String::new();
-    let mut timestamp = get_timestamp(socket).unwrap();
+    // Using classic "worldtime.api" to get time
+    println!("About to open a socket");
+    // loop {
+    //     match socket.open(IpAddress::Ipv4(Ipv4Address::new(213, 188, 196, 246)), 80) {
+    //         Ok(_) => {
+    //             break;
+    //         }
+    //         Err(e) => {
+    //             println!("Failed to open socket {:?}", e);
+    //             delay.delay_millis(1000u32);
+    //         }
+    //     }
+    // }
+
+    socket.open(IpAddress::Ipv4(Ipv4Address::new(213, 188, 196, 246)), 80)
+    .unwrap();
+
+    socket.write("GET /api/timezone/Europe/Prague HTTP/1.1\r\nHost: worldtimeapi.org\r\n\r\n".as_bytes()).unwrap();
+    socket.flush().unwrap();
+
+    let (response, total_size) = get_response(socket).unwrap();
+
+    let mut timestamp = find_unixtime(&response[..total_size]).unwrap() + 120 * 60 + 10;
 
     let (mut h, mut m, mut s) = timestamp_to_hms(timestamp);
 
-    let mut measurement = sensor.measure(&mut delay).unwrap();
+    let mut measurement = sensor.measure().unwrap();
     loop {
-        write!(data, "{:2}°C", measurement.temperature).expect("write! failed...");
+        write!(data, "{:2}°C", measurement.temperature.celcius()).expect("write! failed...");
         write_to_segment(
             &mut display,
             DisplaySegment::TopLeft,
@@ -238,7 +269,7 @@ fn main() -> ! {
         );
         data.clear();
 
-        write!(data, "{:2}%", measurement.humidity).expect("write! failed...");
+        write!(data, "{:2}%", measurement.relative_humidity).expect("write! failed...");
         write_to_segment(
             &mut display,
             DisplaySegment::TopRight,
@@ -259,7 +290,16 @@ fn main() -> ! {
         write_segment_name(
             &mut display,
             DisplaySegment::Center,
-            weekday_from_timestamp(&timestamp),
+            match (timestamp / 86400 + 4) % 7 {
+                0 => "Sunday",
+                1 => "Monday",
+                2 => "Tuesday",
+                3 => "Wednesday",
+                4 => "Thursday",
+                5 => "Friday",
+                6 => "Saturday",
+                _ => "Error",
+            },
             DEFAULT_STYLE_SMALL,
         );
 
@@ -270,7 +310,7 @@ fn main() -> ! {
         (h, m, s) = timestamp_to_hms(timestamp);
         data.clear();
 
-        measurement = sensor.measure(&mut delay).unwrap();
+        measurement = sensor.measure().unwrap();
     }
 }
 
@@ -281,7 +321,7 @@ fn write_segment_name<
 >(
     display: &mut mipidsi::Display<
         SPIInterface<
-            ExclusiveDevice<spi::master::Spi<'static, esp_hal::Blocking, M>, NoPin, Delay>,
+            ExclusiveDevice<spi::master::Spi<'static, esp_hal::Blocking, M>, NoPin, embedded_hal_bus::spi::NoDelay>,
             DC,
         >,
         mipidsi::models::ILI9341Rgb565,
@@ -337,14 +377,6 @@ fn write_segment_name<
     .unwrap();
 }
 
-pub fn send_request<'a, 's, MODE>(socket: &mut Socket<'s, 'a, MODE>, request: &'a [u8])
-where
-    MODE: smoltcp::phy::Device,
-{
-    socket.write(request).unwrap();
-    socket.flush().unwrap();
-}
-
 pub fn get_response<'a, 's, MODE>(
     mut socket: Socket<'s, 'a, MODE>,
 ) -> Result<([u8; 4096], usize), ()>
@@ -394,50 +426,6 @@ where
     Ok((buffer, total_size))
 }
 
-pub fn get_time<'a, 's, MODE>(mut socket: Socket<'s, 'a, MODE>) -> Result<(u8, u8, u8), ()>
-where
-    MODE: smoltcp::phy::Device,
-{
-    let request =
-        "GET /api/timezone/Europe/Prague HTTP/1.1\r\nHost: worldtimeapi.org\r\n\r\n".as_bytes();
-
-    // Using classic "worldtime.api" to get time
-    send_request(&mut socket, request);
-
-    let (response, total_size) = get_response(socket).unwrap();
-
-    if let Some(timestamp) = find_unixtime(&response[..total_size]) {
-        let mut timestamp = timestamp;
-        timestamp += 120 * 60 + 10; // align with CEST and compensate socket delay
-        return Ok(timestamp_to_hms(timestamp));
-    } else {
-        println!("Failed to find or parse the 'unixtime' field.");
-        return Err(());
-    }
-}
-
-pub fn get_timestamp<'a, 's, MODE>(mut socket: Socket<'s, 'a, MODE>) -> Result<u64, ()>
-where
-    MODE: smoltcp::phy::Device,
-{
-    let request =
-        "GET /api/timezone/Europe/Prague HTTP/1.1\r\nHost: worldtimeapi.org\r\n\r\n".as_bytes();
-
-    // Using classic "worldtime.api" to get time
-    send_request(&mut socket, request);
-
-    let (response, total_size) = get_response(socket).unwrap();
-
-    if let Some(timestamp) = find_unixtime(&response[..total_size]) {
-        let mut timestamp = timestamp;
-        timestamp += 120 * 60 + 10; // align with CEST and compensate socket delay
-        return Ok(timestamp);
-    } else {
-        println!("Failed to find or parse the 'unixtime' field.");
-        return Err(());
-    }
-}
-
 pub fn timestamp_to_hms(timestamp: u64) -> (u8, u8, u8) {
     let seconds_per_minute = 60;
     let minutes_per_hour = 60;
@@ -450,21 +438,6 @@ pub fn timestamp_to_hms(timestamp: u64) -> (u8, u8, u8) {
     let seconds = timestamp % seconds_per_minute;
 
     (hours as u8, minutes as u8, seconds as u8)
-}
-
-pub fn weekday_from_timestamp(timestamp: &u64) -> &'static str {
-    let days_since_1970 = timestamp / 86400; // seconds in a day
-    let day_of_week = (days_since_1970 + 4) % 7; // Adjusting the offset since 1-1-1970 was a Thursday
-    match day_of_week {
-        0 => "Sunday",
-        1 => "Monday",
-        2 => "Tuesday",
-        3 => "Wednesday",
-        4 => "Thursday",
-        5 => "Friday",
-        6 => "Saturday",
-        _ => "Error",
-    }
 }
 
 pub fn find_unixtime(response: &[u8]) -> Option<u64> {
@@ -494,7 +467,7 @@ fn write_to_segment<
 >(
     display: &mut mipidsi::Display<
         SPIInterface<
-            ExclusiveDevice<spi::master::Spi<'static, esp_hal::Blocking, M>, NoPin, Delay>,
+        ExclusiveDevice<spi::master::Spi<'static, esp_hal::Blocking, M>, NoPin, embedded_hal_bus::spi::NoDelay>,
             DC,
         >,
         mipidsi::models::ILI9341Rgb565,

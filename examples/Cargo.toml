@@ -51,7 +51,7 @@ usb-device          = "0.3.2"
 usbd-serial         = "0.2.2"
 
 embedded-graphics   = "0.8.1"
-bme280              = "0.5.0"
+embedded-aht20      = "0.1.3"
 display-interface-spi = "0.5.0"
 profont             = { version = "0.6.1", git = "https://github.com/sambenko/profont.git", branch = "embedded-graphics-0.8.0-fixes" }
 mipidsi             = "0.8.0"
