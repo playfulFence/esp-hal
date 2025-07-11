@@ -107,6 +107,8 @@ pub enum Chip {
     Esp32c3,
     /// ESP32-C6
     Esp32c6,
+    /// ESP32-C61
+    Esp32c61,
     /// ESP32-H2
     Esp32h2,
     /// ESP32-S2
@@ -166,6 +168,7 @@ impl Chip {
             Chip::Esp32c2 => "Esp32c2",
             Chip::Esp32c3 => "Esp32c3",
             Chip::Esp32c6 => "Esp32c6",
+            Chip::Esp32c61 => "Esp32c61",
             Chip::Esp32h2 => "Esp32h2",
             Chip::Esp32s2 => "Esp32s2",
             Chip::Esp32s3 => "Esp32s3",
@@ -178,6 +181,7 @@ impl Chip {
             Chip::Esp32c2 => "ESP32-C2",
             Chip::Esp32c3 => "ESP32-C3",
             Chip::Esp32c6 => "ESP32-C6",
+            Chip::Esp32c61 => "ESP32-C61",
             Chip::Esp32h2 => "ESP32-H2",
             Chip::Esp32s2 => "ESP32-S2",
             Chip::Esp32s3 => "ESP32-S3",
@@ -302,6 +306,7 @@ impl Config {
             Chip::Esp32c2 => include_toml!(Config, "../devices/esp32c2.toml"),
             Chip::Esp32c3 => include_toml!(Config, "../devices/esp32c3.toml"),
             Chip::Esp32c6 => include_toml!(Config, "../devices/esp32c6.toml"),
+            Chip::Esp32c61 => include_toml!(Config, "../devices/esp32c61.toml"),
             Chip::Esp32h2 => include_toml!(Config, "../devices/esp32h2.toml"),
             Chip::Esp32s2 => include_toml!(Config, "../devices/esp32s2.toml"),
             Chip::Esp32s3 => include_toml!(Config, "../devices/esp32s3.toml"),

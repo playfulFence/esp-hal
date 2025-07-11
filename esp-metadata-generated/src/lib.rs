@@ -107,6 +107,8 @@ include!("_generated_esp32c2.rs");
 include!("_generated_esp32c3.rs");
 #[cfg(all(not(feature = "build-script"), feature = "esp32c6"))]
 include!("_generated_esp32c6.rs");
+#[cfg(all(not(feature = "build-script"), feature = "esp32c61"))]
+include!("_generated_esp32c61.rs");
 #[cfg(all(not(feature = "build-script"), feature = "esp32h2"))]
 include!("_generated_esp32h2.rs");
 #[cfg(all(not(feature = "build-script"), feature = "esp32s2"))]

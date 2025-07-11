@@ -12,6 +12,7 @@ pub enum Chip {
     Esp32c2,
     Esp32c3,
     Esp32c6,
+    Esp32c61,
     Esp32h2,
     Esp32s2,
     Esp32s3,
@@ -24,6 +25,7 @@ impl core::str::FromStr for Chip {
             "esp32c2" => Ok(Self::Esp32c2),
             "esp32c3" => Ok(Self::Esp32c3),
             "esp32c6" => Ok(Self::Esp32c6),
+            "esp32c61" => Ok(Self::Esp32c61),
             "esp32h2" => Ok(Self::Esp32h2),
             "esp32s2" => Ok(Self::Esp32s2),
             "esp32s3" => Ok(Self::Esp32s3),
@@ -41,6 +43,7 @@ impl Chip {
             ("CARGO_FEATURE_ESP32C2", Self::Esp32c2),
             ("CARGO_FEATURE_ESP32C3", Self::Esp32c3),
             ("CARGO_FEATURE_ESP32C6", Self::Esp32c6),
+            ("CARGO_FEATURE_ESP32C61", Self::Esp32c61),
             ("CARGO_FEATURE_ESP32H2", Self::Esp32h2),
             ("CARGO_FEATURE_ESP32S2", Self::Esp32s2),
             ("CARGO_FEATURE_ESP32S3", Self::Esp32s3),
@@ -50,7 +53,7 @@ impl Chip {
             if std::env::var(env).is_ok() {
                 if chip.is_some() {
                     return Err(
-                        "Expected exactly one of the following features to be enabled: esp32, esp32c2, esp32c3, esp32c6, esp32h2, esp32s2, esp32s3",
+                        "Expected exactly one of the following features to be enabled: esp32, esp32c2, esp32c3, esp32c6, esp32c61, esp32h2, esp32s2, esp32s3",
                     );
                 }
                 chip = Some(c);
@@ -59,7 +62,7 @@ impl Chip {
         match chip {
             Some(chip) => Ok(chip),
             None => Err(
-                "Expected exactly one of the following features to be enabled: esp32, esp32c2, esp32c3, esp32c6, esp32h2, esp32s2, esp32s3",
+                "Expected exactly one of the following features to be enabled: esp32, esp32c2, esp32c3, esp32c6, esp32c61, esp32h2, esp32s2, esp32s3",
             ),
         }
     }
@@ -84,6 +87,7 @@ impl Chip {
             Self::Esp32c2 => "esp32c2",
             Self::Esp32c3 => "esp32c3",
             Self::Esp32c6 => "esp32c6",
+            Self::Esp32c61 => "esp32c61",
             Self::Esp32h2 => "esp32h2",
             Self::Esp32s2 => "esp32s2",
             Self::Esp32s3 => "esp32s3",
@@ -128,6 +132,7 @@ impl Chip {
             Self::Esp32c2,
             Self::Esp32c3,
             Self::Esp32c6,
+            Self::Esp32c61,
             Self::Esp32h2,
             Self::Esp32s2,
             Self::Esp32s3,
@@ -1219,6 +1224,17 @@ impl Chip {
                     "cargo:rustc-cfg=rmt_ram_start=\"1610638336\"",
                     "cargo:rustc-cfg=rmt_channel_ram_size=\"48\"",
                     "cargo:rustc-cfg=wifi_has_wifi6",
+                    "cargo:rustc-cfg=has_dram_region",
+                ],
+            },
+            Self::Esp32c61 => Config {
+                architecture: "riscv",
+                target: "riscv32imac-unknown-none-elf",
+                symbols: &["esp32c61", "riscv", "single_core", "has_dram_region"],
+                cfgs: &[
+                    "cargo:rustc-cfg=esp32c61",
+                    "cargo:rustc-cfg=riscv",
+                    "cargo:rustc-cfg=single_core",
                     "cargo:rustc-cfg=has_dram_region",
                 ],
             },
@@ -2378,6 +2394,7 @@ impl Config {
         println!("cargo:rustc-check-cfg=cfg(i2c_master_can_estimate_nack_reason)");
         println!("cargo:rustc-check-cfg=cfg(i2c_master_has_reliable_fsm_reset)");
         println!("cargo:rustc-check-cfg=cfg(wifi_has_wifi6)");
+        println!("cargo:rustc-check-cfg=cfg(esp32c61)");
         println!("cargo:rustc-check-cfg=cfg(esp32h2)");
         println!("cargo:rustc-check-cfg=cfg(esp32s2)");
         println!("cargo:rustc-check-cfg=cfg(soc_has_dedicated_gpio)");
