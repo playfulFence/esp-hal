@@ -6,7 +6,7 @@
 ![Crates.io](https://img.shields.io/crates/l/esp-backtrace?labelColor=1C2C2E&style=flat-square)
 [![Matrix](https://img.shields.io/matrix/esp-rs:matrix.org?label=join%20matrix&labelColor=1C2C2E&color=BEC5C9&logo=matrix&style=flat-square)](https://matrix.to/#/#esp-rs:matrix.org)
 
-Supports the ESP32, ESP32-C2/C3/C6, ESP32-H2, ESP32-P4, and ESP32-S2/S3. Optional exception and panic handlers are included, both of which can be enabled via their respective features.
+Supports the ESP32, ESP32-C2/C3/C6/C61, ESP32-H2, ESP32-P4, and ESP32-S2/S3. Optional exception and panic handlers are included, both of which can be enabled via their respective features.
 
 Please note that when targeting a RISC-V device, you **need** to force frame pointers (i.e. `"-C", "force-frame-pointers",` in your `.cargo/config.toml`); this is **not** required for Xtensa.
 
@@ -23,6 +23,7 @@ When using the panic and/or exception handler make sure to include `use esp_back
 | esp32c2              | Target ESP32-C2                                                                                                    |
 | esp32c3              | Target ESP32-C3                                                                                                    |
 | esp32c6              | Target ESP32-C6                                                                                                    |
+| esp32c61             | Target ESP32-C61                                                                                                   |
 | esp32h2              | Target ESP32-H2                                                                                                    |
 | esp32p4              | Target ESP32-P4                                                                                                    |
 | esp32s2              | Target ESP32-S2                                                                                                    |
