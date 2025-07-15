@@ -55,16 +55,18 @@ std = ["dep:crc", "dep:md-5"]
 # The following trailing spaces ("## ") are important to display the feature names.
 
 ## 
-esp32c2   = ["esp-rom-sys/esp32c2"]
+esp32c2    = ["esp-rom-sys/esp32c2"]
 ## 
-esp32c3   = ["esp-rom-sys/esp32c3"]
+esp32c3    = ["esp-rom-sys/esp32c3"]
 ## 
-esp32c6   = ["esp-rom-sys/esp32c6"]
+esp32c6    = ["esp-rom-sys/esp32c6"]
 ## 
-esp32h2   = ["esp-rom-sys/esp32h2"]
+esp32c61   = ["esp-rom-sys/esp32c61"]
 ## 
-esp32     = ["esp-rom-sys/esp32"]
+esp32h2    = ["esp-rom-sys/esp32h2"]
 ## 
-esp32s2   = ["esp-rom-sys/esp32s2"]
+esp32      = ["esp-rom-sys/esp32"]
 ## 
-esp32s3   = ["esp-rom-sys/esp32s3"]
+esp32s2    = ["esp-rom-sys/esp32s2"]
+## 
+esp32s3    = ["esp-rom-sys/esp32s3"]

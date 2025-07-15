@@ -36,21 +36,21 @@ esp-metadata-generated = { version = "0.0.1", path = "../esp-metadata-generated"
 # The following trailing spaces ("## ") are important to display the feature names.
 
 ## 
-esp32   = []
+esp32    = []
 ## 
-esp32c2 = []
+esp32c2  = []
 ## 
-esp32c3 = []
+esp32c3  = []
 ## 
-esp32c6 = []
+esp32c6  = []
 ##
 esp32c61 = []
 ## 
-esp32h2 = []
+esp32h2  = []
 ## 
-esp32s2 = []
+esp32s2  = []
 ## 
-esp32s3 = []
+esp32s3  = []
 
 ## Enable support for version 0.4 of the `log` crate
 log-04 = ["dep:log-04"]
