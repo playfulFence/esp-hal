@@ -72,8 +72,6 @@ use num_derive::FromPrimitive;
 pub(crate) use os_adapter::*;
 use portable_atomic::{AtomicUsize, Ordering};
 use procmacros::BuilderLite;
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
 #[cfg(all(feature = "smoltcp", feature = "unstable"))]
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable")))]
 use smoltcp::phy::{Device, DeviceCapabilities, RxToken, TxToken};
@@ -157,7 +155,6 @@ use crate::binary::{
 /// Supported Wi-Fi authentication methods.
 #[derive(Copy, Clone, Debug, Default, Eq, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[non_exhaustive]
 pub enum AuthMethod {
     /// No authentication (open network).
@@ -192,7 +189,6 @@ pub enum AuthMethod {
 /// Supported Wi-Fi protocols.
 #[derive(Debug, Default, PartialOrd, EnumSetType)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[non_exhaustive]
 pub enum Protocol {
     /// 802.11b protocol.
@@ -235,7 +231,7 @@ impl Protocol {
 /// Secondary Wi-Fi channels.
 #[derive(Clone, Debug, Default, Eq, PartialEq, PartialOrd)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
+
 pub enum SecondaryChannel {
     // TODO: Need to extend that for 5GHz
     /// No secondary channel (default).
@@ -251,7 +247,7 @@ pub enum SecondaryChannel {
 
 /// Access point country information.
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
+
 pub struct Country([u8; 2]);
 
 impl Country {
@@ -295,7 +291,6 @@ impl defmt::Format for Country {
 /// Information about a detected Wi-Fi access point.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[non_exhaustive]
 pub struct AccessPointInfo {
     /// The SSID of the access point.
@@ -324,7 +319,7 @@ pub struct AccessPointInfo {
 
 /// Configuration for a Wi-Fi access point.
 #[derive(BuilderLite, Clone, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
+
 pub struct AccessPointConfig {
     /// The SSID of the access point.
     #[builder_lite(reference)]
@@ -456,7 +451,7 @@ pub enum ScanMethod {
 
 /// Client configuration for a Wi-Fi connection.
 #[derive(BuilderLite, Clone, Eq, PartialEq)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
+
 pub struct ClientConfig {
     /// The SSID of the Wi-Fi network.
     #[builder_lite(reference)]
@@ -591,7 +586,6 @@ impl defmt::Format for ClientConfig {
 /// Configuration for EAP-FAST authentication protocol.
 #[derive(Clone, Debug, PartialEq, Eq)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[cfg(feature = "wifi-eap")]
 #[instability::unstable]
 pub struct EapFastConfig {
@@ -606,7 +600,6 @@ pub struct EapFastConfig {
 /// Phase 2 authentication methods
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[cfg(feature = "wifi-eap")]
 #[instability::unstable]
 pub enum TtlsPhase2Method {
@@ -655,7 +648,6 @@ type CertificateAndKey = (&'static [u8], &'static [u8], Option<&'static [u8]>);
 
 /// Configuration for an EAP (Extensible Authentication Protocol) client.
 #[derive(BuilderLite, Clone, PartialEq, Eq)]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[cfg(feature = "wifi-eap")]
 #[instability::unstable]
 pub struct EapClientConfig {
@@ -878,7 +870,6 @@ impl Default for EapClientConfig {
 /// Introduces Wi-Fi configuration options.
 #[derive(EnumSetType, Debug, PartialOrd)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[non_exhaustive]
 pub enum Capability {
     /// The device operates as a client, connecting to an existing network.
@@ -897,7 +888,6 @@ pub enum Capability {
 #[allow(clippy::large_enum_variant)]
 #[derive(Clone, Debug, PartialEq, Eq, Default)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[non_exhaustive]
 pub enum ModeConfig {
     /// No configuration (default).
@@ -915,7 +905,6 @@ pub enum ModeConfig {
 
     /// EAP client configuration for enterprise Wi-Fi.
     #[cfg(feature = "wifi-eap")]
-    #[cfg_attr(feature = "serde", serde(skip))]
     EapClient(EapClientConfig),
 }
 
@@ -976,7 +965,6 @@ impl AuthMethodExt for AuthMethod {
 /// Wi-Fi Mode (Sta and/or Ap)
 #[derive(Debug, Clone, Copy, PartialEq)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 #[non_exhaustive]
 pub enum WifiMode {
     /// Station mode.
