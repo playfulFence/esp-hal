@@ -18,7 +18,7 @@ jobs:
       - name: Dispatch HIL (quick)
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: HIL
+          workflow: .github/workflows/hil.yml
           ref: ${{ github.event.repository.default_branch }}
           inputs: |
             {
@@ -43,7 +43,7 @@ jobs:
       - name: Dispatch HIL (full)
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: HIL
+          workflow: .github/workflows/hil.yml
           ref: ${{ github.event.repository.default_branch }}
           inputs: |
             {
