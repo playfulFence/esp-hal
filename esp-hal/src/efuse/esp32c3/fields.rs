@@ -7,7 +7,7 @@
 
 use crate::efuse::EfuseField;
 
-/// Disable programming of individual eFuses
+/// Disable programming of individual eFuses ABOBA
 pub const WR_DIS: EfuseField = EfuseField::new(0, 0, 0, 32);
 /// Disable reading from BlOCK4-10
 pub const RD_DIS: EfuseField = EfuseField::new(0, 1, 32, 7);
