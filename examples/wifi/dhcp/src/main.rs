@@ -41,7 +41,7 @@ const PASSWORD: &str = env!("PASSWORD");
 fn main() -> ! {
     esp_println::logger::init_logger_from_env(); // cdsfs
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
-    let peripherals = esp_hal::init(config);
+    let peripherals = esp_hal::init(config); //dsfsd
 
     esp_alloc::heap_allocator!(#[ram(reclaimed)] size: 64 * 1024);
     esp_alloc::heap_allocator!(size: 36 * 1024);
