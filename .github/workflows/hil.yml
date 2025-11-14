@@ -1,28 +1,27 @@
 name: HIL
 
 on:
-  # No automatic PR runs; we'll trigger via slash/label + keep merge queue
+  # For merge queue: always run full matrix on the merge commit
   merge_group:
-  workflow_dispatch:
+  # For label/slash dispatch: reusable workflow
+  workflow_call:
     inputs:
       repository:
-        description: "Owner and repository to test"
-        required: true
-        default: "esp-rs/esp-hal"
+        description: "Owner/repository to test (for dispatched runs)"
+        required: false
+        default: ""
+        type: string
       branch:
-        description: "Branch, tag or SHA to checkout."
-        required: true
-        default: "main"
-      # choose quick or full matrix
+        description: "Ref (branch/tag/SHA) to checkout"
+        required: false
+        default: ""
+        type: string
       matrix:
         description: "Test matrix size: quick|full"
         required: false
         default: "quick"
+        type: string
 
-# Cancel any currently running workflows from the same PR, branch, or
-# tag when a new workflow is triggered.
-#
-# https://stackoverflow.com/a/66336834
 concurrency:
   cancel-in-progress: true
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -30,22 +29,30 @@ concurrency:
 env:
   CARGO_TERM_COLOR: always
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
-jobs:      
+
+# Helper “vars” so jobs don’t repeat ternaries
+# - For merge_group: repository = github.repository, branch = github.ref, matrix = "full"
+# - For workflow_call: use passed-in inputs.*
+jobs:
   build-xtasks:
     name: Build xtasks
     runs-on: ubuntu-latest
+
+    env:
+      HIL_REPO:   ${{ inputs.repository != '' && inputs.repository || github.repository }}
+      HIL_BRANCH: ${{ inputs.branch    != '' && inputs.branch    || github.ref }}
 
     steps:
       # merge_group checks out the merge commit implicitly
       - uses: actions/checkout@v4
         if: github.event_name == 'merge_group'
-      # workflow_dispatch: checkout requested repo+ref (prefer SHA when given)
+
+      # reusable call: checkout requested repo+ref
       - uses: actions/checkout@v4
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name != 'merge_group'
         with:
-          repository: ${{ github.event.inputs.repository }}
-          ref: ${{ github.event.inputs.branch }}
+          repository: ${{ env.HIL_REPO }}
+          ref:        ${{ env.HIL_BRANCH }}
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@v1
@@ -74,7 +81,8 @@ jobs:
           path: target/aarch64-unknown-linux-gnu/release/xtask
 
   build-tests-full:
-    if: github.event_name == 'merge_group' || github.event.inputs.matrix == 'full'
+    # full matrix for merge_group OR when matrix == 'full' in dispatched runs
+    if: github.event_name == 'merge_group' || inputs.matrix == 'full'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -110,16 +118,19 @@ jobs:
           host: armv7
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/build-tests
         with:
-          event_name: ${{ github.event_name }}
-          repository: ${{ github.event.inputs.repository || github.repository }}
-          branch: ${{ github.event.inputs.branch || 'main' }}
-          soc: ${{ matrix.target.soc }}
+          # merge_group vs reusable-call are both routed via inputs.*
+          event_name:  ${{ github.event_name }}
+          repository:  ${{ inputs.repository != '' && inputs.repository || github.repository }}
+          branch:      ${{ inputs.branch    != '' && inputs.branch    || github.ref }}
+          soc:         ${{ matrix.target.soc }}
           rust_target: ${{ matrix.target.rust-target }}
 
   build-tests-quick:
-    if: github.event_name != 'merge_group' && github.event.inputs.matrix != 'full'
+    # quick matrix only for non-merge_group and when matrix != 'full'
+    if: github.event_name != 'merge_group' && inputs.matrix != 'full'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -135,17 +146,17 @@ jobs:
             host: armv7
     steps:
       - uses: actions/checkout@v4
+
       - uses: ./.github/actions/build-tests
         with:
-          event_name: ${{ github.event_name }}
-          repository: ${{ github.event.inputs.repository || github.repository }}
-          branch: ${{ github.event.inputs.branch || 'main' }}
-          soc: ${{ matrix.target.soc }}
+          event_name:  ${{ github.event_name }}
+          repository:  ${{ inputs.repository != '' && inputs.repository || github.repository }}
+          branch:      ${{ inputs.branch    != '' && inputs.branch    || github.ref }}
+          soc:         ${{ matrix.target.soc }}
           rust_target: ${{ matrix.target.rust-target }}
 
-
   hil-quick:
-    if: github.event_name != 'merge_group' && github.event.inputs.matrix != 'full'
+    if: github.event_name != 'merge_group' && inputs.matrix != 'full'
     needs: [build-tests-quick, build-xtasks]
     runs-on:
       labels: [self-hosted, "${{ matrix.target.runner }}"]
@@ -166,7 +177,6 @@ jobs:
         with:
           name: tests-${{ matrix.target.soc }}
           path: tests-${{ matrix.target.soc }}
-        # In a quick run, some artifacts won't exist — job wouldn't fail because of that.
         continue-on-error: true
 
       - uses: actions/download-artifact@v4
@@ -186,7 +196,6 @@ jobs:
         id: run-tests
         run: |
           [ -f ~/setup.sh ] && source ~/setup.sh
-
           export PATH=$PATH:/home/espressif/.cargo/bin
           chmod +x xtask
           ./xtask run elfs ${{ matrix.target.soc }} tests-${{ matrix.target.soc }}
@@ -198,7 +207,7 @@ jobs:
           rm -f xtask || true
 
   hil-full:
-    if: github.event_name == 'merge_group' || github.event.inputs.matrix == 'full'
+    if: github.event_name == 'merge_group' || inputs.matrix == 'full'
     needs: [build-tests-full, build-xtasks]
     runs-on:
       labels: [self-hosted, "${{ matrix.target.runner }}"]
@@ -239,7 +248,6 @@ jobs:
         with:
           name: tests-${{ matrix.target.soc }}
           path: tests-${{ matrix.target.soc }}
-        # In a quick run, some artifacts won't exist — job wouldn't fail because of that.
         continue-on-error: true
 
       - uses: actions/download-artifact@v4
@@ -259,7 +267,6 @@ jobs:
         id: run-tests
         run: |
           [ -f ~/setup.sh ] && source ~/setup.sh
-
           export PATH=$PATH:/home/espressif/.cargo/bin
           chmod +x xtask
           ./xtask run elfs ${{ matrix.target.soc }} tests-${{ matrix.target.soc }}
@@ -270,7 +277,6 @@ jobs:
           rm -rf tests-${{ matrix.target.soc }} || true
           rm -f xtask || true
 
-  # Single required check to block merge unless full HIL passed on merge_group
   required:
     if: github.event_name == 'merge_group'
     needs: [hil-full]
