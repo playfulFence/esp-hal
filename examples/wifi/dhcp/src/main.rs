@@ -60,7 +60,7 @@ fn main() -> ! {
 
     let mut socket_set_entries: [SocketStorage; 3] = Default::default();
     let mut socket_set = SocketSet::new(&mut socket_set_entries[..]);
-    let mut dhcp_socket = smoltcp::socket::dhcpv4::Socket::new();
+    let mut dhcp_socket = smoltcp::socket::dhcpv4::Socket::new(); /// HELP ME 
     // we can set a hostname here (or add other DHCP options)
     dhcp_socket.set_outgoing_options(&[DhcpOption {
         kind: 12,
