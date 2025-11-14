@@ -32,7 +32,7 @@ use smoltcp::{
     wire::{DhcpOption, IpAddress},
 };
 
-esp_bootloader_esp_idf::esp_app_desc!();
+esp_bootloader_esp_idf::esp_app_desc!(); // GABIMBA
 
 const SSID: &str = env!("SSID");
 const PASSWORD: &str = env!("PASSWORD");
