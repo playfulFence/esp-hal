@@ -27,7 +27,7 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: hil.yml
-          ref: ${{ github.event.repository.default_branch }}
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
           inputs: |
             {
               "repository": "${{ github.repository }}",
@@ -55,7 +55,7 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: hil.yml
-          ref: ${{ github.event.repository.default_branch }}
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
           inputs: |
             {
               "repository": "${{ github.repository }}",
@@ -284,7 +284,7 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: hil.yml
-          ref: ${{ github.event.repository.default_branch }}
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
           inputs: |
             {
               "repository": "${{ github.repository }}",
@@ -310,7 +310,7 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: hil.yml
-          ref: ${{ github.event.repository.default_branch }}
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
           inputs: |
             {
               "repository": "${{ github.repository }}",
