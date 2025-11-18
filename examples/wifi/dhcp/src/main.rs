@@ -23,7 +23,7 @@ use esp_hal::{
     ram,
     rng::Rng,
     time::{self, Duration},
-    timer::timg::TimerGroup,
+    timer::timg::TimerGroup, // gababr
 };
 use esp_println::{print, println};
 use esp_radio::wifi::{ClientConfig, ModeConfig, ScanConfig};
