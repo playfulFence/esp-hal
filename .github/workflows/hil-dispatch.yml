@@ -350,7 +350,7 @@ jobs:
             if (run && run.html_url) {
               body += `\n\nRun: ${run.html_url}`;
             } else {
-              body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually.`;
+              body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually. DEBUG DATA: PR = ${pr} , matrix = ${matrix};`
             }
 
             core.setOutput('body', body);
@@ -419,7 +419,7 @@ jobs:
             if (run && run.html_url) {
               body += `\n\nRun: ${run.html_url}`;
             } else {
-              body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually.`;
+              body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually. DEBUG DATA: PR = ${pr} , matrix = ${matrix};`
             }
 
             core.setOutput('body', body);
