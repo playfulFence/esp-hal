@@ -318,40 +318,74 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const pr = context.payload.issue.number;
-            const matrix = 'quick';
+            const matrix = 'quick'; // or 'full' in the other job
             const expectedTitle = `HIL for PR #${pr} (${matrix})`;
 
             const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
             let run = null;
+            let lastRunsSnapshot = [];
+            let attemptsMade = 0;
 
             // Try multiple times to give GitHub a chance to register the run
             for (let attempt = 1; attempt <= 10; attempt++) {
-              const { data } = await github.rest.actions.listWorkflowRuns({
+                attemptsMade = attempt;
+
+                const { data } = await github.rest.actions.listWorkflowRuns({
                 owner,
                 repo,
                 workflow_id: 'hil.yml',
                 event: 'workflow_dispatch',
                 per_page: 50,
-              });
+                });
 
-              if (data.workflow_runs && data.workflow_runs.length > 0) {
-                run = data.workflow_runs.find(r =>
-                  (r.display_title && r.display_title === expectedTitle) ||
-                  (r.name && r.name === expectedTitle)
+                const runs = data.workflow_runs || [];
+                lastRunsSnapshot = runs;
+
+                run = runs.find(r =>
+                (r.display_title && r.display_title === expectedTitle) ||
+                (r.name && r.name === expectedTitle)
                 );
-                if (run) break;
-              }
 
-              await delay(20000);
+                if (run) break;
+
+                await delay(5000);
             }
 
             let body = `Triggered **${matrix}** HIL run for #${pr}.`;
+
             if (run && run.html_url) {
-              body += `\n\nRun: ${run.html_url}`;
+                body += `\n\nRun: ${run.html_url}`;
             } else {
-              body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually. DEBUG DATA: PR = ${pr} , matrix = ${matrix};`
+                body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually.`;
             }
+
+            // --- DEBUG SECTION ---
+            body += `\n\n--- HIL debug info ---`;
+            body += `\nowner: \`${owner}\``;
+            body += `\nrepo: \`${repo}\``;
+            body += `\nPR: \`${pr}\``;
+            body += `\nmatrix: \`${matrix}\``;
+            body += `\nexpectedTitle: \`${expectedTitle}\``;
+            body += `\nattemptsMade: \`${attemptsMade}\``;
+            body += `\nmatchedRun: \`${run ? (run.name || run.display_title || run.id) : 'NONE'}\``;
+
+            const debugRuns = lastRunsSnapshot
+                .slice(0, 10)
+                .map(r => {
+                return [
+                    `id=${r.id}`,
+                    `name=${r.name}`,
+                    `display_title=${r.display_title}`,
+                    `event=${r.event}`,
+                    `status=${r.status}`,
+                    `conclusion=${r.conclusion}`
+                ].join(', ');
+                })
+                .join('\n');
+
+            body += `\n\nLast workflow_dispatch runs for hil.yml (up to 10):\n`;
+            body += debugRuns ? debugRuns : '  <no runs returned>';
 
             core.setOutput('body', body);
 
@@ -412,7 +446,7 @@ jobs:
                 if (run) break;
               }
 
-              await delay(20000);
+              await delay(5000);
             }
 
             let body = `Triggered **${matrix}** HIL run for #${pr}.`;
