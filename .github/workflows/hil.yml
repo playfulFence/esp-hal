@@ -21,6 +21,13 @@ on:
         required: false
         default: "quick"
         type: string
+      pr:
+        description: "PR number (for correlation from dispatch)"
+        required: false
+        default: ""
+        type: string
+
+run-name: HIL (${{ inputs.matrix != '' && inputs.matrix || 'full' }}) for PR #${{ inputs.pr != '' && inputs.pr || 'merge-queue' }}
 
 concurrency:
   cancel-in-progress: true

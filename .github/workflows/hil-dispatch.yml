@@ -13,59 +13,85 @@ permissions:
 
 jobs:
   # ---------------------------------------------------------------------------
-  # LABEL-BASED DISPATCH
+  # LABEL: TRUSTED AUTHOR
   # ---------------------------------------------------------------------------
 
-  label-hil-quick:
+  label-trusted-author:
     if: github.event_name == 'pull_request_target' &&
-        github.event.label.name == 'quick-hil'
-    uses: ./.github/workflows/hil.yml
-    with:
-      repository: ${{ github.repository }}
-      branch: refs/pull/${{ github.event.pull_request.number }}/head
-      matrix: quick
-    secrets: inherit
-
-  label-hil-quick-notify:
-    if: github.event_name == 'pull_request_target' &&
-        github.event.label.name == 'quick-hil'
-    needs: label-hil-quick
+        github.event.label.name == 'trusted-author'
     runs-on: ubuntu-latest
     steps:
+      - name: Get PR author login
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const login = (context.payload.pull_request.user.login || '').toLowerCase();
+            if (!login) {
+              core.setFailed('Could not determine PR author login');
+              return;
+            }
+            core.setOutput('login', login);
+
+      - id: find
+        uses: peter-evans/find-comment@v3
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: github-actions[bot]
+          body-includes: "[HIL trust list]"
+
+      - name: Upsert trust list for author
+        id: upsert
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const login = "${{ steps.pr.outputs.login }}".toLowerCase();
+            const existing = `${{ toJson(steps.find.outputs.comment-body || '') }}`;
+
+            // read existing trusted[] from hidden JSON if present
+            let list = [];
+            const m = existing.match(/<!--\s*HIL_TRUST_JSON\s*([\s\S]*?)\s*HIL_TRUST_JSON\s*-->/);
+            if (m && m[1]) {
+              try { list = JSON.parse(m[1]).trusted || []; } catch {}
+            }
+
+            if (!list.includes(login)) list.push(login);
+            list = Array.from(new Set(list)).sort();
+
+            const json = JSON.stringify({ trusted: list }, null, 2);
+            const pretty = list.length ? list.map(u => `- @${u}`).join('\n') : '_None yet_';
+
+            const body =
+            `### [HIL trust list]
+            <!-- HIL_TRUST_JSON
+            ${json}
+            HIL_TRUST_JSON -->
+
+            <details>
+            <summary>Trusted users for this PR (click to expand)</summary>
+
+            ${pretty}
+
+            </details>`;
+
+            core.setOutput("body", body);
+
       - uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: Label `quick-hil` detected — triggered **HIL** (`quick`) for \#${{ github.event.pull_request.number }}.
-      - uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: quick-hil
+          comment-id: ${{ steps.find.outputs.comment-id }}
+          body: ${{ steps.upsert.outputs.body }}
+          edit-mode: replace
 
-  label-hil-full:
-    if: github.event_name == 'pull_request_target' &&
-        github.event.label.name == 'full-hil'
-    uses: ./.github/workflows/hil.yml
-    with:
-      repository: ${{ github.repository }}
-      branch: refs/pull/${{ github.event.pull_request.number }}/head
-      matrix: full
-    secrets: inherit
-
-  label-hil-full-notify:
-    if: github.event_name == 'pull_request_target' &&
-        github.event.label.name == 'full-hil'
-    needs: label-hil-full
-    runs-on: ubuntu-latest
-    steps:
       - uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: Label `full-hil` detected — triggered **HIL** (`full`) for \#${{ github.event.pull_request.number }}.
-      - uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: full-hil
+          body: |
+            Author **@${{ steps.pr.outputs.login }}** was trusted for this PR via the `trusted-author` label.
+            They can now use `/hil quick` or `/hil full`.
 
   # ---------------------------------------------------------------------------
-  # TRUST MANAGEMENT (unchanged)
+  # TRUST MANAGEMENT
   # ---------------------------------------------------------------------------
 
   trust:
@@ -128,7 +154,7 @@ jobs:
 
             </details>`;
 
-                        core.setOutput("body", body);
+            core.setOutput("body", body);
 
       - uses: peter-evans/create-or-update-comment@v4
         with:
@@ -201,7 +227,7 @@ jobs:
 
             </details>`;
 
-                        core.setOutput("body", body);
+            core.setOutput("body", body);
 
       - uses: peter-evans/create-or-update-comment@v4
         with:
@@ -273,10 +299,12 @@ jobs:
         startsWith(github.event.comment.body, '/hil quick')
     uses: ./.github/workflows/hil.yml
     with:
-      repository: ${{ github.repository }}
-      branch: refs/pull/${{ github.event.issue.number }}/head
-      matrix: quick
+        repository: ${{ github.repository }}
+        branch: refs/pull/${{ github.event.issue.number }}/head
+        matrix: quick
+        pr: ${{ github.event.issue.number }}
     secrets: inherit
+
 
   hil-quick-notify:
     needs: hil-quick
@@ -284,12 +312,38 @@ jobs:
         startsWith(github.event.comment.body, '/hil quick')
     runs-on: ubuntu-latest
     steps:
+      - id: find-run
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pr = context.payload.issue.number;
+            const targetTitle = `HIL (quick) for PR #${pr}`;
+
+            const runs = await github.paginate(
+              github.rest.actions.listWorkflowRuns,
+              {
+                owner,
+                repo,
+                workflow_id: 'hil.yml',
+                per_page: 50
+              }
+            );
+
+            // newest first; pick the first matching our PR+matrix
+            const run = runs.find(r =>
+              r.event === 'workflow_call' &&
+              r.display_title === targetTitle
+            );
+
+            core.setOutput('url', run?.html_url || '');
+
       - uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.issue.number }}
-          body: >
-            Triggered quick HIL run for
-            #${{ github.event.issue.number }}
+          body: |
+            Triggered **quick** HIL run for #${{ github.event.issue.number }}.
+            Run: ${{ steps.find-run.outputs.url || 'not found (it may not have started yet)' }}
 
   hil-full:
     needs: auth
@@ -301,6 +355,7 @@ jobs:
       repository: ${{ github.repository }}
       branch: refs/pull/${{ github.event.issue.number }}/head
       matrix: full
+      pr: ${{ github.event.issue.number }}
     secrets: inherit
 
   hil-full-notify:
@@ -309,12 +364,37 @@ jobs:
         startsWith(github.event.comment.body, '/hil full')
     runs-on: ubuntu-latest
     steps:
+      - id: find-run
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pr = context.payload.issue.number;
+            const targetTitle = `HIL (full) for PR #${pr}`;
+
+            const runs = await github.paginate(
+              github.rest.actions.listWorkflowRuns,
+              {
+                owner,
+                repo,
+                workflow_id: 'hil.yml',
+                per_page: 50
+              }
+            );
+
+            const run = runs.find(r =>
+              r.event === 'workflow_call' &&
+              r.display_title === targetTitle
+            );
+
+            core.setOutput('url', run?.html_url || '');
+
       - uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.issue.number }}
-          body: >
-            Triggered full HIL run for
-            #${{ github.event.issue.number }}.
+          body: |
+            Triggered **full** HIL run for #${{ github.event.issue.number }}.
+            Run: ${{ steps.find-run.outputs.url || 'not found (it may not have started yet)' }}
 
   hil-deny:
     needs: auth
