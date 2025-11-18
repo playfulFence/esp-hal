@@ -15,64 +15,82 @@ permissions:
 
 jobs:
   # ---------------------------------------------------------------------------
-  # LABEL-BASED DISPATCHES
+  # LABEL: TRUSTED AUTHOR
   # ---------------------------------------------------------------------------
 
-  label-hil-quick:
+  label-trusted-author:
     if: github.event_name == 'pull_request_target' &&
-        github.event.label.name == 'quick-hil'
+        github.event.label.name == 'trusted-author'
     runs-on: ubuntu-latest
     steps:
-      - name: Dispatch HIL (quick)
-        uses: benc-uk/workflow-dispatch@v1
+      - name: Get PR author login
+        id: pr
+        uses: actions/github-script@v7
         with:
-          workflow: hil.yml
-          ref: ${{ github.event.repository.default_branch }}
-          inputs: |
-            {
-              "repository": "${{ github.repository }}",
-              "branch": "refs/pull/${{ github.event.pull_request.number }}/head",
-              "matrix": "quick"
+          script: |
+            const login = (context.payload.pull_request.user.login || '').toLowerCase();
+            if (!login) {
+              core.setFailed('Could not determine PR author login');
+              return;
             }
+            core.setOutput('login', login);
 
-      - name: Confirm in PR
-        uses: peter-evans/create-or-update-comment@v4
+      - id: find
+        uses: peter-evans/find-comment@v3
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: Label `quick-hil` detected — triggered **HIL** (`quick`) for \#${{ github.event.pull_request.number }}.
+          comment-author: github-actions[bot]
+          body-includes: "[HIL trust list]"
 
-      # auto-remove the label to avoid accidental re-triggers later
-      - uses: actions-ecosystem/action-remove-labels@v1
+      - name: Upsert trust list for author
+        id: upsert
+        uses: actions/github-script@v7
         with:
-          labels: quick-hil
+          script: |
+            const login = "${{ steps.pr.outputs.login }}".toLowerCase();
+            const existing = `${{ toJson(steps.find.outputs.comment-body || '') }}`;
 
-  label-hil-full:
-    if: github.event_name == 'pull_request_target' &&
-        github.event.label.name == 'full-hil'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dispatch HIL (full)
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: hil.yml
-          ref: ${{ github.event.repository.default_branch }}
-          inputs: |
-            {
-              "repository": "${{ github.repository }}",
-              "branch": "refs/pull/${{ github.event.pull_request.number }}/head",
-              "matrix": "full"
+            // read existing trusted[] from hidden JSON if present
+            let list = [];
+            const m = existing.match(/<!--\s*HIL_TRUST_JSON\s*([\s\S]*?)\s*HIL_TRUST_JSON\s*-->/);
+            if (m && m[1]) {
+              try { list = JSON.parse(m[1]).trusted || []; } catch {}
             }
 
-      - name: Confirm in PR
-        uses: peter-evans/create-or-update-comment@v4
+            if (!list.includes(login)) list.push(login);
+            list = Array.from(new Set(list)).sort();
+
+            const json = JSON.stringify({ trusted: list }, null, 2);
+            const pretty = list.length ? list.map(u => `- @${u}`).join('\n') : '_None yet_';
+
+            const body =
+            `### [HIL trust list]
+            <!-- HIL_TRUST_JSON
+            ${json}
+            HIL_TRUST_JSON -->
+
+            <details>
+            <summary>Trusted users for this PR (click to expand)</summary>
+
+            ${pretty}
+
+            </details>`;
+
+            core.setOutput("body", body);
+
+      - uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          body: Label `full-hil` detected — triggered **HIL** (`full`) for \#${{ github.event.pull_request.number }}.
+          comment-id: ${{ steps.find.outputs.comment-id }}
+          body: ${{ steps.upsert.outputs.body }}
+          edit-mode: replace
 
-      # auto-remove the label
-      - uses: actions-ecosystem/action-remove-labels@v1
+      - uses: peter-evans/create-or-update-comment@v4
         with:
-          labels: full-hil
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Author **@${{ steps.pr.outputs.login }}** was trusted for this PR via the `trusted-author` label.
+            They can now use `/hil quick` or `/hil full`.
 
   # ---------------------------------------------------------------------------
   # TRUST MANAGEMENT (/i-trust-you, /i-dont-trust)
