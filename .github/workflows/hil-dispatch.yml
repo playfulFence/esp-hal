@@ -325,32 +325,35 @@ jobs:
 
             let run = null;
 
-            // Try multiple times to give GitHub a chance to register the run
+            // Try multiple times to give GitHub a chance to register/update the run
             for (let attempt = 1; attempt <= 10; attempt++) {
-              const { data } = await github.rest.actions.listWorkflowRuns({
+                const { data } = await github.rest.actions.listWorkflowRuns({
                 owner,
                 repo,
                 workflow_id: 'hil.yml',
                 event: 'workflow_dispatch',
                 per_page: 50,
-              });
+                });
 
-              if (data.workflow_runs && data.workflow_runs.length > 0) {
-                run = data.workflow_runs.find(r =>
-                  (r.display_title && r.display_title.trim() === expectedTitle) ||
-                  (r.name && r.name.trim() === expectedTitle)
+                if (data.workflow_runs && data.workflow_runs.length > 0) {
+                const candidate = data.workflow_runs.find(r =>
+                    (r.display_title && r.display_title.trim() === expectedTitle) ||
+                    (r.name && r.name.trim() === expectedTitle)
                 );
-                if (run) break;
-              }
+                // Keep the *last* matching run we see across all attempts
+                if (candidate) {
+                    run = candidate;
+                }
+                }
 
-              await delay(5000);
+                await delay(5000);
             }
 
             let body = `Triggered **${matrix}** HIL run for #${pr}.`;
             if (run && run.html_url) {
-              body += `\n\nRun: ${run.html_url}`;
+                body += `\n\nRun: ${run.html_url}`;
             } else {
-              body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually.`;
+                body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually.`;
             }
 
             core.setOutput('body', body);
@@ -396,33 +399,34 @@ jobs:
             let run = null;
 
             for (let attempt = 1; attempt <= 10; attempt++) {
-              const { data } = await github.rest.actions.listWorkflowRuns({
+                const { data } = await github.rest.actions.listWorkflowRuns({
                 owner,
                 repo,
                 workflow_id: 'hil.yml',
                 event: 'workflow_dispatch',
                 per_page: 50,
-              });
+                });
 
-              if (data.workflow_runs && data.workflow_runs.length > 0) {
-                run = data.workflow_runs.find(r =>
-                  (r.display_title && r.display_title.trim() === expectedTitle) ||
-                  (r.name && r.name.trim() === expectedTitle)
+                if (data.workflow_runs && data.workflow_runs.length > 0) {
+                const candidate = data.workflow_runs.find(r =>
+                    (r.display_title && r.display_title.trim() === expectedTitle) ||
+                    (r.name && r.name.trim() === expectedTitle)
                 );
-                if (run) break;
-              }
+                // Keep the *last* matching run we see across all attempts
+                if (candidate) {
+                    run = candidate;
+                }
+                }
 
-              await delay(5000);
+                await delay(5000);
             }
 
             let body = `Triggered **${matrix}** HIL run for #${pr}.`;
             if (run && run.html_url) {
-              body += `\n\nRun: ${run.html_url}`;
+                body += `\n\nRun: ${run.html_url}`;
             } else {
-              body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually.`;
+                body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually.`;
             }
-
-            core.setOutput('body', body);
 
       - name: Confirm in PR
         uses: peter-evans/create-or-update-comment@v4
