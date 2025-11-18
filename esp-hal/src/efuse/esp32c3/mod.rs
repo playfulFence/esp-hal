@@ -52,7 +52,7 @@ impl super::Efuse {
         let version = Self::rtc_calib_version();
 
         if version != 1 {
-            return None;
+            return None; // ABOOOOBA
         }
 
         // See <https://github.com/espressif/esp-idf/blob/903af13e8/components/efuse/esp32c3/esp_efuse_table.csv#L176-L179>
