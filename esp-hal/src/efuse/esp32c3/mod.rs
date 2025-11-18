@@ -11,7 +11,7 @@ pub enum AdcCalibUnit {
     ADC2,
 }
 
-impl super::Efuse {
+impl super::Efuse { // HELLO!
     /// Get status of SPI boot encryption.
     pub fn flash_encryption() -> bool {
         !Self::read_field_le::<u8>(SPI_BOOT_CRYPT_CNT)
