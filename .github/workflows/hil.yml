@@ -3,8 +3,7 @@ name: HIL
 on:
   # For merge queue: always run full matrix on the merge commit
   merge_group:
-  # For label/slash dispatch: reusable workflow
-  workflow_call:
+  workflow_dispatch:
     inputs:
       repository:
         description: "Owner/repository to test (for dispatched runs)"
@@ -21,13 +20,13 @@ on:
         required: false
         default: "quick"
         type: string
-      pr:
-        description: "PR number (for correlation from dispatch)"
+      pr_number:
+        description: "PR number (for naming and cross-linking)"
         required: false
         default: ""
         type: string
 
-run-name: HIL (${{ inputs.matrix != '' && inputs.matrix || 'full' }}) for PR #${{ inputs.pr != '' && inputs.pr || 'merge-queue' }}
+run-name: HIL${{ inputs.pr_number && format(' for PR #{0}', inputs.pr_number) }}
 
 concurrency:
   cancel-in-progress: true
@@ -37,9 +36,6 @@ env:
   CARGO_TERM_COLOR: always
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-# Helper “vars” so jobs don’t repeat ternaries
-# - For merge_group: repository = github.repository, branch = github.ref, matrix = "full"
-# - For workflow_call: use passed-in inputs.*
 jobs:
   build-xtasks:
     name: Build xtasks
@@ -54,9 +50,8 @@ jobs:
       - uses: actions/checkout@v4
         if: github.event_name == 'merge_group'
 
-      # reusable call: checkout requested repo+ref
       - uses: actions/checkout@v4
-        if: github.event_name != 'merge_group'
+        if: github.event_name == 'workflow_dispatch'
         with:
           repository: ${{ env.HIL_REPO }}
           ref:        ${{ env.HIL_BRANCH }}
@@ -125,10 +120,8 @@ jobs:
           host: armv7
     steps:
       - uses: actions/checkout@v4
-
       - uses: ./.github/actions/build-tests
         with:
-          # merge_group vs reusable-call are both routed via inputs.*
           event_name:  ${{ github.event_name }}
           repository:  ${{ inputs.repository != '' && inputs.repository || github.repository }}
           branch:      ${{ inputs.branch    != '' && inputs.branch    || github.ref }}
@@ -153,7 +146,6 @@ jobs:
             host: armv7
     steps:
       - uses: actions/checkout@v4
-
       - uses: ./.github/actions/build-tests
         with:
           event_name:  ${{ github.event_name }}

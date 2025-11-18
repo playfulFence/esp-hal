@@ -48,7 +48,6 @@ jobs:
             const login = "${{ steps.pr.outputs.login }}".toLowerCase();
             const existing = `${{ toJson(steps.find.outputs.comment-body || '') }}`;
 
-            // read existing trusted[] from hidden JSON if present
             let list = [];
             const m = existing.match(/<!--\s*HIL_TRUST_JSON\s*([\s\S]*?)\s*HIL_TRUST_JSON\s*-->/);
             if (m && m[1]) {
@@ -91,7 +90,7 @@ jobs:
             They can now use `/hil quick` or `/hil full`.
 
   # ---------------------------------------------------------------------------
-  # TRUST MANAGEMENT
+  # TRUST MANAGEMENT (/i-trust-you, /i-dont-trust)
   # ---------------------------------------------------------------------------
 
   trust:
@@ -128,7 +127,6 @@ jobs:
             const login = "${{ steps.parse.outputs.login }}".toLowerCase();
             const existing = `${{ toJson(steps.find.outputs.comment-body || '') }}`;
 
-            // read existing trusted[] from hidden JSON if present
             let list = [];
             const m = existing.match(/<!--\s*HIL_TRUST_JSON\s*([\s\S]*?)\s*HIL_TRUST_JSON\s*-->/);
             if (m && m[1]) {
@@ -166,7 +164,6 @@ jobs:
       - uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.issue.number }}
-        # separate short confirmation comment
           body: "Trusted **@${{ steps.parse.outputs.login }}** for this PR. They can now use `/hil quick` or `/hil full`."
 
   revoke:
@@ -289,7 +286,7 @@ jobs:
             core.setOutput('allowed', allowed ? 'true' : 'false');
 
   # ---------------------------------------------------------------------------
-  # SLASH-BASED DISPATCHES
+  # SLASH-BASED DISPATCHES -> HIL workflow_dispatch
   # ---------------------------------------------------------------------------
 
   hil-quick:
@@ -297,14 +294,22 @@ jobs:
     if: github.event_name == 'issue_comment' &&
         needs.auth.outputs.allowed == 'true' &&
         startsWith(github.event.comment.body, '/hil quick')
-    uses: ./.github/workflows/hil.yml
-    with:
-        repository: ${{ github.repository }}
-        branch: refs/pull/${{ github.event.issue.number }}/head
-        matrix: quick
-        pr: ${{ github.event.issue.number }}
-    secrets: inherit
-
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch HIL (quick)
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: hil.yml
+          # IMPORTANT: ref is where hil.yml lives (default branch),
+          # not the PR ref.
+          ref: ${{ github.event.repository.default_branch }}
+          inputs: |
+            {
+              "repository": "${{ github.repository }}",
+              "branch": "refs/pull/${{ github.event.issue.number }}/head",
+              "matrix": "quick",
+              "pr_number": "${{ github.event.issue.number }}"
+            }
 
   hil-quick-notify:
     needs: hil-quick
@@ -318,24 +323,12 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const pr = context.payload.issue.number;
-            const targetTitle = `HIL (quick) for PR #${pr}`;
-
+            const expectedName = `HIL for PR #${pr}`;
             const runs = await github.paginate(
               github.rest.actions.listWorkflowRuns,
-              {
-                owner,
-                repo,
-                workflow_id: 'hil.yml',
-                per_page: 50
-              }
+              { owner, repo, workflow_id: 'hil.yml', event: 'workflow_dispatch', per_page: 50 }
             );
-
-            // newest first; pick the first matching our PR+matrix
-            const run = runs.find(r =>
-              r.event === 'workflow_call' &&
-              r.display_title === targetTitle
-            );
-
+            const run = runs.find(r => r.name === expectedName);
             core.setOutput('url', run?.html_url || '');
 
       - uses: peter-evans/create-or-update-comment@v4
@@ -343,20 +336,27 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body: |
             Triggered **quick** HIL run for #${{ github.event.issue.number }}.
-            Run: ${{ steps.find-run.outputs.url || 'not found (it may not have started yet)' }}
+            ${{ steps.find-run.outputs.url && format('Run: {0}', steps.find-run.outputs.url) || 'Run is starting…' }}
 
   hil-full:
     needs: auth
     if: github.event_name == 'issue_comment' &&
         needs.auth.outputs.allowed == 'true' &&
         startsWith(github.event.comment.body, '/hil full')
-    uses: ./.github/workflows/hil.yml
-    with:
-      repository: ${{ github.repository }}
-      branch: refs/pull/${{ github.event.issue.number }}/head
-      matrix: full
-      pr: ${{ github.event.issue.number }}
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch HIL (full)
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: hil.yml
+          ref: ${{ github.event.repository.default_branch }}
+          inputs: |
+            {
+              "repository": "${{ github.repository }}",
+              "branch": "refs/pull/${{ github.event.issue.number }}/head",
+              "matrix": "full",
+              "pr_number": "${{ github.event.issue.number }}"
+            }
 
   hil-full-notify:
     needs: hil-full
@@ -370,23 +370,12 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const pr = context.payload.issue.number;
-            const targetTitle = `HIL (full) for PR #${pr}`;
-
+            const expectedName = `HIL for PR #${pr}`;
             const runs = await github.paginate(
               github.rest.actions.listWorkflowRuns,
-              {
-                owner,
-                repo,
-                workflow_id: 'hil.yml',
-                per_page: 50
-              }
+              { owner, repo, workflow_id: 'hil.yml', event: 'workflow_dispatch', per_page: 50 }
             );
-
-            const run = runs.find(r =>
-              r.event === 'workflow_call' &&
-              r.display_title === targetTitle
-            );
-
+            const run = runs.find(r => r.name === expectedName);
             core.setOutput('url', run?.html_url || '');
 
       - uses: peter-evans/create-or-update-comment@v4
@@ -394,7 +383,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body: |
             Triggered **full** HIL run for #${{ github.event.issue.number }}.
-            Run: ${{ steps.find-run.outputs.url || 'not found (it may not have started yet)' }}
+            ${{ steps.find-run.outputs.url && format('Run: {0}', steps.find-run.outputs.url) || 'Run is starting…' }}
 
   hil-deny:
     needs: auth
