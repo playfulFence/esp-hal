@@ -307,20 +307,64 @@ jobs:
             {
               "repository": "${{ github.repository }}",
               "branch": "refs/pull/${{ github.event.issue.number }}/head",
-              "matrix": "quick"
+              "matrix": "quick",
+              "pr_number": "${{ github.event.issue.number }}"
             }
+
+      - name: Find HIL run URL (quick)
+        id: find-run
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pr = context.payload.issue.number;
+            const matrix = 'quick';
+            const expectedTitle = `HIL for PR #${pr} (${matrix})`;
+
+            const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+            let run = null;
+
+            // Try multiple times to give GitHub a chance to register the run
+            for (let attempt = 1; attempt <= 10; attempt++) {
+              const { data } = await github.rest.actions.listWorkflowRuns({
+                owner,
+                repo,
+                workflow_id: 'hil.yml',
+                event: 'workflow_dispatch',
+                per_page: 50,
+              });
+
+              if (data.workflow_runs && data.workflow_runs.length > 0) {
+                run = data.workflow_runs.find(r =>
+                  (r.display_title && r.display_title === expectedTitle) ||
+                  (r.name && r.name === expectedTitle)
+                );
+                if (run) break;
+              }
+
+              await delay(20000);
+            }
+
+            let body = `Triggered **${matrix}** HIL run for #${pr}.`;
+            if (run && run.html_url) {
+              body += `\n\nRun: ${run.html_url}`;
+            } else {
+              body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually.`;
+            }
+
+            core.setOutput('body', body);
 
       - name: Confirm in PR
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.issue.number }}
-          body: >
-            Triggered quick HIL run for
-            #${{ github.event.issue.number }}
+          body: ${{ steps.find-run.outputs.body }}
 
   hil-full:
     needs: auth
-    if: github.event_name == 'issue_comment' && needs.auth.outputs.allowed == 'true' &&
+    if: github.event_name == 'issue_comment' &&
+        needs.auth.outputs.allowed == 'true' &&
         startsWith(github.event.comment.body, '/hil full')
     runs-on: ubuntu-latest
     steps:
@@ -333,16 +377,58 @@ jobs:
             {
               "repository": "${{ github.repository }}",
               "branch": "refs/pull/${{ github.event.issue.number }}/head",
-              "matrix": "full"
+              "matrix": "full",
+              "pr_number": "${{ github.event.issue.number }}"
             }
+
+      - name: Find HIL run URL (full)
+        id: find-run
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const pr = context.payload.issue.number;
+            const matrix = 'full';
+            const expectedTitle = `HIL for PR #${pr} (${matrix})`;
+
+            const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+            let run = null;
+
+            for (let attempt = 1; attempt <= 10; attempt++) {
+              const { data } = await github.rest.actions.listWorkflowRuns({
+                owner,
+                repo,
+                workflow_id: 'hil.yml',
+                event: 'workflow_dispatch',
+                per_page: 50,
+              });
+
+              if (data.workflow_runs && data.workflow_runs.length > 0) {
+                run = data.workflow_runs.find(r =>
+                  (r.display_title && r.display_title === expectedTitle) ||
+                  (r.name && r.name === expectedTitle)
+                );
+                if (run) break;
+              }
+
+              await delay(20000);
+            }
+
+            let body = `Triggered **${matrix}** HIL run for #${pr}.`;
+            if (run && run.html_url) {
+              body += `\n\nRun: ${run.html_url}`;
+            } else {
+              body += `\n\nCould not determine run URL yet. Please check the **HIL** workflow runs manually.`;
+            }
+
+            core.setOutput('body', body);
 
       - name: Confirm in PR
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.issue.number }}
-          body: >
-            Triggered full HIL run for
-            #${{ github.event.issue.number }}.
+          body: ${{ steps.find-run.outputs.body }}
 
   hil-deny:
     needs: auth
