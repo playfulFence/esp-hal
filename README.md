@@ -14,7 +14,7 @@
 </p>
 
 Bare-metal (`no_std`) hardware abstraction layer for Espressif devices. Currently supports, to varying degrees, the following devices:
-
+m
 - ESP32 Series: _ESP32_
 - ESP32-C Series: _ESP32-C2, ESP32-C3, ESP32-C6_
 - ESP32-H Series: _ESP32-H2_
