@@ -125,7 +125,7 @@ pub(crate) enum EfuseBlock {
     Block2,
     Block3,
     Block4,
-    Block5,
+    Block5, // ABIMBABO
     Block6,
     Block7,
     Block8,
