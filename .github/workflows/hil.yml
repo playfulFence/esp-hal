@@ -29,6 +29,10 @@ on:
         description: "Pull request number (for slash-triggered runs)"
         required: false
         default: ""
+      chips:
+        description: "Optional space- or comma-separated SoC list for full runs (esp32c3 esp32s3). Empty = all."
+        required: false
+        default: ""
 
 # Cancel any currently running workflows from the same PR, branch, or
 # tag when a new workflow is triggered.
@@ -41,6 +45,7 @@ concurrency:
 env:
   CARGO_TERM_COLOR: always
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  HIL_CHIPS: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.chips || '' }}
 
 jobs:
   build-xtasks:
@@ -120,8 +125,32 @@ jobs:
           runner: esp32s3-usb
           host: armv7
     steps:
+      - name: Decide whether to build for this SoC
+        id: chip-guard
+        run: |
+          chips="${HIL_CHIPS:-}"
+          soc="${{ matrix.target.soc }}"
+          if [ -z "$chips" ]; then
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # normalize separators (comma/semicolon/space) -> space
+          norm=$(printf '%s\n' "$chips" | tr ',;' '  ')
+          for c in $norm; do
+            if [ "$c" = "$soc" ]; then
+              echo "skip=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          done
+
+          echo "skip=true" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v4
+        if: steps.chip-guard.outputs.skip != 'true'
+
       - uses: ./.github/actions/build-tests
+        if: steps.chip-guard.outputs.skip != 'true'
         with:
           event_name: ${{ github.event_name }}
           repository: ${{ github.event.inputs.repository || github.repository }}
@@ -145,15 +174,38 @@ jobs:
             runner: esp32s3-usb
             host: armv7
     steps:
+      - name: Decide whether to build for this SoC
+        id: chip-guard
+        run: |
+          chips="${HIL_CHIPS:-}"
+          soc="${{ matrix.target.soc }}"
+          if [ -z "$chips" ]; then
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # normalize separators (comma/semicolon/space) -> space
+          norm=$(printf '%s\n' "$chips" | tr ',;' '  ')
+          for c in $norm; do
+            if [ "$c" = "$soc" ]; then
+              echo "skip=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          done
+
+          echo "skip=true" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v4
+        if: steps.chip-guard.outputs.skip != 'true'
+
       - uses: ./.github/actions/build-tests
+        if: steps.chip-guard.outputs.skip != 'true'
         with:
           event_name: ${{ github.event_name }}
           repository: ${{ github.event.inputs.repository || github.repository }}
           branch: ${{ github.event.inputs.branch || 'main' }}
           soc: ${{ matrix.target.soc }}
           rust_target: ${{ matrix.target.rust-target }}
-
 
   hil-quick:
     if: github.event_name != 'merge_group' && github.event.inputs.matrix != 'full'
@@ -188,7 +240,7 @@ jobs:
         id: guard
         run: |
           if [ ! -d "tests-${{ matrix.target.soc }}" ]; then
-            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "skip=true" >> "$GITHUB_OUTPUT"
             echo "No tests for ${{ matrix.target.soc }} in this run; skipping."
           fi
 
@@ -261,7 +313,7 @@ jobs:
         id: guard
         run: |
           if [ ! -d "tests-${{ matrix.target.soc }}" ]; then
-            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "skip=true" >> "$GITHUB_OUTPUT"
             echo "No tests for ${{ matrix.target.soc }} in this run; skipping."
           fi
 
