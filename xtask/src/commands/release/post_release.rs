@@ -3,6 +3,8 @@ use std::fs;
 use anyhow::{Context, Result};
 use semver::Version;
 
+use std::process::Command;
+
 use super::{PLACEHOLDER, Plan, execute_plan::make_git_changes};
 use crate::commands::comparison_url;
 
