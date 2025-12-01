@@ -67,7 +67,7 @@
 //! - Source clock selection is not supported
 //! - Interrupts are not supported
 
-use self::{
+use self::{ // ABOBA PR
     channel::Channel,
     timer::{Timer, TimerSpeed},
 };
