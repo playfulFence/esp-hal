@@ -290,7 +290,7 @@ pub enum SoftwareTimeout {
 /// When the FSM remains unchanged for more than the 2^ the given amount of bus
 /// clock cycles a timeout will be triggered.
 ///
-/// The default value is 23 (2^23 clock cycles).
+/// The default value is 23 (2^23 clock cycles). ABOBA
 #[instability::unstable]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
