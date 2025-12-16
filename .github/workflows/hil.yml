@@ -37,6 +37,10 @@ on:
         description: "Space-separated list of SoCs to test (for per-chip runs)"
         required: false
         default: ""
+      tests:
+        description: "List of specific tests to execute"
+        required: false
+        default: ""
 
 # Cancel any currently running workflows from the same PR, branch, or
 # tag when a new workflow is triggered.
@@ -289,7 +293,14 @@ jobs:
 
           export PATH=$PATH:/home/espressif/.cargo/bin
           chmod +x xtask
-          ./xtask run elfs ${{ matrix.target.soc }} tests-${{ matrix.target.soc }}
+
+          EXTRA_ARGS=""
+          # Only apply --tests for workflow_dispatch (slash-triggered runs)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.tests }}" ]; then
+            EXTRA_ARGS="--tests ${{ github.event.inputs.tests }}"
+          fi
+
+          ./xtask run elfs ${{ matrix.target.soc }} tests-${{ matrix.target.soc }} $EXTRA_ARGS
 
       - name: Clean up
         if: always()
@@ -365,7 +376,14 @@ jobs:
 
           export PATH=$PATH:/home/espressif/.cargo/bin
           chmod +x xtask
-          ./xtask run elfs ${{ matrix.target.soc }} tests-${{ matrix.target.soc }}
+          
+          EXTRA_ARGS=""
+          # Only apply --tests for workflow_dispatch (slash-triggered runs)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.tests }}" ]; then
+            EXTRA_ARGS="--tests ${{ github.event.inputs.tests }}"
+          fi
+
+          ./xtask run elfs ${{ matrix.target.soc }} tests-${{ matrix.target.soc }} $EXTRA_ARGS
 
       - name: Clean up
         if: always()
@@ -437,7 +455,14 @@ jobs:
 
           export PATH=$PATH:/home/espressif/.cargo/bin
           chmod +x xtask
-          ./xtask run elfs ${{ matrix.target.soc }} tests-${{ matrix.target.soc }}
+          
+          EXTRA_ARGS=""
+          # Only apply --tests for workflow_dispatch (slash-triggered runs)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.tests }}" ]; then
+            EXTRA_ARGS="--tests ${{ github.event.inputs.tests }}"
+          fi
+
+          ./xtask run elfs ${{ matrix.target.soc }} tests-${{ matrix.target.soc }} $EXTRA_ARGS
 
       - name: Clean up
         if: always()

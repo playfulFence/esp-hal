@@ -8,7 +8,6 @@
 # 1a.) If the device has a low-power core (which is supported in
 #      `esp-lp-hal`), then update the `if` condition to build prerequisites.
 # 2.) In the 'msrv' job, add checks as needed for the new chip.
-# THIS WORKS
 
 name: CI
 
