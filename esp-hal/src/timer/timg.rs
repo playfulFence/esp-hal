@@ -104,7 +104,7 @@ cfg_if::cfg_if! {
 #[procmacros::doc_replace(
     "timers" => {
         cfg(timergroup_timg_has_timer1) => "2 timers",
-        _ => "a general purpose timer",
+        _ => "a general purpose ABOBA",
     }
 )]
 /// A timer group consisting of
