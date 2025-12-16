@@ -602,8 +602,17 @@ jobs:
             // Remove the leading "/hil" command
             const withoutCmd = body.replace(/^\/hil\s+/i, '');
 
+            // Split off optional "--tests ..." suffix
+            let chipsPart = withoutCmd;
+            let tests = '';
+            const m = withoutCmd.match(/--tests\s+(.+)$/i);
+            if (m) {
+              tests = m[1].trim();
+              chipsPart = withoutCmd.slice(0, m.index).trim();
+            }
+
             // Split on commas and/or whitespace, normalize and dedupe
-            const parts = withoutCmd
+            const parts = chipsPart
               .split(/[,\s]+/)
               .map(s => s.toLowerCase())
               .filter(Boolean);
@@ -616,12 +625,14 @@ jobs:
               const msg = 'No valid chips specified.\n\nAllowed chips are: ' + allowed.join(', ');
               core.setOutput('chips', '');
               core.setOutput('chips_label', '');
+              core.setOutput('tests', tests);
               core.setOutput('error', msg);
               return;
             }
 
             core.setOutput('chips', chips.join(' '));
             core.setOutput('chips_label', chips.join(', '));
+            core.setOutput('tests', tests);
             core.setOutput('error', '');
 
       - name: Report invalid chips
@@ -645,6 +656,7 @@ jobs:
               "matrix": "chips",
               "pr_number": "${{ github.event.issue.number }}",
               "chips": "${{ steps.parse.outputs.chips }}"
+              "tests": "${{ steps.parse.outputs.tests }}"
             }
 
       - name: Find HIL run URL (per-chip)
