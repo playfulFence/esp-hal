@@ -144,6 +144,7 @@ jobs:
           branch: ${{ github.event.inputs.branch || 'main' }}
           soc: ${{ matrix.target.soc }}
           rust_target: ${{ matrix.target.rust-target }}
+          tests: ${{ github.event.inputs.tests || '' }}
 
   build-tests-quick:
     if: >
@@ -172,6 +173,7 @@ jobs:
           branch: ${{ github.event.inputs.branch || 'main' }}
           soc: ${{ matrix.target.soc }}
           rust_target: ${{ matrix.target.rust-target }}
+          tests: ${{ github.event.inputs.tests || '' }}
 
   build-tests-chips:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.chips != ''
@@ -236,6 +238,7 @@ jobs:
           branch: ${{ github.event.inputs.branch || 'main' }}
           soc: ${{ matrix.target.soc }}
           rust_target: ${{ matrix.target.rust-target }}
+          tests: ${{ github.event.inputs.tests || '' }}
 
   hil-quick:
     if: >
