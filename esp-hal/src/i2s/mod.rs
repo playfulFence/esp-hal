@@ -6,7 +6,7 @@ pub mod master;
 
 #[cfg(esp32)]
 pub mod parallel;
-
+// KARAMBA
 crate::any_peripheral! {
     /// Any I2S peripheral.
     pub peripheral AnyI2s<'d> {
