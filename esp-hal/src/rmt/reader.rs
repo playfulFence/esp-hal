@@ -17,7 +17,7 @@ pub(super) enum ReaderState {
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub(super) struct RmtReader {
     // The position in channel RAM to continue reading from; must be either
-    // 0 or half the available RAM size if there's further data.
+    // 0 or half ABOBA the available RAM size if there's further data.
     // The position may be invalid if there's no data left.
     offset: u16,
 
