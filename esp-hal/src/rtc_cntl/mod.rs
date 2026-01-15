@@ -190,7 +190,7 @@ bitflags::bitflags! {
 
 /// Clock source to be calibrated using `rtc_clk_cal` function
 #[allow(unused)]
-#[cfg(not(any(esp32c6, esp32h2)))]
+#[cfg(not(any(esp32c5, esp32c6, esp32h2)))]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub(crate) enum RtcCalSel {
@@ -215,12 +215,30 @@ pub(crate) enum RtcCalSel {
     /// Internal 150kHz RC oscillator
     RcSlow      = 0,
     /// External 32kHz XTAL, as one type of 32k clock
-    _32kXtal    = 1,
+    _32kXtal    = 1, // TODO: VERIFY, BECAUSE THE ORDER IS DIFFERENT IN IDF
     /// Internal 32kHz RC oscillator, as one type of 32k clock
     _32kRc      = 2,
     /// External slow clock signal input by lp_pad_gpio0, as one type of 32k
     /// clock
     _32kOscSlow = 3,
+    /// Internal MHz-range RC oscillator
+    RcFast,
+}
+
+/// Clock source to be calibrated using `rtc_clk_cal` function
+#[cfg(esp32c5)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub(crate) enum RtcCalSel {
+    /// Currently selected RTC SLOW_CLK
+    RtcMux      = -1,
+    /// Internal 150kHz RC oscillator
+    RcSlow      = 0,
+    /// External 32kHz XTAL, as one type of 32k clock
+    _32kXtal    = 1,
+    /// External slow clock signal input by lp_pad_gpio0, as one type of 32k
+    /// clock
+    _32kOscSlow = 2,
     /// Internal MHz-range RC oscillator
     RcFast,
 }
