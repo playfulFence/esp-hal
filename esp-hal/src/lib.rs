@@ -359,7 +359,7 @@ unstable_module! {
 mod work_queue;
 
 unstable_driver! {
-    #[cfg(soc_has_aes)]
+    #[cfg(all(not(esp32c5), soc_has_aes))]
     pub mod aes;
     #[cfg(soc_has_assist_debug)]
     pub mod assist_debug;
@@ -368,15 +368,15 @@ unstable_driver! {
     pub mod ecc;
     #[cfg(soc_has_hmac)]
     pub mod hmac;
-    #[cfg(any(soc_has_i2s0, soc_has_i2s1))]
+    #[cfg(all(not(esp32c5), any(soc_has_i2s0, soc_has_i2s1)))]
     pub mod i2s;
     #[cfg(soc_has_lcd_cam)]
     pub mod lcd_cam;
     #[cfg(soc_has_ledc)]
     pub mod ledc;
-    #[cfg(any(soc_has_mcpwm0, soc_has_mcpwm1))]
+    #[cfg(all(not(esp32c5), any(soc_has_mcpwm0, soc_has_mcpwm1)))]
     pub mod mcpwm;
-    #[cfg(soc_has_parl_io)]
+    #[cfg(all(not(esp32c5), soc_has_parl_io))]
     pub mod parl_io;
     #[cfg(soc_has_pcnt)]
     pub mod pcnt;

@@ -165,7 +165,7 @@ impl Clock for RtcFastClock {
 }
 
 /// RTC SLOW_CLK frequency values
-#[cfg(not(any(esp32c6, esp32h2)))]
+#[cfg(not(any(esp32c5, esp32c6, esp32h2)))]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 #[non_exhaustive]
