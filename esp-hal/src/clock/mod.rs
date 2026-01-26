@@ -193,7 +193,8 @@ pub enum RtcSlowClock {
     /// Select RC32K_CLK as RTC_SLOW_CLK source
     _32kRc   = 2,
     /// Select OSC_SLOW_CLK (external slow clock) as RTC_SLOW_CLK source
-    OscSlow  = 3, // ESP32-C5: 3 is still accurate even though C5 it doesn't have 32kRc slow RTC source.
+    OscSlow  = 3, /* ESP32-C5: 3 is still accurate even though C5 it doesn't have 32kRc slow
+                   * RTC source. */
 }
 
 impl Clock for RtcSlowClock {
@@ -280,13 +281,15 @@ impl RtcClock {
         });
 
         #[cfg(esp32c5)]
-        LPWR::regs().lp_clk_conf().modify(|_, w| {
-            w.fast_clk_sel().bits(match fast_freq {
-                RtcFastClock::RcFast => 0b00,
-                RtcFastClock::XtalD2 => 0b01,
-                RtcFastClock::Xtal => 0b10,
-            })
-        });
+        unsafe {
+            LPWR::regs().lp_clk_conf().modify(|_, w| {
+                w.fast_clk_sel().bits(match fast_freq {
+                    RtcFastClock::RcFast => 0b00,
+                    RtcFastClock::XtalD2 => 0b01,
+                    RtcFastClock::Xtal => 0b10,
+                })
+            });
+        }
 
         #[cfg(esp32c6)]
         LPWR::regs().lp_clk_conf().modify(|_, w| {
@@ -308,7 +311,7 @@ impl RtcClock {
         LPWR::regs().clk_to_hp().modify(|_, w| {
             w.icg_hp_xtal32k()
                 .bit(matches!(slow_freq, RtcSlowClock::_32kXtal));
-            
+
             #[cfg(not(esp32c5))]
             w.icg_hp_osc32k()
                 .bit(matches!(slow_freq, RtcSlowClock::_32kRc))
@@ -648,7 +651,7 @@ impl RtcClock {
                     .read()
                     .icg_hp_osc32k()
                     .bit_is_set();
-        
+
                 if cal_clk == RtcCalSel::_32kRc {
                     if !rc32k_enabled {
                         PMU::regs()
@@ -656,7 +659,7 @@ impl RtcClock {
                             .modify(|_, w| w.hp_sleep_xpd_rc32k().set_bit());
                         crate::rom::ets_delay_us(300);
                     }
-        
+
                     if !dig_rc32k_enabled {
                         LP_CLKRST::regs()
                             .clk_to_hp()
@@ -702,8 +705,10 @@ impl RtcClock {
             .modify(|_, w| unsafe { w.rtc_cali_max().bits(slowclk_cycles as u16) });
 
         // Set timeout reg and expect time delay
-        // REG_SET_FIELD(TIMG_RTCCALICFG2_REG(0), TIMG_RTC_CALI_TIMEOUT_THRES, CLK_CAL_TIMEOUT_THRES(cal_clk_sel, slowclk_cycles));
-        // #define CLK_CAL_TIMEOUT_THRES(cal_clk_sel, cycles) ((cal_clk_sel == CLK_CAL_32K_XTAL || cal_clk_sel == CLK_CAL_32K_OSC_SLOW) ? (cycles << 12) : (cycles << 10))
+        // REG_SET_FIELD(TIMG_RTCCALICFG2_REG(0), TIMG_RTC_CALI_TIMEOUT_THRES,
+        // CLK_CAL_TIMEOUT_THRES(cal_clk_sel, slowclk_cycles));
+        // #define CLK_CAL_TIMEOUT_THRES(cal_clk_sel, cycles) ((cal_clk_sel == CLK_CAL_32K_XTAL ||
+        // cal_clk_sel == CLK_CAL_32K_OSC_SLOW) ? (cycles << 12) : (cycles << 10))
         #[cfg(esp32c5)]
         timg0
             .rtccalicfg2()
@@ -779,7 +784,9 @@ impl RtcClock {
             .modify(|_, w| w.rtc_cali_start().clear_bit());
 
         #[cfg(esp32c5)]
-        PCR::regs().timergroup_xtal_conf().modify(|_, w| w.tg0_xtal_clk_en());
+        PCR::regs()
+            .timergroup_xtal_conf()
+            .modify(|_, w| w.tg0_xtal_clk_en());
 
         if cal_clk == RtcCalSel::_32kXtal && !dig_32k_xtal_enabled {
             LP_CLKRST::regs()
