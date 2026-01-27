@@ -113,11 +113,12 @@
 pub use self::rtc::SocResetReason;
 #[cfg(not(esp32))]
 use crate::efuse::Efuse;
+#[cfg(not(esp32c5))]
+use crate::interrupt::{self, InterruptHandler};
 #[cfg(sleep)]
 use crate::rtc_cntl::sleep::{RtcSleepConfig, WakeSource, WakeTriggers};
 use crate::{
     clock::{Clock, RtcClock},
-    interrupt::{self, InterruptHandler},
     peripherals::{Interrupt, LPWR},
     system::{Cpu, SleepSource},
     time::Duration,
@@ -129,7 +130,7 @@ pub mod sleep;
 #[cfg_attr(esp32, path = "rtc/esp32.rs")]
 #[cfg_attr(esp32c2, path = "rtc/esp32c2.rs")]
 #[cfg_attr(esp32c3, path = "rtc/esp32c3.rs")]
-// #[cfg_attr(esp32c5, path = "rtc/esp32c5.rs")]
+#[cfg_attr(esp32c5, path = "rtc/esp32c5.rs")]
 #[cfg_attr(esp32c6, path = "rtc/esp32c6.rs")]
 #[cfg_attr(esp32h2, path = "rtc/esp32h2.rs")]
 #[cfg_attr(esp32s2, path = "rtc/esp32s2.rs")]
@@ -137,7 +138,7 @@ pub mod sleep;
 pub(crate) mod rtc;
 
 cfg_if::cfg_if! {
-    if #[cfg(any(esp32c6, esp32h2))] {
+    if #[cfg(any(esp32c6, esp32h2, esp32c5))] {
         use crate::peripherals::LP_WDT;
         use crate::peripherals::LP_TIMER;
         use crate::peripherals::LP_AON;
@@ -226,25 +227,8 @@ pub(crate) enum RtcCalSel {
     RcFast,
 }
 
-/// Clock source to be calibrated using `rtc_clk_cal` function
-#[cfg(esp32c5)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub(crate) enum RtcCalSel {
-    /// Currently selected RTC SLOW_CLK
-    RtcMux      = -1,
-    /// Internal 150kHz RC oscillator
-    RcSlow      = 0,
-    /// External 32kHz XTAL, as one type of 32k clock
-    _32kXtal    = 1,
-    /// External slow clock signal input by lp_pad_gpio0, as one type of 32k
-    /// clock
-    _32kOscSlow = 2,
-    /// Internal MHz-range RC oscillator
-    RcFast,
-}
-
 /// Low-power Management
+#[cfg(not(esp32c5))] // FIXME add to metadata
 pub struct Rtc<'d> {
     _inner: LPWR<'d>,
     /// Reset Watchdog Timer.
@@ -254,6 +238,7 @@ pub struct Rtc<'d> {
     pub swd: Swd,
 }
 
+#[cfg(not(esp32c5))] // FIXME add to metadata
 impl<'d> Rtc<'d> {
     /// Create a new instance in [crate::Blocking] mode.
     ///
@@ -476,6 +461,7 @@ impl<'d> Rtc<'d> {
     /// Note that this will replace any previously registered interrupt
     /// handlers.
     #[instability::unstable]
+    #[cfg(not(esp32c5))]
     pub fn set_interrupt_handler(&mut self, handler: InterruptHandler) {
         cfg_if::cfg_if! {
             if #[cfg(any(esp32c6, esp32h2))] {
@@ -492,9 +478,11 @@ impl<'d> Rtc<'d> {
     }
 }
 
+#[cfg(not(esp32c5))]
 impl crate::private::Sealed for Rtc<'_> {}
 
 #[instability::unstable]
+#[cfg(not(esp32c5))]
 impl crate::interrupt::InterruptConfigurable for Rtc<'_> {
     fn set_interrupt_handler(&mut self, handler: InterruptHandler) {
         self.set_interrupt_handler(handler);
@@ -504,6 +492,7 @@ impl crate::interrupt::InterruptConfigurable for Rtc<'_> {
 /// Behavior of the RWDT stage if it times out.
 #[allow(unused)]
 #[derive(Debug, Clone, Copy)]
+#[cfg(not(esp32c5))] // FIXME add to metadata
 pub enum RwdtStageAction {
     /// No effect on the system.
     Off         = 0,
@@ -523,6 +512,7 @@ pub enum RwdtStageAction {
 /// Timer stages allow for a timer to have a series of different timeout values
 /// and corresponding expiry action.
 #[derive(Debug, Clone, Copy)]
+#[cfg(not(esp32c5))] // FIXME add to metadata
 pub enum RwdtStage {
     /// RWDT stage 0.
     Stage0,
@@ -535,9 +525,12 @@ pub enum RwdtStage {
 }
 
 /// RTC Watchdog Timer.
+#[cfg(not(esp32c5))] // FIXME add to metadata
 pub struct Rwdt(());
 
 /// RTC Watchdog Timer driver.
+
+#[cfg(not(esp32c5))] // FIXME add to metadata
 impl Rwdt {
     /// Enable the watchdog timer instance.
     /// Watchdog starts with default settings (`stage 0` resets the system, the
@@ -742,7 +735,7 @@ pub fn wakeup_cause() -> SleepSource {
     cfg_if::cfg_if! {
         if #[cfg(esp32)] {
             let wakeup_cause_bits = LPWR::regs().wakeup_state().read().wakeup_cause().bits() as u32;
-        } else if #[cfg(any(esp32c6, esp32h2))] {
+        } else if #[cfg(any(esp32c5, esp32c6, esp32h2))] {
             let wakeup_cause_bits = crate::peripherals::PMU::regs()
                 .slp_wakeup_status0()
                 .read()

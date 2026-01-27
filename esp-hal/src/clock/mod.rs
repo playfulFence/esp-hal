@@ -59,11 +59,12 @@ use crate::peripherals::BT;
 use crate::peripherals::IEEE802154;
 #[cfg(wifi)]
 use crate::peripherals::WIFI;
+#[cfg(not(esp32c5))]
+use crate::rtc_cntl::RtcCalSel;
 use crate::{
     ESP_HAL_LOCK,
     peripherals::{LPWR, TIMG0},
     private::Sealed,
-    rtc_cntl::RtcCalSel,
     soc::clocks::ClockTree,
     time::Rate,
 };
@@ -123,6 +124,8 @@ impl CpuClock {
                 Self::_160MHz
             } else if #[cfg(esp32h2)] {
                 Self::_96MHz
+            } else if #[cfg(esp32c5)] {
+                Self::Placeholder
             } else {
                 Self::_240MHz
             }
@@ -140,25 +143,27 @@ pub enum RtcFastClock {
     XtalD4,
 
     /// Select XTAL_D2_CLK as RTC_FAST_CLK source
-    #[cfg(any(esp32c5, esp32c6, esp32h2))]
+    #[cfg(any(esp32c6, esp32h2))]
     XtalD2,
 
-    #[cfg(esp32c5)]
+    #[cfg(not(esp32c5))]
     /// Main XTAL clock source for RTC_FAST_CLK
     Xtal,
 
     /// Internal fast RC oscillator
+    #[cfg(not(esp32c5))]
     RcFast,
 }
 
 impl Clock for RtcFastClock {
     fn frequency(&self) -> Rate {
-        match self {
-            #[cfg(not(any(esp32c6, esp32h2)))]
+        match *self {
+            #[cfg(not(any(esp32c5, esp32c6, esp32h2)))]
             RtcFastClock::XtalD4 => Clocks::get().xtal_clock / 4,
-            #[cfg(any(esp32c5, esp32c6, esp32h2))]
+            #[cfg(any(esp32c6, esp32h2))]
             RtcFastClock::XtalD2 => Clocks::get().xtal_clock / 2,
 
+            #[cfg(not(esp32c5))]
             RtcFastClock::RcFast => Rate::from_hz(property!("soc.rc_fast_clk_default")),
         }
     }
@@ -186,27 +191,32 @@ pub enum RtcSlowClock {
 #[instability::unstable]
 pub enum RtcSlowClock {
     /// Select RC_SLOW_CLK as RTC_SLOW_CLK source
+    #[cfg(not(esp32c5))]
     RcSlow   = 0,
     /// Select XTAL32K_CLK as RTC_SLOW_CLK source
+    #[cfg(not(esp32c5))]
     _32kXtal = 1,
     #[cfg(not(esp32c5))]
     /// Select RC32K_CLK as RTC_SLOW_CLK source
     _32kRc   = 2,
     /// Select OSC_SLOW_CLK (external slow clock) as RTC_SLOW_CLK source
+    #[cfg(not(esp32c5))]
     OscSlow  = 3, /* ESP32-C5: 3 is still accurate even though C5 it doesn't have 32kRc slow
                    * RTC source. */
 }
 
 impl Clock for RtcSlowClock {
     fn frequency(&self) -> Rate {
-        match self {
+        match *self {
+            #[cfg(not(esp32c5))]
             RtcSlowClock::RcSlow => Rate::from_hz(property!("soc.rc_slow_clock")),
+            #[cfg(not(esp32c5))]
             RtcSlowClock::_32kXtal => Rate::from_hz(32_768),
             #[cfg(any(esp32c6, esp32h2))]
             RtcSlowClock::_32kRc => Rate::from_hz(32_768),
             #[cfg(not(any(esp32c5, esp32c6, esp32h2)))]
             RtcSlowClock::_8mD256 => RtcFastClock::RcFast.frequency() / 256,
-            #[cfg(any(esp32c5, esp32c6, esp32h2))]
+            #[cfg(any(esp32c6, esp32h2))]
             RtcSlowClock::OscSlow => Rate::from_hz(32_768),
         }
     }
@@ -270,7 +280,7 @@ impl RtcClock {
     // TODO: IDF-5781 Some of esp32c6 SOC_RTC_FAST_CLK_SRC_XTAL_D2 rtc_fast clock
     // has timing issue. Force to use SOC_RTC_FAST_CLK_SRC_RC_FAST since 2nd
     // stage bootloader https://github.com/espressif/esp-idf/blob/master/components/bootloader_support/src/bootloader_clock_init.c#L65-L67
-    #[cfg(any(esp32h2, esp32c5, esp32c6))]
+    #[cfg(any(esp32h2, esp32c6))]
     pub(crate) fn set_fast_freq(fast_freq: RtcFastClock) {
         #[cfg(esp32h2)]
         LPWR::regs().lp_clk_conf().modify(|_, w| unsafe {
@@ -279,17 +289,6 @@ impl RtcClock {
                 RtcFastClock::XtalD2 => 0b01,
             })
         });
-
-        #[cfg(esp32c5)]
-        unsafe {
-            LPWR::regs().lp_clk_conf().modify(|_, w| {
-                w.fast_clk_sel().bits(match fast_freq {
-                    RtcFastClock::RcFast => 0b00,
-                    RtcFastClock::XtalD2 => 0b01,
-                    RtcFastClock::Xtal => 0b10,
-                })
-            });
-        }
 
         #[cfg(esp32c6)]
         LPWR::regs().lp_clk_conf().modify(|_, w| {
@@ -302,7 +301,7 @@ impl RtcClock {
         crate::rom::ets_delay_us(3);
     }
 
-    #[cfg(any(esp32h2, esp32c5, esp32c6))]
+    #[cfg(any(esp32h2, esp32c6))]
     pub(crate) fn set_slow_freq(slow_freq: RtcSlowClock) {
         LPWR::regs()
             .lp_clk_conf()
@@ -319,7 +318,7 @@ impl RtcClock {
     }
 
     /// Get the RTC_SLOW_CLK source
-    #[cfg(any(esp32h2, esp32c5, esp32c6))]
+    #[cfg(any(esp32h2, esp32c6))]
     pub fn slow_freq() -> RtcSlowClock {
         match LPWR::regs().lp_clk_conf().read().slow_clk_sel().bits() {
             0 => RtcSlowClock::RcSlow,
@@ -334,7 +333,7 @@ impl RtcClock {
     /// Calibration of RTC_SLOW_CLK is performed using a special feature of
     /// TIMG0. This feature counts the number of XTAL clock cycles within a
     /// given number of RTC_SLOW_CLK cycles.
-    #[cfg(not(any(esp32c6, esp32h2)))] // TODO: merge with C6/H2 impl
+    #[cfg(not(any(esp32c5, esp32c6, esp32h2)))] // TODO: merge with C6/H2 impl
     fn calibrate_internal(cal_clk: RtcCalSel, slowclk_cycles: u32) -> u32 {
         // Except for ESP32, choosing RTC_CAL_RTC_MUX results in calibration of
         // the 150k RTC clock (90k on ESP32-S2) regardless of the currently selected
@@ -475,7 +474,7 @@ impl RtcClock {
     /// Calibration of RTC_SLOW_CLK is performed using a special feature of
     /// TIMG0. This feature counts the number of XTAL clock cycles within a
     /// given number of RTC_SLOW_CLK cycles.
-    #[cfg(any(esp32c5, esp32c6, esp32h2))]
+    #[cfg(any(esp32c6, esp32h2))]
     pub(crate) fn calibrate_internal(mut cal_clk: RtcCalSel, slowclk_cycles: u32) -> u32 {
         use crate::peripherals::{LP_CLKRST, PCR, PMU};
 
@@ -490,7 +489,6 @@ impl RtcClock {
             cal_clk = match cal_clk {
                 RtcCalSel::RtcMux => match RtcClock::slow_freq() {
                     RtcSlowClock::_32kXtal => RtcCalSel::_32kXtal,
-                    #[cfg(not(esp32c5))]
                     RtcSlowClock::_32kRc => RtcCalSel::_32kRc,
                     _ => cal_clk,
                 },
@@ -505,7 +503,6 @@ impl RtcClock {
             cal_clk = match clk_src {
                 RtcSlowClock::RcSlow => RtcCalSel::RcSlow,
                 RtcSlowClock::_32kXtal => RtcCalSel::_32kXtal,
-                #[cfg(not(esp32c5))]
                 RtcSlowClock::_32kRc => RtcCalSel::_32kRc,
                 RtcSlowClock::OscSlow => RtcCalSel::_32kOscSlow,
             };
@@ -516,7 +513,6 @@ impl RtcClock {
             cal_clk = match clk_src {
                 RtcSlowClock::RcSlow => RtcCalSel::RcSlow,
                 RtcSlowClock::_32kXtal => RtcCalSel::_32kXtal,
-                #[cfg(not(esp32c5))]
                 RtcSlowClock::_32kRc => RtcCalSel::_32kRc,
                 RtcSlowClock::OscSlow => RtcCalSel::RcSlow,
             }
@@ -530,10 +526,8 @@ impl RtcClock {
             cali_clk_sel = RtcCaliClkSel::CaliClk32k;
 
             // clk_ll_freq_calulation_set_target
-            // #[cfg(not(esp32c5))]
             match cal_clk {
                 RtcCalSel::RtcMux | RtcCalSel::RcSlow | RtcCalSel::RcFast => {}
-                #[cfg(not(esp32c5))] // TODO: VERIFY
                 RtcCalSel::_32kRc => {
                     PCR::regs()
                         .ctrl_32k_conf()
@@ -550,38 +544,6 @@ impl RtcClock {
                         .modify(|_, w| unsafe { w.clk_32k_sel().bits(2) });
                 }
             }
-
-            // TODO: VERIFY
-            // #[cfg(esp32c5)]
-            // match cal_clk {
-            //     RtcCalSel::RtcMux => {}
-            //     RtcCalSel::_32kRc => {
-            //         PCR::regs()
-            //             .ctrl_32k_conf()
-            //             .modify(|_, w| unsafe { w.clk_32k_sel().bits(0) });
-            //     }
-            //     RtcCalSel::_32kXtal => {
-            //         PCR::regs()
-            //             .ctrl_32k_conf()
-            //             .modify(|_, w| unsafe { w.clk_32k_sel().bits(1) });
-            //     }
-            //     RtcCalSel::_32kOscSlow => {
-            //         PCR::regs()
-            //             .ctrl_32k_conf()
-            //             .modify(|_, w| unsafe { w.clk_32k_sel().bits(2) });
-            //     }
-            //     RtcCalSel::RcSlow => {
-            //         PCR::regs()
-            //             .ctrl_32k_conf()
-            //             .modify(|_, w| unsafe { w.clk_32k_sel().bits(3) });
-            //     }
-
-            //     RtcCalSel::RcFast => {
-            //         PCR::regs()
-            //             .ctrl_32k_conf()
-            //             .modify(|_, w| unsafe { w.clk_32k_sel().bits(4) });
-            //     }
-            // }
         }
 
         // Enable requested clock (150k is always on)
@@ -766,10 +728,6 @@ impl RtcClock {
                 if Efuse::chip_revision() > 0 && cal_clk == RtcCalSel::RcFast {
                     break timg0.rtccalicfg1().read().rtc_cali_value().bits() >> 5;
                 }
-                #[cfg(esp32c5)]
-                if cal_clk == RtcCalSel::RcFast {
-                    break timg0.rtccalicfg1().read().rtc_cali_value().bits() >> 5;
-                }
                 break timg0.rtccalicfg1().read().rtc_cali_value().bits();
             }
 
@@ -810,7 +768,6 @@ impl RtcClock {
             }
         }
 
-        #[cfg(not(esp32c5))]
         if cal_clk == RtcCalSel::_32kRc {
             if rc32k_enabled {
                 PMU::regs()
@@ -835,6 +792,7 @@ impl RtcClock {
     /// may happen if 32k XTAL is being calibrated, but the oscillator has
     /// not started up (due to incorrect loading capacitance, board design
     /// issue, or lack of 32 XTAL on board).
+    #[cfg(not(esp32c5))]
     pub(crate) fn calibrate(cal_clk: RtcCalSel, slowclk_cycles: u32) -> u32 {
         let xtal_freq = Rate::from_hz(ClockTree::with(|clocks| {
             crate::soc::clocks::xtal_clk_frequency(clocks)
@@ -858,6 +816,7 @@ impl RtcClock {
     }
 
     /// Calculate the necessary RTC_SLOW_CLK cycles to complete 1 millisecond.
+    #[cfg(not(esp32c5))]
     pub(crate) fn cycles_to_1ms() -> u16 {
         cfg_if::cfg_if! {
             if #[cfg(any(esp32c6, esp32h2))] {
@@ -887,6 +846,7 @@ impl RtcClock {
     }
 
     /// Return estimated XTAL frequency in MHz.
+    #[cfg(not(esp32c5))]
     pub(crate) fn estimate_xtal_frequency() -> u32 {
         // TODO: this could reuse Self::calibrate_internal
         const SLOW_CLOCK_CYCLES: u32 = 100;
