@@ -228,7 +228,6 @@ pub(crate) enum RtcCalSel {
 }
 
 /// Low-power Management
-#[cfg(not(esp32c5))] // FIXME add to metadata
 pub struct Rtc<'d> {
     _inner: LPWR<'d>,
     /// Reset Watchdog Timer.
@@ -238,7 +237,6 @@ pub struct Rtc<'d> {
     pub swd: Swd,
 }
 
-#[cfg(not(esp32c5))] // FIXME add to metadata
 impl<'d> Rtc<'d> {
     /// Create a new instance in [crate::Blocking] mode.
     ///
@@ -253,11 +251,13 @@ impl<'d> Rtc<'d> {
     }
 
     /// Return estimated XTAL frequency in MHz.
+    #[cfg(not(esp32c5))]
     pub fn estimate_xtal_frequency(&mut self) -> u32 {
         RtcClock::estimate_xtal_frequency()
     }
 
     /// Get the time since boot in the raw register units.
+    #[cfg(not(esp32c5))]
     fn time_since_boot_raw(&self) -> u64 {
         let rtc_cntl = LP_TIMER::regs();
 
@@ -295,6 +295,7 @@ impl<'d> Rtc<'d> {
     ///
     /// It should be noted that any reset or sleep, other than a power-up reset, will not stop or
     /// reset the RTC timer.
+    #[cfg(not(esp32c5))]
     pub fn time_since_power_up(&self) -> Duration {
         Duration::from_micros(
             self.time_since_boot_raw() * 1_000_000
@@ -303,6 +304,7 @@ impl<'d> Rtc<'d> {
     }
 
     /// Read the current value of the boot time registers in microseconds.
+    #[cfg(not(esp32c5))]
     fn boot_time_us(&self) -> u64 {
         // For more info on about how RTC setting works and what it has to do with boot time, see https://github.com/esp-rs/esp-hal/pull/1883
 
@@ -328,6 +330,7 @@ impl<'d> Rtc<'d> {
     }
 
     /// Set the current value of the boot time registers in microseconds.
+    #[cfg(not(esp32c5))]
     fn set_boot_time_us(&self, boot_time_us: u64) {
         // Please see `boot_time_us` for documentation on registers and peripherals
         // used for certain SOCs.
@@ -367,6 +370,7 @@ impl<'d> Rtc<'d> {
     /// let weekday_in_new_york = now.to_zoned(TZ.clone()).weekday();
     /// # {after_snippet}
     /// ```
+    #[cfg(not(esp32c5))]
     pub fn current_time_us(&self) -> u64 {
         // Current time is boot time + time since boot
 
@@ -385,6 +389,7 @@ impl<'d> Rtc<'d> {
     }
 
     /// Set the current time in microseconds.
+    #[cfg(not(esp32c5))]
     pub fn set_current_time_us(&self, current_time_us: u64) {
         // Current time is boot time + time since boot (rtc time)
         // So boot time = current time - time since boot (rtc time)
@@ -478,7 +483,6 @@ impl<'d> Rtc<'d> {
     }
 }
 
-#[cfg(not(esp32c5))]
 impl crate::private::Sealed for Rtc<'_> {}
 
 #[instability::unstable]
@@ -492,7 +496,6 @@ impl crate::interrupt::InterruptConfigurable for Rtc<'_> {
 /// Behavior of the RWDT stage if it times out.
 #[allow(unused)]
 #[derive(Debug, Clone, Copy)]
-#[cfg(not(esp32c5))] // FIXME add to metadata
 pub enum RwdtStageAction {
     /// No effect on the system.
     Off         = 0,
@@ -512,7 +515,6 @@ pub enum RwdtStageAction {
 /// Timer stages allow for a timer to have a series of different timeout values
 /// and corresponding expiry action.
 #[derive(Debug, Clone, Copy)]
-#[cfg(not(esp32c5))] // FIXME add to metadata
 pub enum RwdtStage {
     /// RWDT stage 0.
     Stage0,
@@ -525,12 +527,10 @@ pub enum RwdtStage {
 }
 
 /// RTC Watchdog Timer.
-#[cfg(not(esp32c5))] // FIXME add to metadata
 pub struct Rwdt(());
 
 /// RTC Watchdog Timer driver.
 
-#[cfg(not(esp32c5))] // FIXME add to metadata
 impl Rwdt {
     /// Enable the watchdog timer instance.
     /// Watchdog starts with default settings (`stage 0` resets the system, the
@@ -595,7 +595,15 @@ impl Rwdt {
     /// Feed the watchdog timer.
     pub fn feed(&mut self) {
         self.set_write_protection(false);
-        LP_WDT::regs().wdtfeed().write(|w| w.wdt_feed().set_bit());
+        LP_WDT::regs().wdtfeed().write(|w| {
+            cfg_if::cfg_if! {
+                if #[cfg(esp32c5)] {
+                    w.rtc_wdt_feed().set_bit()
+                } else {
+                    w.wdt_feed().set_bit()
+                }
+            }
+        });
         self.set_write_protection(true);
     }
 
@@ -641,6 +649,7 @@ impl Rwdt {
     }
 
     /// Configure timeout value in ms for the selected stage.
+    #[cfg(not(esp32c5))]
     pub fn set_timeout(&mut self, stage: RwdtStage, timeout: Duration) {
         let rtc_cntl = LP_WDT::regs();
 
