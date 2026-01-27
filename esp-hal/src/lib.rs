@@ -343,7 +343,7 @@ unstable_module! {
     pub mod analog;
     #[cfg(any(systimer, timergroup))]
     pub mod timer;
-    #[cfg(all(not(esp32c5), soc_has_lpwr))]
+    #[cfg(soc_has_lpwr)]
     pub mod rtc_cntl;
     #[cfg(any(gdma, pdma))]
     pub mod dma;
@@ -739,14 +739,20 @@ pub fn init(config: Config) -> Peripherals {
     Clocks::init(config.clock_config());
 
     // RTC domain must be enabled before we try to disable
+    // TODO: add later
+    #[cfg(not(esp32c5))]
     let mut rtc = crate::rtc_cntl::Rtc::new(peripherals.LPWR.reborrow());
 
+    // TODO: add later
+    #[cfg(not(esp32c5))]
     crate::rtc_cntl::sleep::RtcSleepConfig::base_settings(&rtc);
 
     // Disable watchdog timers
-    #[cfg(not(any(esp32, esp32s2)))]
+    #[cfg(not(any(esp32, esp32s2, esp32c5)))]
     rtc.swd.disable();
 
+    // TODO: add later
+    #[cfg(not(esp32c5))]
     rtc.rwdt.disable();
 
     #[cfg(timergroup_timg0)]
@@ -757,6 +763,8 @@ pub fn init(config: Config) -> Peripherals {
 
     crate::time::implem::time_init();
 
+    // TODO: add later
+    #[cfg(not(esp32c5))]
     crate::gpio::interrupt::bind_default_interrupt_handler();
 
     #[cfg(feature = "psram")]
