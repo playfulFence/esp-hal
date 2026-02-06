@@ -16,7 +16,7 @@ use esp_hal::{
         Config,
         Error,
         I2c,
-        I2cAddress,
+        I2cAddress, // ABOBA
         Operation,
         SoftwareTimeout,
     },
