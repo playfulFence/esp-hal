@@ -2240,8 +2240,6 @@ macro_rules! for_each_peripheral {
         #[doc = "UART1 peripheral singleton"] UART1 <= UART1(UART1 : {
         bind_peri_interrupt, enable_peri_interrupt, disable_peri_interrupt })
         (unstable))); _for_each_inner_peripheral!((@ peri_type #[doc =
-        "UHCI0 peripheral singleton"] UHCI0 <= UHCI0() (unstable)));
-        _for_each_inner_peripheral!((@ peri_type #[doc =
         "USB_DEVICE peripheral singleton"] USB_DEVICE <= USB_DEVICE(USB_DEVICE : {
         bind_peri_interrupt, enable_peri_interrupt, disable_peri_interrupt })
         (unstable))); _for_each_inner_peripheral!((@ peri_type #[doc =
@@ -2320,7 +2318,6 @@ macro_rules! for_each_peripheral {
         _for_each_inner_peripheral!((TRACE0(unstable)));
         _for_each_inner_peripheral!((UART0(unstable)));
         _for_each_inner_peripheral!((UART1(unstable)));
-        _for_each_inner_peripheral!((UHCI0(unstable)));
         _for_each_inner_peripheral!((USB_DEVICE(unstable)));
         _for_each_inner_peripheral!((BT(unstable)));
         _for_each_inner_peripheral!((FLASH(unstable)));
@@ -2480,7 +2477,6 @@ macro_rules! for_each_peripheral {
         disable_peri_interrupt }) (unstable)), (@ peri_type #[doc =
         "UART1 peripheral singleton"] UART1 <= UART1(UART1 : { bind_peri_interrupt,
         enable_peri_interrupt, disable_peri_interrupt }) (unstable)), (@ peri_type #[doc
-        = "UHCI0 peripheral singleton"] UHCI0 <= UHCI0() (unstable)), (@ peri_type #[doc
         = "USB_DEVICE peripheral singleton"] USB_DEVICE <= USB_DEVICE(USB_DEVICE : {
         bind_peri_interrupt, enable_peri_interrupt, disable_peri_interrupt })
         (unstable)), (@ peri_type #[doc = "BT peripheral singleton"] BT <= virtual()
@@ -2509,9 +2505,9 @@ macro_rules! for_each_peripheral {
         (PMU(unstable)), (PVT_MONITOR(unstable)), (RMT(unstable)), (RSA(unstable)),
         (SHA(unstable)), (SLC(unstable)), (SYSTEM(unstable)), (SYSTIMER(unstable)),
         (TEE(unstable)), (TIMG0(unstable)), (TIMG1(unstable)), (TRACE0(unstable)),
-        (UART0(unstable)), (UART1(unstable)), (UHCI0(unstable)), (USB_DEVICE(unstable)),
-        (BT(unstable)), (FLASH(unstable)), (GPIO_DEDICATED(unstable)),
-        (LP_CORE(unstable)), (SW_INTERRUPT(unstable)), (WIFI(unstable))));
+        (UART0(unstable)), (UART1(unstable)), (USB_DEVICE(unstable)), (BT(unstable)),
+        (FLASH(unstable)), (GPIO_DEDICATED(unstable)), (LP_CORE(unstable)),
+        (SW_INTERRUPT(unstable)), (WIFI(unstable))));
     };
 }
 /// This macro can be used to generate code for each `GPIOn` instance.
