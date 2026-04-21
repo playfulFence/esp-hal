@@ -1310,7 +1310,7 @@ where
     }
 }
 
-/// In-progress one-shot I2S DMA transmit (owns [`I2sTx`] and transmit buffer).
+/// One-shot I2S DMA transmit.
 #[instability::unstable]
 pub struct I2sDmaTxTransfer<'d, Dm, TX>
 where
@@ -1327,13 +1327,12 @@ where
     Dm: DriverMode,
     TX: DmaTxBuffer,
 {
-    /// Returns `true` when [`Self::wait`] would not block on the DMA channel.
+    /// Checks if the transfer is finished.
     pub fn is_done(&mut self) -> bool {
         self.i2s_tx.tx_channel.is_done()
     }
 
-    /// Waits for completion. On descriptor error, returns the error and the
-    /// peripheral plus buffer (without calling [`DmaTxBuffer::from_view`]).
+    /// Wait for the transfer to finish.
     pub fn wait(mut self) -> Result<(I2sTx<'d, Dm>, TX::Final), (DmaError, I2sTx<'d, Dm>, TX)> {
         self.i2s_tx.i2s.wait_for_tx_done();
 
@@ -1370,7 +1369,7 @@ where
     }
 }
 
-/// In-progress one-shot I2S DMA receive (owns [`I2sRx`] and receive buffer).
+/// One-shot I2S DMA receive.
 #[instability::unstable]
 pub struct I2sDmaRxTransfer<'d, Dm, RX>
 where
@@ -1387,13 +1386,12 @@ where
     Dm: DriverMode,
     RX: DmaRxBuffer,
 {
-    /// Returns `true` when [`Self::wait`] would not block on the DMA channel.
+    /// Checks if the transfer is finished.
     pub fn is_done(&mut self) -> bool {
         self.i2s_rx.rx_channel.is_done()
     }
 
-    /// Waits for completion. On descriptor error, returns the error and the
-    /// peripheral plus buffer (without calling [`DmaRxBuffer::from_view`]).
+    /// Wait for the transfer to finish.
     pub fn wait(mut self) -> Result<(I2sRx<'d, Dm>, RX::Final), (DmaError, I2sRx<'d, Dm>, RX)> {
         self.i2s_rx.i2s.wait_for_rx_done();
 
@@ -2777,6 +2775,7 @@ pub mod asynch {
 
             let future = DmaRxFuture::new(&mut self.rx_channel);
 
+            // configure DMA inlink
             unsafe {
                 future
                     .rx
