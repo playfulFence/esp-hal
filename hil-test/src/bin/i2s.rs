@@ -2,6 +2,9 @@
 //!
 //! This test uses I2S TX to transmit known data to I2S RX (forced to slave mode
 //! with loopback mode enabled).
+//!
+//! Continuous (streaming / circular DMA) I2S: see `test_i2s_loopback` (blocking),
+//! `test_i2s_loopback_async` (embassy), and `test_i2s_continuous_streaming_stop_reclaim` (`stop`).
 
 //% CHIPS: esp32 esp32c3 esp32c6 esp32h2 esp32s2 esp32s3
 //% FEATURES: unstable
@@ -219,14 +222,14 @@ mod tests {
         let mut rcv = [0u8; 11000];
         let mut filler = [0x1u8; 12000];
 
-        let mut rx_transfer = i2s_rx.read_dma_circular(rx_buf).unwrap();
+        let mut rx_transfer = i2s_rx.read_dma(rx_buf).unwrap();
         // trying to pop data before calling `available` should just do nothing
         assert_eq!(0, rx_transfer.pop(&mut rcv[..100]).unwrap());
 
         // no data available yet
         assert_eq!(0, rx_transfer.available().unwrap());
 
-        let mut tx_transfer = i2s_tx.write_dma_circular(tx_buf).unwrap();
+        let mut tx_transfer = i2s_tx.write_dma(tx_buf).unwrap();
 
         let mut iteration = 0;
         let mut sample_idx = 0;
@@ -288,6 +291,88 @@ mod tests {
         }
     }
 
+    /// Continuous streaming I2S over loopback, then clean `stop()` on both directions.
+    ///
+    /// Complements `test_i2s_loopback` by asserting we can end a live ring transfer and
+    /// recover the peripheral halves and buffers without descriptor errors.
+    #[test]
+    fn test_i2s_continuous_streaming_stop_reclaim(ctx: Context) {
+        const STREAM: usize = 8192;
+        let (rx_buffer, rx_descriptors, tx_buffer, tx_descriptors) =
+            dma_circular_buffers!(STREAM, STREAM);
+
+        let i2s = I2s::new(
+            ctx.i2s,
+            ctx.dma_channel,
+            Config::new_tdm_philips()
+                .with_signal_loopback(true)
+                .with_sample_rate(Rate::from_hz(16000))
+                .with_data_format(DataFormat::Data16Channel16)
+                .with_channels(Channels::STEREO),
+        )
+        .unwrap();
+
+        let (din, dout) = unsafe { ctx.dout.split() };
+        let (stash_rx_desc, stash_tx_desc) = dma_descriptors!(4092, 4092);
+
+        let i2s_tx = i2s
+            .i2s_tx
+            .with_bclk(NoPin)
+            .with_ws(NoPin)
+            .with_dout(dout)
+            .build(stash_tx_desc);
+
+        let i2s_rx = i2s
+            .i2s_rx
+            .with_bclk(NoPin)
+            .with_ws(NoPin)
+            .with_din(din)
+            .build(stash_rx_desc);
+
+        let mut tx_buf = DmaTxCircularBuf::new(tx_descriptors, tx_buffer).unwrap();
+        let rx_buf = DmaRxCircularBuf::new(rx_descriptors, rx_buffer).unwrap();
+
+        let mut feed = SampleSource::new();
+        for b in tx_buf.as_mut_slice().iter_mut() {
+            *b = feed.next().unwrap();
+        }
+
+        let mut rx_transfer = i2s_rx.read_dma(rx_buf).unwrap();
+        assert_eq!(0, rx_transfer.pop(&mut [0u8; 64]).unwrap());
+        assert_eq!(0, rx_transfer.available().unwrap());
+
+        let mut tx_transfer = i2s_tx.write_dma(tx_buf).unwrap();
+
+        let mut rcv = [0u8; STREAM];
+        let mut expect = SampleSource::new();
+        let mut chunk = [0u8; 2048];
+
+        for _ in 0..25 {
+            let tx_avail = tx_transfer.available().unwrap();
+            if tx_avail > 0 {
+                let n = usize::min(tx_avail, chunk.len());
+                for b in &mut chunk[..n] {
+                    *b = feed.next().unwrap();
+                }
+                tx_transfer.push(&chunk[..n]).unwrap();
+            }
+
+            let rx_avail = rx_transfer.available().unwrap();
+            if rx_avail > 0 && rx_avail <= rcv.len() {
+                let n = rx_transfer.pop(&mut rcv[..rx_avail]).unwrap();
+                for &b in &rcv[..n] {
+                    assert_eq!(b, expect.next().unwrap());
+                }
+            }
+        }
+
+        let (_tx_i2s, tx_final) = tx_transfer.stop().unwrap();
+        let (_rx_i2s, rx_final) = rx_transfer.stop().unwrap();
+
+        assert_eq!(tx_final.capacity(), STREAM);
+        assert_eq!(rx_final.capacity(), STREAM);
+    }
+
     #[test]
     fn test_i2s_push_too_late(ctx: Context) {
         let (_, stash_tx_desc) = dma_descriptors!(4092, 4092);
@@ -311,7 +396,7 @@ mod tests {
             .build(stash_tx_desc);
 
         let tx_buf = DmaTxCircularBuf::new(tx_descriptors, tx_buffer).unwrap();
-        let mut tx_transfer = i2s_tx.write_dma_circular(tx_buf).unwrap();
+        let mut tx_transfer = i2s_tx.write_dma(tx_buf).unwrap();
 
         let delay = esp_hal::delay::Delay::new();
         delay.delay_millis(300);
@@ -344,7 +429,7 @@ mod tests {
 
         let mut buffer = [0u8; 1024];
         let rx_buf = DmaRxCircularBuf::new(rx_descriptors, rx_buffer).unwrap();
-        let mut rx_transfer = i2s_rx.read_dma_circular(rx_buf).unwrap();
+        let mut rx_transfer = i2s_rx.read_dma(rx_buf).unwrap();
 
         let delay = esp_hal::delay::Delay::new();
         delay.delay_millis(300);

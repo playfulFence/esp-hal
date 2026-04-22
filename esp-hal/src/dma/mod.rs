@@ -828,6 +828,10 @@ pub enum DmaError {
     /// Indicates writing to or reading from a circular DMA transaction is done
     /// too late and the DMA buffers already overrun / underrun.
     Late,
+
+    /// The DMA transfer handle does not support this operation (e.g. `wait` on a
+    /// streaming buffer transfer; use `stop` instead).
+    WrongTransferMode,
 }
 
 impl From<DmaBufError> for DmaError {
@@ -2033,17 +2037,6 @@ where
         self.do_prepare(preparation, peri)
     }
 
-    /// Like [`Self::prepare_transfer`], using a [`DmaRxCircularBuffer`].
-    pub(crate) unsafe fn prepare_transfer_circular<BUF: DmaRxCircularBuffer>(
-        &mut self,
-        peri: DmaPeripheral,
-        buffer: &mut BUF,
-    ) -> Result<(), DmaError> {
-        let preparation = buffer.prepare();
-
-        self.do_prepare(preparation, peri)
-    }
-
     pub(crate) fn start_transfer(&mut self) -> Result<(), DmaError> {
         self.rx_impl.start();
 
@@ -2303,17 +2296,6 @@ where
     }
 
     pub(crate) unsafe fn prepare_transfer<BUF: DmaTxBuffer>(
-        &mut self,
-        peri: DmaPeripheral,
-        buffer: &mut BUF,
-    ) -> Result<(), DmaError> {
-        let preparation = buffer.prepare();
-
-        self.do_prepare(preparation, peri)
-    }
-
-    /// Like [`Self::prepare_transfer`], using a [`DmaTxCircularBuffer`].
-    pub(crate) unsafe fn prepare_transfer_circular<BUF: DmaTxCircularBuffer>(
         &mut self,
         peri: DmaPeripheral,
         buffer: &mut BUF,

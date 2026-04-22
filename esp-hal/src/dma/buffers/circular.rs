@@ -5,70 +5,12 @@ use super::{
     BufView,
     BurstConfig,
     DmaBufError,
+    DmaRxBuffer,
+    DmaTxBuffer,
     Preparation,
 };
 #[cfg(dma_can_access_psram)]
 use crate::soc::is_valid_ram_address;
-/// [DmaTxCircularBuffer] is a DMA descriptor ring and memory for continuous
-/// transmit (circular) transfers.
-///
-/// # Safety
-///
-/// The implementing type must keep all its descriptors and the buffers they
-/// point to valid while the buffer is being transferred.
-pub unsafe trait DmaTxCircularBuffer {
-    /// A type providing operations that are safe to perform on the buffer
-    /// whilst the DMA is actively using it.
-    type View;
-
-    /// The type returned to the user when a transfer finishes.
-    type Final;
-
-    /// Prepares the buffer for an imminent transfer and returns
-    /// information required to use this buffer.
-    fn prepare(&mut self) -> Preparation;
-
-    /// This is called before the DMA starts using the buffer.
-    fn into_view(self) -> Self::View;
-
-    /// This is called after the DMA is done using the buffer.
-    fn from_view(view: Self::View) -> Self::Final;
-
-    /// Snapshot for [`TxCircularState`] after descriptors are configured.
-    fn tx_circular_state(&self) -> TxCircularState;
-}
-
-/// [DmaRxCircularBuffer] is a DMA descriptor ring and memory for continuous
-/// receive (circular) transfers.
-///
-/// # Safety
-///
-/// The implementing type must keep all its descriptors and the buffers they
-/// point to valid while the buffer is being transferred.
-pub unsafe trait DmaRxCircularBuffer {
-    /// A type providing operations that are safe to perform on the buffer
-    /// whilst the DMA is actively using it.
-    type View;
-
-    /// The type returned to the user when a transfer finishes.
-    type Final;
-
-    /// Prepares the buffer for an imminent transfer and returns
-    /// information required to use this buffer.
-    fn prepare(&mut self) -> Preparation;
-
-    /// This is called before the DMA starts using the buffer.
-    fn into_view(self) -> Self::View;
-
-    /// This is called after the DMA is done using the buffer.
-    fn from_view(view: Self::View) -> Self::Final;
-
-    /// Snapshot for [`RxCircularState`] after descriptors are configured.
-    fn rx_circular_state(&self) -> RxCircularState;
-
-    /// Total ring size in bytes (passed to the peripheral as the RX DMA length).
-    fn ring_byte_len(&self) -> usize;
-}
 
 /// DMA circular transmit buffer.
 ///
@@ -132,7 +74,7 @@ impl DmaTxCircularBuf {
     }
 }
 
-unsafe impl DmaTxCircularBuffer for DmaTxCircularBuf {
+unsafe impl DmaTxBuffer for DmaTxCircularBuf {
     type View = BufView<DmaTxCircularBuf>;
     type Final = DmaTxCircularBuf;
 
@@ -174,11 +116,15 @@ unsafe impl DmaTxCircularBuffer for DmaTxCircularBuf {
         view.0
     }
 
-    fn tx_circular_state(&self) -> TxCircularState {
+    fn tx_stream_state(&self) -> Option<TxCircularState> {
         let head = self.descriptors.head_ptr();
         let buffer_start = unsafe { (*head).buffer as *const u8 };
         let buffer_len: usize = self.descriptors.linked_iter().map(|d| d.len()).sum();
-        TxCircularState::new_from_ring(head, buffer_start, buffer_len)
+        Some(TxCircularState::new_from_ring(
+            head,
+            buffer_start,
+            buffer_len,
+        ))
     }
 }
 
@@ -243,7 +189,7 @@ impl DmaRxCircularBuf {
     }
 }
 
-unsafe impl DmaRxCircularBuffer for DmaRxCircularBuf {
+unsafe impl DmaRxBuffer for DmaRxCircularBuf {
     type View = BufView<DmaRxCircularBuf>;
     type Final = DmaRxCircularBuf;
 
@@ -285,11 +231,14 @@ unsafe impl DmaRxCircularBuffer for DmaRxCircularBuf {
         view.0
     }
 
-    fn rx_circular_state(&self) -> RxCircularState {
-        RxCircularState::new_from_ring(self.descriptors.head_ptr(), self.descriptors.tail_ptr())
+    fn rx_stream_state(&self) -> Option<RxCircularState> {
+        Some(RxCircularState::new_from_ring(
+            self.descriptors.head_ptr(),
+            self.descriptors.tail_ptr(),
+        ))
     }
 
-    fn ring_byte_len(&self) -> usize {
+    fn peripheral_rx_dma_length(&self) -> usize {
         self.buffer.len()
     }
 }

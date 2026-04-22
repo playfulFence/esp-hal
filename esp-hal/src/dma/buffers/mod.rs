@@ -446,6 +446,11 @@ pub unsafe trait DmaTxBuffer {
 
     /// This is called after the DMA is done using the buffer.
     fn from_view(view: Self::View) -> Self::Final;
+
+    /// When `Some`, this TX buffer is a streaming ring after [`Self::prepare`].
+    fn tx_stream_state(&self) -> Option<TxCircularState> {
+        None
+    }
 }
 
 /// [DmaRxBuffer] is a DMA descriptor + memory combo that can be used for
@@ -480,6 +485,15 @@ pub unsafe trait DmaRxBuffer {
 
     /// This is called after the DMA is done using the buffer.
     fn from_view(view: Self::View) -> Self::Final;
+
+    /// When `Some`, this RX buffer is a streaming ring after [`Self::prepare`].
+    fn rx_stream_state(&self) -> Option<RxCircularState> {
+        None
+    }
+
+    /// Total RX length for one peripheral/DMA job (e.g. I2S `rx_start`); must be a
+    /// multiple of 4 where the peripheral requires it.
+    fn peripheral_rx_dma_length(&self) -> usize;
 }
 
 /// An in-progress view into [DmaRxBuf]/[DmaTxBuf].
@@ -888,6 +902,10 @@ unsafe impl DmaRxBuffer for DmaRxBuf {
     fn from_view(view: Self::View) -> Self {
         view.0
     }
+
+    fn peripheral_rx_dma_length(&self) -> usize {
+        self.len()
+    }
 }
 
 /// DMA transmit and receive buffer.
@@ -1115,6 +1133,13 @@ unsafe impl DmaRxBuffer for DmaRxTxBuf {
     fn from_view(view: Self::View) -> Self {
         view.0
     }
+
+    fn peripheral_rx_dma_length(&self) -> usize {
+        self.rx_descriptors
+            .linked_iter()
+            .map(|d| d.len())
+            .sum::<usize>()
+    }
 }
 
 /// DMA Streaming Receive Buffer.
@@ -1261,6 +1286,10 @@ unsafe impl DmaRxBuffer for DmaRxStreamBuf {
 
     fn from_view(view: Self::View) -> Self {
         view.buf
+    }
+
+    fn peripheral_rx_dma_length(&self) -> usize {
+        self.buffer.len()
     }
 }
 
@@ -1496,6 +1525,10 @@ unsafe impl DmaRxBuffer for EmptyBuf {
     fn from_view(view: Self::View) -> Self {
         view
     }
+
+    fn peripheral_rx_dma_length(&self) -> usize {
+        0
+    }
 }
 
 /// DMA Loop Buffer
@@ -1629,6 +1662,10 @@ unsafe impl DmaRxBuffer for NoBuffer {
 
     fn into_view(self) -> Self::View {}
     fn from_view(_view: Self::View) {}
+
+    fn peripheral_rx_dma_length(&self) -> usize {
+        0
+    }
 }
 
 /// Prepares data unsafely to be transmitted via DMA.
