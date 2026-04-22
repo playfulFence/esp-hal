@@ -19,7 +19,9 @@
 use embassy_executor::Spawner;
 use esp_backtrace as _;
 use esp_hal::{
-    dma_buffers,
+    dma::DmaRxCircularBuf,
+    dma_circular_buffers,
+    dma_descriptors,
     i2s::master::{Channels, Config, DataFormat, I2s},
     interrupt::software::SoftwareInterruptControl,
     time::Rate,
@@ -45,7 +47,9 @@ async fn main(_spawner: Spawner) {
         }
     }
 
-    let (rx_buffer, rx_descriptors, _, _) = dma_buffers!(4092 * 4, 0);
+    let (stash_rx_desc, _) = dma_descriptors!(4092, 4092);
+    let (rx_buffer, rx_descriptors, _, _) = dma_circular_buffers!(4092 * 4, 0);
+    let mut rx_cbuf = DmaRxCircularBuf::new(rx_descriptors, rx_buffer).unwrap();
 
     let i2s = I2s::new(
         peripherals.I2S0,
@@ -64,13 +68,12 @@ async fn main(_spawner: Spawner) {
         .with_bclk(peripherals.GPIO2)
         .with_ws(peripherals.GPIO4)
         .with_din(peripherals.GPIO5)
-        .build(rx_descriptors);
+        .build(stash_rx_desc);
 
-    let buffer = rx_buffer;
     println!("Start");
 
     let mut data = [0u8; 5000];
-    let mut transaction = i2s_rx.read_dma_circular_async(buffer).unwrap();
+    let mut transaction = i2s_rx.read_dma_circular_async(&mut rx_cbuf).unwrap();
     loop {
         let avail = transaction.available().await.unwrap();
         println!("available {}", avail);

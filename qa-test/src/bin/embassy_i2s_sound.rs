@@ -33,7 +33,9 @@
 use embassy_executor::Spawner;
 use esp_backtrace as _;
 use esp_hal::{
-    dma_buffers,
+    dma::DmaTxCircularBuf,
+    dma_circular_buffers,
+    dma_descriptors,
     i2s::master::{Channels, Config, DataFormat, I2s},
     interrupt::software::SoftwareInterruptControl,
     time::Rate,
@@ -67,7 +69,9 @@ async fn main(_spawner: Spawner) {
         }
     }
 
-    let (_, _, tx_buffer, tx_descriptors) = dma_buffers!(0, 32000);
+    let (_, stash_tx_desc) = dma_descriptors!(4092, 4092);
+    let (_, _, tx_buffer, tx_descriptors) = dma_circular_buffers!(0, 32000);
+    let mut tx_cbuf = DmaTxCircularBuf::new(tx_descriptors, tx_buffer).unwrap();
 
     let i2s = I2s::new(
         peripherals.I2S0,
@@ -85,15 +89,14 @@ async fn main(_spawner: Spawner) {
         .with_bclk(peripherals.GPIO2)
         .with_ws(peripherals.GPIO4)
         .with_dout(peripherals.GPIO5)
-        .build(tx_descriptors);
+        .build(stash_tx_desc);
 
     let data =
         unsafe { core::slice::from_raw_parts(&SINE as *const _ as *const u8, SINE.len() * 2) };
 
-    let buffer = tx_buffer;
     let mut idx = 0;
-    for i in 0..usize::min(data.len(), buffer.len()) {
-        buffer[i] = data[idx];
+    for i in 0..usize::min(data.len(), tx_cbuf.as_mut_slice().len()) {
+        tx_cbuf.as_mut_slice()[i] = data[idx];
 
         idx += 1;
 
@@ -106,7 +109,7 @@ async fn main(_spawner: Spawner) {
     let mut idx = 32000 % data.len();
 
     println!("Start");
-    let mut transaction = i2s_tx.write_dma_circular_async(buffer).unwrap();
+    let mut transaction = i2s_tx.write_dma_circular_async(&mut tx_cbuf).unwrap();
     loop {
         for i in 0..filler.len() {
             filler[i] = data[(idx + i) % data.len()];

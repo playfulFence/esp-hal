@@ -1081,6 +1081,11 @@ impl<'a> DescriptorSet<'a> {
         self.descriptors.as_mut_ptr()
     }
 
+    /// First descriptor in the chain; same address as [`Self::head`] but usable on `&self`.
+    pub(super) fn head_ptr(&self) -> *mut DmaDescriptor {
+        self.descriptors.as_ptr() as *mut DmaDescriptor
+    }
+
     /// Returns an iterator over the linked descriptors.
     fn linked_iter(&self) -> impl Iterator<Item = &DmaDescriptor> {
         let mut was_last = false;
@@ -1233,6 +1238,91 @@ impl<'a> DescriptorSet<'a> {
 
         Ok(())
     }
+
+    /// Links descriptors into a circular TX chain over `buffer`.
+    pub(super) fn configure_tx_circular(
+        &mut self,
+        buffer: &mut [u8],
+        burst: BurstConfig,
+    ) -> Result<(), DmaBufError> {
+        let len = buffer.len();
+        if len == 0 {
+            return Err(DmaBufError::BufferTooSmall);
+        }
+
+        let base_chunk = burst.max_chunk_size_for(buffer, TransferDirection::Out);
+        let max_chunk_size = if len <= base_chunk * 2 {
+            if len <= 3 {
+                return Err(DmaBufError::BufferTooSmall);
+            }
+            len / 3 + len % 3
+        } else {
+            base_chunk
+        };
+
+        burst.ensure_buffer_compatible(buffer, TransferDirection::Out)?;
+
+        Self::set_up_buffer_ptrs(buffer, self.descriptors, max_chunk_size, true)?;
+        Self::set_up_descriptors(
+            self.descriptors,
+            len,
+            max_chunk_size,
+            true,
+            |desc, chunk_size| {
+                desc.reset_for_tx(true);
+                desc.set_length(chunk_size);
+            },
+        )?;
+
+        Ok(())
+    }
+
+    /// Links descriptors into a circular RX chain over `buffer`.
+    pub(super) fn configure_rx_circular(
+        &mut self,
+        buffer: &mut [u8],
+        burst: BurstConfig,
+    ) -> Result<(), DmaBufError> {
+        let len = buffer.len();
+        if len == 0 {
+            return Err(DmaBufError::BufferTooSmall);
+        }
+        if !len.is_multiple_of(4) {
+            return Err(DmaBufError::InvalidAlignment(DmaAlignmentError::Size));
+        }
+
+        let base_chunk = burst.max_chunk_size_for(buffer, TransferDirection::In);
+        let max_chunk_size = if len <= base_chunk * 2 {
+            if len <= 3 {
+                return Err(DmaBufError::BufferTooSmall);
+            }
+            len / 3 + len % 3
+        } else {
+            base_chunk
+        };
+
+        burst.ensure_buffer_compatible(buffer, TransferDirection::In)?;
+
+        Self::set_up_buffer_ptrs(buffer, self.descriptors, max_chunk_size, true)?;
+        Self::set_up_descriptors(
+            self.descriptors,
+            len,
+            max_chunk_size,
+            true,
+            |desc, _chunk| {
+                desc.reset_for_rx();
+            },
+        )?;
+
+        Ok(())
+    }
+
+    /// Last descriptor in this set (where the ring closes).
+    pub(super) fn tail_ptr(&self) -> *mut DmaDescriptor {
+        let n = self.descriptors.len();
+        debug_assert!(n > 0);
+        unsafe { self.descriptors.as_ptr().add(n - 1) as *mut DmaDescriptor }
+    }
 }
 
 /// Block size for transfers to/from PSRAM
@@ -1258,7 +1348,8 @@ impl From<ExternalBurstConfig> for DmaExtMemBKSize {
     }
 }
 
-pub(crate) struct TxCircularState {
+/// Circular TX buffer bookkeeping (EOF updates and how much can be pushed).
+pub struct TxCircularState {
     write_offset: usize,
     write_descr_ptr: *mut DmaDescriptor,
     pub(crate) available: usize,
@@ -1283,6 +1374,23 @@ impl TxCircularState {
         }
     }
 
+    /// Like [`Self::new`], for a ring described by raw pointers (buffer-owned descriptors).
+    pub(crate) fn new_from_ring(
+        first_desc: *mut DmaDescriptor,
+        buffer_start: *const u8,
+        buffer_len: usize,
+    ) -> Self {
+        Self {
+            write_offset: 0,
+            write_descr_ptr: first_desc,
+            available: 0,
+            last_seen_handled_descriptor_ptr: first_desc,
+            buffer_start,
+            buffer_len,
+            first_desc_ptr: first_desc,
+        }
+    }
+
     pub(crate) fn update<Dm, CH>(&mut self, channel: &ChannelTx<Dm, CH>) -> Result<(), DmaError>
     where
         Dm: DriverMode,
@@ -1294,9 +1402,7 @@ impl TxCircularState {
         {
             channel.clear_out(DmaTxInterrupt::Eof);
 
-            // check if all descriptors are owned by CPU - this indicates we failed to push
-            // data fast enough in future we can enable `check_owner` and check
-            // the interrupt instead
+            // If every descriptor is back on the CPU, we did not feed the ring fast enough.
             let mut current = self.last_seen_handled_descriptor_ptr;
             loop {
                 let descr = unsafe { current.read_volatile() };
@@ -1332,11 +1438,11 @@ impl TxCircularState {
                         ptr = ptr.offset(1);
                     }
 
-                    // add bytes pointed to by the last descriptor
+                    // Last segment before the wrap.
                     let dw0 = ptr.read_volatile();
                     self.available += dw0.len();
 
-                    // in circular mode we need to honor the now available bytes at start
+                    // After wrap, count from the ring head up to the current EOF pointer.
                     if core::ptr::eq((*ptr).next, self.first_desc_ptr) {
                         ptr = self.first_desc_ptr;
                         while ptr < descr_address {
@@ -1396,8 +1502,8 @@ impl TxCircularState {
         &mut self,
         f: impl FnOnce(&mut [u8]) -> usize,
     ) -> Result<usize, DmaError> {
-        // this might write less than available in case of a wrap around
-        // caller needs to check and write the remaining part
+        // May fill less than `available` when the linear slice stops at a wrap; call again if
+        // needed.
         let written = unsafe {
             let dst = self.buffer_start.add(self.write_offset).cast_mut();
             let block_size = usize::min(self.available, self.buffer_len - self.write_offset);
@@ -1434,7 +1540,8 @@ impl TxCircularState {
     }
 }
 
-pub(crate) struct RxCircularState {
+/// Circular RX buffer bookkeeping (bytes ready to pop after descriptor updates).
+pub struct RxCircularState {
     read_descr_ptr: *mut DmaDescriptor,
     pub(crate) available: usize,
     last_seen_handled_descriptor_ptr: *mut DmaDescriptor,
@@ -1451,10 +1558,22 @@ impl RxCircularState {
         }
     }
 
+    /// Like [`Self::new`], for a ring described by first/last descriptor pointers.
+    pub(crate) fn new_from_ring(
+        first_desc: *mut DmaDescriptor,
+        last_desc: *mut DmaDescriptor,
+    ) -> Self {
+        Self {
+            read_descr_ptr: first_desc,
+            available: 0,
+            last_seen_handled_descriptor_ptr: core::ptr::null_mut(),
+            last_descr_ptr: last_desc,
+        }
+    }
+
     pub(crate) fn update(&mut self) -> Result<(), DmaError> {
         if self.last_seen_handled_descriptor_ptr.is_null() {
-            // initially start at last descriptor (so that next will be the first
-            // descriptor)
+            // Start from the tail so walking `.next` hits the ring head first.
             self.last_seen_handled_descriptor_ptr = self.last_descr_ptr;
         }
 
@@ -1914,6 +2033,17 @@ where
         self.do_prepare(preparation, peri)
     }
 
+    /// Like [`Self::prepare_transfer`], using a [`DmaRxCircularBuffer`].
+    pub(crate) unsafe fn prepare_transfer_circular<BUF: DmaRxCircularBuffer>(
+        &mut self,
+        peri: DmaPeripheral,
+        buffer: &mut BUF,
+    ) -> Result<(), DmaError> {
+        let preparation = buffer.prepare();
+
+        self.do_prepare(preparation, peri)
+    }
+
     pub(crate) fn start_transfer(&mut self) -> Result<(), DmaError> {
         self.rx_impl.start();
 
@@ -2173,6 +2303,17 @@ where
     }
 
     pub(crate) unsafe fn prepare_transfer<BUF: DmaTxBuffer>(
+        &mut self,
+        peri: DmaPeripheral,
+        buffer: &mut BUF,
+    ) -> Result<(), DmaError> {
+        let preparation = buffer.prepare();
+
+        self.do_prepare(preparation, peri)
+    }
+
+    /// Like [`Self::prepare_transfer`], using a [`DmaTxCircularBuffer`].
+    pub(crate) unsafe fn prepare_transfer_circular<BUF: DmaTxCircularBuffer>(
         &mut self,
         peri: DmaPeripheral,
         buffer: &mut BUF,
@@ -2560,11 +2701,11 @@ where
     }
 }
 
-/// DMA transaction for TX only circular transfers
+/// DMA transaction for TX-only circular transfers.
 ///
 /// # Safety
 ///
-/// Never use [core::mem::forget] on an in-progress transfer
+/// Do not use [core::mem::forget] on an in-progress transfer.
 #[non_exhaustive]
 #[must_use]
 pub struct DmaTransferTxCircular<'a, I>
@@ -2633,11 +2774,11 @@ where
     }
 }
 
-/// DMA transaction for RX only circular transfers
+/// DMA transaction for RX-only circular transfers.
 ///
 /// # Safety
 ///
-/// Never use [core::mem::forget] on an in-progress transfer
+/// Do not use [core::mem::forget] on an in-progress transfer.
 #[non_exhaustive]
 #[must_use]
 pub struct DmaTransferRxCircular<'a, I>

@@ -13,7 +13,9 @@ use embassy_time::{Duration, Instant, Timer};
 use esp_alloc;
 use esp_backtrace as _;
 use esp_hal::{
-    dma_buffers,
+    dma::DmaRxCircularBuf,
+    dma_circular_buffers,
+    dma_descriptors,
     i2s::master::{Channels, Config as I2sConfig, DataFormat, I2s},
     interrupt::software::SoftwareInterruptControl,
     ram,
@@ -81,7 +83,7 @@ async fn connection_manager(
 #[embassy_executor::task]
 async fn i2s_dma_drain(
     i2s_rx: esp_hal::i2s::master::I2sRx<'static, esp_hal::Async>,
-    buffer: &'static mut [u8],
+    buffer: &'static mut DmaRxCircularBuf,
     connected_signal: &'static Signal<NoopRawMutex, bool>,
 ) {
     // Temporary buffer for DMA pops
@@ -91,7 +93,7 @@ async fn i2s_dma_drain(
     // Create circular DMA transaction
     println!(
         "🎛️  Creating I2S DMA circular transaction with ring size: {} bytes",
-        buffer.len()
+        buffer.capacity()
     );
     let mut transaction = match i2s_rx.read_dma_circular_async(buffer) {
         Ok(t) => t,
@@ -181,7 +183,12 @@ async fn main(spawner: Spawner) {
     let dma_channel = peripherals.DMA_I2S0;
     #[cfg(not(any(feature = "esp32", feature = "esp32s2")))]
     let dma_channel = peripherals.DMA_CH0;
-    let (rx_buffer, rx_descriptors, _, _) = dma_buffers!(I2S_BUFFER_SIZE, 0);
+    let (stash_rx_desc, _) = dma_descriptors!(4092, 4092);
+    let (rx_buffer, rx_descriptors, _, _) = dma_circular_buffers!(I2S_BUFFER_SIZE, 0);
+    let rx_cbuf = mk_static!(
+        DmaRxCircularBuf,
+        DmaRxCircularBuf::new(rx_descriptors, rx_buffer).unwrap()
+    );
 
     let i2s_cfg = I2sConfig::new_tdm_philips()
         .with_sample_rate(Rate::from_hz(SAMPLE_RATE))
@@ -197,7 +204,7 @@ async fn main(spawner: Spawner) {
         .with_bclk(peripherals.GPIO2) // SCK
         .with_ws(peripherals.GPIO4) // WS
         .with_din(peripherals.GPIO5) // SD
-        .build(rx_descriptors);
+        .build(stash_rx_desc);
 
     // WiFi + network stack
     let station_config = Config::Station(
@@ -234,5 +241,5 @@ async fn main(spawner: Spawner) {
     // Tasks
     spawner.spawn(net_task(runner).unwrap());
     spawner.spawn(connection_manager(controller, connected_signal).unwrap());
-    spawner.spawn(i2s_dma_drain(i2s_rx, rx_buffer, connected_signal).unwrap());
+    spawner.spawn(i2s_dma_drain(i2s_rx, rx_cbuf, connected_signal).unwrap());
 }
