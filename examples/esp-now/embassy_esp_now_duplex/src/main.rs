@@ -57,7 +57,7 @@ async fn main(spawner: Spawner) -> ! {
         esp_radio::wifi::WifiController::new(wifi, Default::default()).unwrap()
     );
 
-    let esp_now = controller.esp_now();
+    let esp_now = controller.esp_now(Default::default());
     esp_now.set_channel(11).unwrap();
 
     println!("esp-now version {}", esp_now.version().unwrap());

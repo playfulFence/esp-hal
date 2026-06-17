@@ -66,8 +66,8 @@ let esp_now = interfaces.esp_now;
 
 // After
 let controller = esp_radio::wifi::WifiController::new(peripherals.WIFI, config)?;
-let mut sniffer = controller.sniffer();
-let esp_now = controller.esp_now();
+let mut sniffer = controller.sniffer(Default::default());
+let esp_now = controller.esp_now(Default::default());
 ```
 
 `Interface` is no longer `Clone` or `Copy`. Each mode (station / access point) is a

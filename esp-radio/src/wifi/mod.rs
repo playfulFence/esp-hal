@@ -103,6 +103,9 @@ unstable_module!(
     pub mod sniffer;
 );
 
+#[cfg(all(feature = "sniffer", feature = "unstable"))]
+pub use sniffer::{PromiscuousFilter, SnifferConfig};
+
 pub mod scan;
 pub mod sta;
 
@@ -218,6 +221,14 @@ impl Protocols {
             ghz_5g: 0,
         }
     }
+
+    fn from_raw(raw: wifi_protocols_t) -> Self {
+        Self {
+            _2_4: from_mask(raw.ghz_2g),
+            #[cfg(wifi_has_5g)]
+            _5: from_mask(raw.ghz_5g),
+        }
+    }
 }
 
 #[cfg_attr(docsrs, procmacros::doc_replace(
@@ -275,6 +286,24 @@ fn to_mask(protocols: EnumSet<Protocol>) -> u16 {
     protocols.iter().fold(0, |acc, p| acc | p.to_mask())
 }
 
+fn from_mask(mask: u16) -> EnumSet<Protocol> {
+    let mut set = EnumSet::new();
+    for p in [
+        Protocol::B,
+        Protocol::G,
+        Protocol::N,
+        Protocol::LR,
+        Protocol::A,
+        Protocol::AC,
+        Protocol::AX,
+    ] {
+        if mask & p.to_mask() != 0 {
+            set |= p;
+        }
+    }
+    set
+}
+
 /// Secondary Wi-Fi channels.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, PartialOrd, Hash)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
@@ -307,6 +336,14 @@ impl SecondaryChannel {
             1 => SecondaryChannel::Above,
             2 => SecondaryChannel::Below,
             _ => SecondaryChannel::None,
+        }
+    }
+
+    pub(crate) fn to_raw(self) -> u32 {
+        match self {
+            SecondaryChannel::None => 0,
+            SecondaryChannel::Above => 1,
+            SecondaryChannel::Below => 2,
         }
     }
 }
@@ -345,6 +382,17 @@ impl BandMode {
             BandMode::_5G => wifi_band_mode_t_WIFI_BAND_MODE_5G_ONLY,
             #[cfg(wifi_has_5g)]
             BandMode::Auto => wifi_band_mode_t_WIFI_BAND_MODE_AUTO,
+        }
+    }
+
+    fn from_raw(raw: wifi_band_mode_t) -> Self {
+        match raw {
+            wifi_band_mode_t_WIFI_BAND_MODE_2G_ONLY => BandMode::_2_4G,
+            #[cfg(wifi_has_5g)]
+            wifi_band_mode_t_WIFI_BAND_MODE_5G_ONLY => BandMode::_5G,
+            #[cfg(wifi_has_5g)]
+            wifi_band_mode_t_WIFI_BAND_MODE_AUTO => BandMode::Auto,
+            _ => BandMode::default(),
         }
     }
 }
@@ -1439,6 +1487,14 @@ impl Bandwidths {
             ghz_5g: 0,
         }
     }
+
+    fn from_raw(raw: wifi_bandwidths_t) -> Self {
+        Self {
+            _2_4: Bandwidth::from_raw(raw.ghz_2g),
+            #[cfg(wifi_has_5g)]
+            _5: Bandwidth::from_raw(raw.ghz_5g),
+        }
+    }
 }
 
 /// Wi-Fi bandwidth options.
@@ -1983,6 +2039,17 @@ pub(crate) fn apply_power_saving(ps: PowerSaveMode) -> Result<(), WifiError> {
     Ok(())
 }
 
+impl PowerSaveMode {
+    fn from_ps_type(ps: wifi_ps_type_t) -> Self {
+        match ps {
+            wifi_ps_type_t_WIFI_PS_NONE => Self::None,
+            wifi_ps_type_t_WIFI_PS_MIN_MODEM => Self::Minimum,
+            wifi_ps_type_t_WIFI_PS_MAX_MODEM => Self::Maximum,
+            _ => Self::default(),
+        }
+    }
+}
+
 /// Wi-Fi operating class.
 ///
 /// Refer to Annex E of IEEE Std 802.11-2020.
@@ -2412,8 +2479,8 @@ impl WifiController<'_> {
     /// Panics if an ESP-NOW instance already exists.
     #[cfg(all(feature = "esp-now", feature = "unstable"))]
     #[instability::unstable]
-    pub fn esp_now(&self) -> crate::esp_now::EspNow<'_> {
-        crate::esp_now::EspNow::new_internal()
+    pub fn esp_now(&self, config: crate::esp_now::EspNowConfig) -> crate::esp_now::EspNow<'_> {
+        crate::esp_now::EspNow::new_internal(config)
     }
 
     /// Returns a sniffer instance tied to this controller's lifetime.
@@ -2423,8 +2490,8 @@ impl WifiController<'_> {
     /// Panics if a sniffer instance already exists.
     #[cfg(all(feature = "sniffer", feature = "unstable"))]
     #[instability::unstable]
-    pub fn sniffer(&self) -> Sniffer<'_> {
-        Sniffer::new()
+    pub fn sniffer(&self, config: sniffer::SnifferConfig) -> Sniffer<'_> {
+        Sniffer::new(config)
     }
 
     /// Set CSI configuration and register the receiving callback.
@@ -2777,11 +2844,7 @@ band.
             })?;
         }
 
-        Ok(Bandwidths {
-            _2_4: Bandwidth::from_raw(bw.ghz_2g),
-            #[cfg(wifi_has_5g)]
-            _5: Bandwidth::from_raw(bw.ghz_5g),
-        })
+        Ok(Bandwidths::from_raw(bw))
     }
 
     /// Returns the current Wi-Fi channel configuration.
@@ -2821,9 +2884,77 @@ ignored."
     /// 20 (5dBm). Values above roughly 65 (~16dBm) have been reported to cause authentication
     /// failures on some hardware. See the
     /// [module-level troubleshooting section](self#troubleshooting) for details.
+    ///
+    /// # Note
+    ///
+    /// Wi-Fi must be started before calling this function.
     #[instability::unstable]
     pub fn set_max_tx_power(&mut self, power: i8) -> Result<(), WifiError> {
         esp_wifi_result!(unsafe { esp_wifi_set_max_tx_power(power) })
+    }
+
+    /// Returns the currently configured Wi-Fi protocols for the active interface.
+    ///
+    /// In station mode the station protocols are returned; in access point mode the AP protocols;
+    /// in station+AP mode the AP protocols.
+    #[instability::unstable]
+    pub fn protocols(&self) -> Result<Protocols, WifiError> {
+        let mut protocols = wifi_protocols_t {
+            ghz_2g: 0,
+            ghz_5g: 0,
+        };
+
+        let mode = self.mode()?;
+        if mode.is_station() {
+            esp_wifi_result!(unsafe {
+                esp_wifi_get_protocols(wifi_interface_t_WIFI_IF_STA, &mut protocols)
+            })?;
+        }
+        if mode.is_access_point() {
+            esp_wifi_result!(unsafe {
+                esp_wifi_get_protocols(wifi_interface_t_WIFI_IF_AP, &mut protocols)
+            })?;
+        }
+
+        Ok(Protocols::from_raw(protocols))
+    }
+
+    /// Returns the current modem power saving mode.
+    #[instability::unstable]
+    pub fn power_saving(&self) -> Result<PowerSaveMode, WifiError> {
+        let mut ps = wifi_ps_type_t_WIFI_PS_NONE;
+        esp_wifi_result!(unsafe { esp_wifi_get_ps(&mut ps) })?;
+        Ok(PowerSaveMode::from_ps_type(ps))
+    }
+
+    /// Returns the current Wi-Fi band mode.
+    ///
+    /// # Note
+    ///
+    /// Wi-Fi must be started before calling this function.
+    #[instability::unstable]
+    pub fn band_mode(&self) -> Result<BandMode, WifiError> {
+        let mut band_mode = wifi_band_mode_t_WIFI_BAND_MODE_2G_ONLY;
+        esp_wifi_result!(unsafe { esp_wifi_get_band_mode(&mut band_mode) })?;
+        Ok(BandMode::from_raw(band_mode))
+    }
+
+    /// Returns the currently configured maximum TX power.
+    ///
+    /// Power unit is 0.25dBm, range is [8, 84] corresponding to 2dBm - 20dBm.
+    #[instability::unstable]
+    pub fn max_tx_power(&self) -> Result<i8, WifiError> {
+        let mut power = 0i8;
+        esp_wifi_result!(unsafe { esp_wifi_get_max_tx_power(&mut power) })?;
+        Ok(power)
+    }
+
+    /// Returns the currently configured country information.
+    #[instability::unstable]
+    pub fn country_info(&self) -> Result<CountryInfo, WifiError> {
+        let mut country = MaybeUninit::<wifi_country_t>::uninit();
+        esp_wifi_result!(unsafe { esp_wifi_get_country(country.as_mut_ptr()) })?;
+        CountryInfo::try_from_c(unsafe { &*country.as_ptr() }).ok_or(WifiError::InvalidArguments)
     }
 
     fn stop_impl() -> Result<(), WifiError> {

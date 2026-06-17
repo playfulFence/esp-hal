@@ -3,23 +3,104 @@
 use core::marker::PhantomData;
 
 use esp_sync::NonReentrantMutex;
+use procmacros::BuilderLite;
 
-use super::{RxControlInfo, SNIFFER_BIT, release, try_acquire};
+use super::{RxControlInfo, SNIFFER_BIT, SecondaryChannel, release, try_acquire};
 use crate::{
     WifiError,
     sys::include::{
         esp_wifi_80211_tx,
+        esp_wifi_get_channel,
+        esp_wifi_get_promiscuous,
+        esp_wifi_get_promiscuous_filter,
+        esp_wifi_set_channel,
         esp_wifi_set_promiscuous,
+        esp_wifi_set_promiscuous_filter,
         esp_wifi_set_promiscuous_rx_cb,
         wifi_interface_t,
         wifi_interface_t_WIFI_IF_AP,
         wifi_interface_t_WIFI_IF_STA,
         wifi_pkt_rx_ctrl_t,
+        wifi_promiscuous_filter_t,
         wifi_promiscuous_pkt_t,
         wifi_promiscuous_pkt_type_t,
     },
     wifi::esp_wifi_result,
 };
+
+/// Bitmask-based filter for promiscuous mode packet types.
+///
+/// Combine predefined constants or custom bitmasks to select which frames to
+/// capture.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+#[instability::unstable]
+pub struct PromiscuousFilter {
+    /// Raw filter bitmask as accepted by `esp_wifi_set_promiscuous_filter`.
+    pub mask: u32,
+}
+
+impl PromiscuousFilter {
+    /// Capture all frame types.
+    pub const ALL: Self = Self { mask: 0xFF };
+    /// Capture management frames only.
+    pub const MGMT: Self = Self { mask: 0x01 };
+    /// Capture data frames only.
+    pub const DATA: Self = Self { mask: 0x04 };
+}
+
+/// Configuration applied when creating a [`Sniffer`] instance.
+///
+/// All options are applied atomically at construction time to ensure the
+/// correct ordering required by the underlying blob API.
+#[derive(Clone, Debug, BuilderLite)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+#[instability::unstable]
+pub struct SnifferConfig {
+    /// Packet type filter. `None` leaves the default.
+    filter: Option<PromiscuousFilter>,
+
+    /// Override the Wi-Fi channel. `None` keeps the current channel.
+    channel: Option<u8>,
+
+    /// Override the secondary channel. `None` keeps the current setting.
+    secondary_channel: Option<SecondaryChannel>,
+
+    /// Whether to enable promiscuous mode immediately. `None` leaves it off.
+    promiscuous: Option<bool>,
+}
+
+impl Default for SnifferConfig {
+    fn default() -> Self {
+        Self {
+            filter: None,
+            channel: None,
+            secondary_channel: None,
+            promiscuous: None,
+        }
+    }
+}
+
+impl SnifferConfig {
+    fn apply(&self) -> Result<(), WifiError> {
+        if let Some(filter) = self.filter {
+            esp_wifi_result!(unsafe {
+                esp_wifi_set_promiscuous_filter(&wifi_promiscuous_filter_t { filter_mask: filter.mask })
+            })?;
+        }
+        if let Some(channel) = self.channel {
+            let secondary = self
+                .secondary_channel
+                .unwrap_or(SecondaryChannel::None)
+                .to_raw();
+            esp_wifi_result!(unsafe { esp_wifi_set_channel(channel, secondary) })?;
+        }
+        if let Some(enabled) = self.promiscuous {
+            esp_wifi_result!(unsafe { esp_wifi_set_promiscuous(enabled) })?;
+        }
+        Ok(())
+    }
+}
 
 /// Represents a Wi-Fi packet in promiscuous mode.
 #[derive(Debug)]
@@ -83,7 +164,7 @@ pub struct Sniffer<'d> {
 }
 
 impl Sniffer<'_> {
-    pub(crate) fn new() -> Self {
+    pub(crate) fn new(config: SnifferConfig) -> Self {
         assert!(try_acquire(SNIFFER_BIT), "sniffer already in use");
 
         // If registering the callback fails we panic, so release the singleton
@@ -95,6 +176,8 @@ impl Sniffer<'_> {
             unwrap!(res);
         }
 
+        config.apply().expect("sniffer config apply failed");
+
         Self {
             _phantom: PhantomData,
         }
@@ -105,6 +188,32 @@ impl Sniffer<'_> {
     pub fn set_promiscuous_mode(&self, enabled: bool) -> Result<(), WifiError> {
         esp_wifi_result!(unsafe { esp_wifi_set_promiscuous(enabled) })?;
         Ok(())
+    }
+
+    /// Returns whether promiscuous mode is currently enabled.
+    #[instability::unstable]
+    pub fn promiscuous_mode(&self) -> Result<bool, WifiError> {
+        let mut enabled = false;
+        esp_wifi_result!(unsafe { esp_wifi_get_promiscuous(&mut enabled) })?;
+        Ok(enabled)
+    }
+
+    /// Returns the currently configured promiscuous filter.
+    #[instability::unstable]
+    pub fn filter(&self) -> Result<PromiscuousFilter, WifiError> {
+        let mut raw = wifi_promiscuous_filter_t { filter_mask: 0 };
+        esp_wifi_result!(unsafe { esp_wifi_get_promiscuous_filter(&mut raw) })?;
+        Ok(PromiscuousFilter { mask: raw.filter_mask })
+    }
+
+    /// Set the current Wi-Fi channel.
+    #[instability::unstable]
+    pub fn set_channel(
+        &self,
+        channel: u8,
+        secondary: SecondaryChannel,
+    ) -> Result<(), WifiError> {
+        esp_wifi_result!(unsafe { esp_wifi_set_channel(channel, secondary.to_raw()) })
     }
 
     /// Transmit a raw frame.

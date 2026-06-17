@@ -20,6 +20,7 @@ use docsplay::Display;
 use esp_hal::time::Duration;
 use esp_sync::NonReentrantMutex;
 use portable_atomic::{AtomicBool, AtomicU8, Ordering};
+use procmacros::BuilderLite;
 
 use super::*;
 #[cfg(feature = "csi")]
@@ -37,6 +38,110 @@ pub const ESP_NOW_MAX_DATA_LEN: usize = 250;
 
 /// Broadcast address
 pub const BROADCAST_ADDRESS: [u8; 6] = [0xffu8, 0xffu8, 0xffu8, 0xffu8, 0xffu8, 0xffu8];
+
+/// Configuration for initialising an [`EspNow`] instance.
+///
+/// Parameters are applied in a specific order to satisfy the blob API's
+/// ordering requirements.
+#[derive(Clone, Debug, BuilderLite)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+#[instability::unstable]
+pub struct EspNowConfig {
+    /// Primary Master Key (PMK) for encryption. `None` leaves the default.
+    pmk: Option<[u8; 16]>,
+
+    /// Wake-window duration for power-saving. `None` skips setting it.
+    wake_window: Option<Duration>,
+
+    /// Wake-interval duration for power-saving. `None` skips setting it.
+    wake_interval: Option<Duration>,
+
+    /// Override the Wi-Fi channel. `None` keeps the current channel.
+    channel: Option<u8>,
+
+    /// Default PHY rate used for the broadcast peer.
+    default_rate: Option<WifiPhyRate>,
+
+    /// User-defined OUI for ESP-NOW.
+    user_oui: Option<[u8; 3]>,
+}
+
+impl Default for EspNowConfig {
+    fn default() -> Self {
+        Self {
+            pmk: None,
+            wake_window: None,
+            wake_interval: None,
+            channel: None,
+            default_rate: None,
+            user_oui: None,
+        }
+    }
+}
+
+impl EspNowConfig {
+    fn apply(&self) -> Result<(), EspNowError> {
+        if let Some(pmk) = &self.pmk {
+            check_error!({ esp_now_set_pmk(pmk.as_ptr()) })?;
+        }
+        if let Some(wake_window) = self.wake_window {
+            let ms = wake_window.as_millis();
+            if ms > u16::MAX as u64 {
+                return Err(EspNowError::Error(Error::InvalidArgument));
+            }
+            check_error!({ esp_now_set_wake_window(ms as u16) })?;
+        }
+        if let Some(wake_interval) = self.wake_interval {
+            let ms = wake_interval.as_millis();
+            if ms > u32::MAX as u64 {
+                return Err(EspNowError::Error(Error::InvalidArgument));
+            }
+            check_error!({ esp_now_set_wake_interval(ms as u32) })?;
+        }
+        if let Some(channel) = self.channel {
+            check_error!({ esp_wifi_set_channel(channel, 0) })?;
+        }
+        if let Some(oui) = self.user_oui {
+            check_error!({ esp_now_set_user_oui_field(oui.as_ptr()) })?;
+        }
+        Ok(())
+    }
+
+    fn apply_default_peer_rate(&self) -> Result<(), EspNowError> {
+        if let Some(rate) = self.default_rate {
+            let cfg = esp_now_rate_config_t {
+                phymode: WIFI_PHY_MODE_LR,
+                rate: rate as u32,
+                dcm: false,
+                ersu: false,
+            };
+            check_error!({
+                esp_now_set_peer_rate_config(BROADCAST_ADDRESS.as_ptr(), &cfg as *const _)
+            })?;
+        }
+        Ok(())
+    }
+}
+
+/// Per-peer PHY rate configuration for ESP-NOW.
+#[derive(Clone, Copy, Debug)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+#[instability::unstable]
+pub struct PeerRateConfig {
+    /// The PHY rate to use for this peer.
+    pub rate: WifiPhyRate,
+}
+
+impl PeerRateConfig {
+    fn to_raw(&self) -> esp_now_rate_config_t {
+        esp_now_rate_config_t {
+            phymode: WIFI_PHY_MODE_LR,
+            rate: self.rate as u32,
+            dcm: false,
+            ersu: false,
+        }
+    }
+}
 
 struct EspNowState {
     // Stores received packets until dequeued by the user
@@ -526,10 +631,47 @@ impl EspNowManager<'_> {
         check_error!({ esp_now_set_wake_window(ms as u16) })
     }
 
-    /// Configure ESP-NOW rate.
+    /// Configure ESP-NOW rate for the broadcast peer.
+    ///
+    /// This calls [`EspNowManager::set_peer_rate`] targeting the broadcast address.
     #[instability::unstable]
     pub fn set_rate(&self, rate: WifiPhyRate) -> Result<(), EspNowError> {
-        check_error!({ esp_wifi_config_espnow_rate(wifi_interface_t_WIFI_IF_STA, rate as u32,) })
+        self.set_peer_rate(&BROADCAST_ADDRESS, PeerRateConfig { rate })
+    }
+
+    /// Configure the PHY rate for a specific peer.
+    #[instability::unstable]
+    pub fn set_peer_rate(
+        &self,
+        peer: &[u8; 6],
+        config: PeerRateConfig,
+    ) -> Result<(), EspNowError> {
+        let raw = config.to_raw();
+        check_error!({ esp_now_set_peer_rate_config(peer.as_ptr(), &raw as *const _) })
+    }
+
+    /// Set the wake interval used for power saving.
+    #[instability::unstable]
+    pub fn set_wake_interval(&self, interval: Duration) -> Result<(), EspNowError> {
+        let ms = interval.as_millis();
+        if ms > u32::MAX as u64 {
+            return Err(EspNowError::Error(Error::InvalidArgument));
+        }
+        check_error!({ esp_now_set_wake_interval(ms as u32) })
+    }
+
+    /// Set the user-defined OUI.
+    #[instability::unstable]
+    pub fn set_user_oui(&self, oui: [u8; 3]) -> Result<(), EspNowError> {
+        check_error!({ esp_now_set_user_oui_field(oui.as_ptr()) })
+    }
+
+    /// Get the user-defined OUI.
+    #[instability::unstable]
+    pub fn user_oui(&self) -> Result<[u8; 3], EspNowError> {
+        let mut oui = [0u8; 3];
+        check_error!({ esp_now_get_user_oui_field(oui.as_mut_ptr()) })?;
+        Ok(oui)
     }
 }
 
@@ -699,7 +841,7 @@ pub struct EspNow<'d> {
 }
 
 impl<'d> EspNow<'d> {
-    pub(crate) fn new_internal() -> EspNow<'d> {
+    pub(crate) fn new_internal(config: EspNowConfig) -> EspNow<'d> {
         let espnow_rc = EspNowRc::new();
         let esp_now = EspNow {
             manager: EspNowManager {
@@ -731,6 +873,11 @@ impl<'d> EspNow<'d> {
                 encrypt: false,
             })
             .expect("adding peer failed");
+
+        config.apply().expect("esp-now config apply failed");
+        config
+            .apply_default_peer_rate()
+            .expect("esp-now peer rate config failed");
 
         esp_now
     }
@@ -816,10 +963,38 @@ impl<'d> EspNow<'d> {
         self.manager.set_wake_window(wake_window)
     }
 
-    /// Configure ESP-NOW rate.
+    /// Configure ESP-NOW rate for the broadcast peer.
     #[instability::unstable]
     pub fn set_rate(&self, rate: WifiPhyRate) -> Result<(), EspNowError> {
         self.manager.set_rate(rate)
+    }
+
+    /// Configure the PHY rate for a specific peer.
+    #[instability::unstable]
+    pub fn set_peer_rate(
+        &self,
+        peer: &[u8; 6],
+        config: PeerRateConfig,
+    ) -> Result<(), EspNowError> {
+        self.manager.set_peer_rate(peer, config)
+    }
+
+    /// Set the wake interval used for power saving.
+    #[instability::unstable]
+    pub fn set_wake_interval(&self, interval: Duration) -> Result<(), EspNowError> {
+        self.manager.set_wake_interval(interval)
+    }
+
+    /// Set the user-defined OUI.
+    #[instability::unstable]
+    pub fn set_user_oui(&self, oui: [u8; 3]) -> Result<(), EspNowError> {
+        self.manager.set_user_oui(oui)
+    }
+
+    /// Get the user-defined OUI.
+    #[instability::unstable]
+    pub fn user_oui(&self) -> Result<[u8; 3], EspNowError> {
+        self.manager.user_oui()
     }
 
     /// Send data to peer.

@@ -46,7 +46,7 @@ async fn main(_spawner: embassy_executor::Spawner) -> ! {
     let controller =
         esp_radio::wifi::WifiController::new(peripherals.WIFI, Default::default()).unwrap();
 
-    let mut sniffer = controller.sniffer();
+    let mut sniffer = controller.sniffer(Default::default());
     sniffer.set_promiscuous_mode(true).unwrap();
     sniffer.set_receive_cb(|packet| {
         let _ = match_frames! {

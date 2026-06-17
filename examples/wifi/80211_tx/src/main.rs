@@ -55,7 +55,7 @@ async fn main(_spawner: embassy_executor::Spawner) -> ! {
     let controller =
         esp_radio::wifi::WifiController::new(peripherals.WIFI, Default::default()).unwrap();
 
-    let mut sniffer = controller.sniffer();
+    let mut sniffer = controller.sniffer(Default::default());
 
     // Create a buffer, which can hold the entire serialized beacon frame.
     let mut beacon = [0u8; 300];
