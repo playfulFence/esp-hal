@@ -13,6 +13,8 @@ use esp_hal::timer::timg::TimerGroup;
 
 esp_bootloader_esp_idf::esp_app_desc!();
 
+static mut BUFFER: [u8; 2048] = [0; 2048];
+
 #[embassy_executor::task]
 async fn run() {
     loop {
@@ -26,6 +28,7 @@ async fn main(spawner: Spawner) {
     esp_println::logger::init_logger_from_env();
     let peripherals = esp_hal::init(esp_hal::Config::default());
 
+    core::hint::black_box(&raw mut BUFFER);
     esp_println::println!("Init!");
 
     let timg0 = TimerGroup::new(peripherals.TIMG0);
