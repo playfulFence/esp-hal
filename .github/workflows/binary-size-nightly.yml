@@ -1,0 +1,355 @@
+# Measures the binary size of the examples in `.github/binary-size.json` on
+# every chip, and compares it with the commit the previous run measured. When a
+# region grows past its threshold, bisects the worst regression and opens an
+# issue (or comments on the open one).
+#
+# The examples are measured with an `esp-devtool` built from the workflow's own
+# commit, so any commit can be measured as a base, also one from before the
+# devtool could measure sizes.
+
+name: Binary Size Nightly
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "Commit to compare against. Empty: the commit the last run measured."
+        required: false
+        default: ""
+        type: string
+      dry_run:
+        description: "Only write the job summary, do not open or update an issue"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+  # Read at compile time by the Wi-Fi examples.
+  SSID: SSID
+  PASSWORD: PASSWORD
+  STATIC_IP: 1.1.1.1
+  GATEWAY_IP: 1.1.1.1
+  HOST_IP: 1.1.1.1
+
+jobs:
+  prepare:
+    # Forks can still dispatch the workflow by hand.
+    if: github.event_name != 'schedule' || github.repository_owner == 'esp-rs'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      skip: ${{ steps.range.outputs.skip }}
+      head: ${{ steps.range.outputs.head }}
+      base: ${{ steps.range.outputs.base }}
+      base-run: ${{ steps.range.outputs.base-run }}
+      matrix: ${{ steps.range.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Resolve the commits to compare
+        id: range
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_BASE: ${{ inputs.base }}
+        run: |
+          set -euo pipefail
+
+          HEAD_SHA=$(git rev-parse HEAD)
+          BASE_SHA=""
+          BASE_RUN=""
+
+          if [ -n "$INPUT_BASE" ]; then
+            BASE_SHA=$(git rev-parse --verify "$INPUT_BASE^{commit}")
+          else
+            # The newest earlier run on this branch that uploaded sizes. Runs
+            # that found nothing to do upload none.
+            RUNS=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/binary-size-nightly.yml/runs?branch=$GITHUB_REF_NAME&status=completed&per_page=20" \
+              --jq ".workflow_runs[] | select(.id != $GITHUB_RUN_ID) | \"\(.id) \(.head_sha)\"")
+            while read -r RUN SHA; do
+              [ -z "$RUN" ] && continue
+              COUNT=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN/artifacts" \
+                --jq '[.artifacts[] | select(.name | startswith("binary-size-head-")) | select(.expired | not)] | length')
+              if [ "$COUNT" -gt 0 ]; then
+                BASE_RUN=$RUN
+                BASE_SHA=$SHA
+                break
+              fi
+            done <<< "$RUNS"
+          fi
+
+          SKIP=false
+          if [ "$BASE_SHA" = "$HEAD_SHA" ]; then
+            echo "Nothing changed since $BASE_SHA was measured."
+            SKIP=true
+          fi
+
+          # Sizes of an earlier run are reused, any other base is measured here.
+          ROLES=$(jq -nc --arg sha "$HEAD_SHA" '[{role: "head", ref: $sha}]')
+          if [ -n "$BASE_SHA" ] && [ -z "$BASE_RUN" ]; then
+            ROLES=$(jq -c --arg sha "$BASE_SHA" '. + [{role: "base", ref: $sha}]' <<< "$ROLES")
+          fi
+          MATRIX=$(jq -c --argjson roles "$ROLES" \
+            '[.[] as $chip | $roles[] | . + {soc: $chip.soc, arch: $chip.arch, target: $chip."rust-target"}]' \
+            .github/chips.json)
+
+          echo "Head: $HEAD_SHA"
+          echo "Base: ${BASE_SHA:-none} ${BASE_RUN:+(sizes from run $BASE_RUN)}"
+
+          {
+            echo "skip=$SKIP"
+            echo "head=$HEAD_SHA"
+            echo "base=$BASE_SHA"
+            echo "base-run=$BASE_RUN"
+            echo "matrix=$MATRIX"
+          } >> "$GITHUB_OUTPUT"
+
+      - uses: dtolnay/rust-toolchain@v1
+        if: steps.range.outputs.skip == 'false'
+        with:
+          toolchain: stable
+
+      - name: Build esp-devtool
+        if: steps.range.outputs.skip == 'false'
+        run: cargo build --release --package esp-devtool
+
+      - uses: actions/upload-artifact@v6
+        if: steps.range.outputs.skip == 'false'
+        with:
+          name: binary-size-tool
+          path: target/release/esp-devtool
+          retention-days: 1
+
+  measure:
+    name: measure (${{ matrix.role }}, ${{ matrix.soc }})
+    needs: prepare
+    if: needs.prepare.outputs.skip == 'false'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: ./.github/actions/setup-toolchains
+        with:
+          xtensa: ${{ matrix.arch == 'xtensa' }}
+          xtensa-buildtargets: ${{ matrix.soc }}
+          xtensa-default: "true"
+          riscv: ${{ matrix.arch == 'riscv' }}
+          riscv-targets: ${{ matrix.target }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: binary-size-tool
+          path: ${{ runner.temp }}/tool
+
+      - name: Check out ${{ matrix.ref }}
+        run: |
+          git fetch --no-tags --depth=1 origin ${{ matrix.ref }}
+          git worktree add --detach "$RUNNER_TEMP/src" ${{ matrix.ref }}
+
+      - name: Measure
+        working-directory: ${{ runner.temp }}/src
+        run: |
+          chmod +x "$RUNNER_TEMP/tool/esp-devtool"
+          "$RUNNER_TEMP/tool/esp-devtool" binary-size measure ${{ matrix.soc }} \
+            --config "$GITHUB_WORKSPACE/.github/binary-size.json" \
+            --output "$RUNNER_TEMP/sizes/${{ matrix.soc }}.json"
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: binary-size-${{ matrix.role }}-${{ matrix.soc }}
+          path: ${{ runner.temp }}/sizes/${{ matrix.soc }}.json
+          retention-days: 90
+
+  report:
+    needs: [prepare, measure]
+    # Compare what was measured, also when some chips failed.
+    if: always() && needs.prepare.outputs.skip == 'false'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      regressed: ${{ steps.compare.outputs.regressed }}
+      arch: ${{ steps.compare.outputs.arch }}
+      soc: ${{ steps.compare.outputs.soc }}
+      target: ${{ steps.compare.outputs.target }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: binary-size-tool
+          path: ${{ runner.temp }}/tool
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: binary-size-head-*
+          path: ${{ runner.temp }}/head
+          merge-multiple: true
+
+      - uses: actions/download-artifact@v4
+        if: needs.prepare.outputs.base != '' && needs.prepare.outputs.base-run == ''
+        with:
+          pattern: binary-size-base-*
+          path: ${{ runner.temp }}/base
+          merge-multiple: true
+
+      - uses: actions/download-artifact@v4
+        if: needs.prepare.outputs.base-run != ''
+        with:
+          run-id: ${{ needs.prepare.outputs.base-run }}
+          github-token: ${{ github.token }}
+          pattern: binary-size-head-*
+          path: ${{ runner.temp }}/base
+          merge-multiple: true
+
+      - name: Compare
+        id: compare
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/base" "$RUNNER_TEMP/report"
+          chmod +x "$RUNNER_TEMP/tool/esp-devtool"
+          "$RUNNER_TEMP/tool/esp-devtool" binary-size compare \
+            --base "$RUNNER_TEMP/base" \
+            --head "$RUNNER_TEMP/head" \
+            --report "$RUNNER_TEMP/report/report.md" \
+            --regressions "$RUNNER_TEMP/report/regressions.json"
+
+          cat "$RUNNER_TEMP/report/report.md" >> "$GITHUB_STEP_SUMMARY"
+
+          SOC=$(jq -r '.[0].chip // empty' "$RUNNER_TEMP/report/regressions.json")
+          if [ -n "$SOC" ]; then
+            echo "regressed=true" >> "$GITHUB_OUTPUT"
+            jq -r --arg s "$SOC" '.[] | select(.soc == $s) | "soc=\(.soc)\narch=\(.arch)\ntarget=\(."rust-target")"' \
+              .github/chips.json >> "$GITHUB_OUTPUT"
+          else
+            echo "regressed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: binary-size-report
+          path: ${{ runner.temp }}/report/
+
+  bisect:
+    needs: [prepare, report]
+    if: needs.report.outputs.regressed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup-toolchains
+        with:
+          xtensa: ${{ needs.report.outputs.arch == 'xtensa' }}
+          xtensa-buildtargets: ${{ needs.report.outputs.soc }}
+          xtensa-default: "true"
+          riscv: ${{ needs.report.outputs.arch == 'riscv' }}
+          riscv-targets: ${{ needs.report.outputs.target }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: binary-size-tool
+          path: ${{ runner.temp }}/tool
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: binary-size-report
+          path: ${{ runner.temp }}/report
+
+      - name: Bisect the worst regression
+        env:
+          BASE: ${{ needs.prepare.outputs.base }}
+          HEAD: ${{ needs.prepare.outputs.head }}
+        run: |
+          set -euo pipefail
+          git worktree add --detach "$RUNNER_TEMP/src" "$HEAD"
+          cd "$RUNNER_TEMP/src"
+          chmod +x "$RUNNER_TEMP/tool/esp-devtool"
+          "$RUNNER_TEMP/tool/esp-devtool" binary-size bisect \
+            --regressions "$RUNNER_TEMP/report/regressions.json" \
+            --base "$BASE" \
+            --head "$HEAD" \
+            --config "$GITHUB_WORKSPACE/.github/binary-size.json" \
+            --output "$RUNNER_TEMP/culprit/culprit.json"
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: binary-size-culprit
+          path: ${{ runner.temp }}/culprit/culprit.json
+
+  issue:
+    needs: [prepare, report, bisect]
+    # Without a culprit, the issue lists every commit in the range instead.
+    if: always() && needs.report.outputs.regressed == 'true' && !inputs.dry_run
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: binary-size-tool
+          path: ${{ runner.temp }}/tool
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: binary-size-report
+          path: ${{ runner.temp }}/report
+
+      - uses: actions/download-artifact@v4
+        if: needs.bisect.result == 'success'
+        with:
+          name: binary-size-culprit
+          path: ${{ runner.temp }}/culprit
+
+      - name: Write the issue
+        env:
+          BASE: ${{ needs.prepare.outputs.base }}
+          HEAD: ${{ needs.prepare.outputs.head }}
+        run: |
+          chmod +x "$RUNNER_TEMP/tool/esp-devtool"
+          "$RUNNER_TEMP/tool/esp-devtool" binary-size issue \
+            --regressions "$RUNNER_TEMP/report/regressions.json" \
+            --report "$RUNNER_TEMP/report/report.md" \
+            --culprit "$RUNNER_TEMP/culprit/culprit.json" \
+            --base "$BASE" \
+            --head "$HEAD" \
+            --run-url "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+            --output "$RUNNER_TEMP/issue.md"
+
+      - name: Open or update the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: Binary size regression on main
+        run: |
+          set -euo pipefail
+          NUMBER=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --author "app/github-actions" \
+            --search "in:title \"$TITLE\"" --json number --jq '.[0].number // empty')
+          if [ -n "$NUMBER" ]; then
+            gh issue comment "$NUMBER" --repo "$GITHUB_REPOSITORY" --body-file "$RUNNER_TEMP/issue.md"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body-file "$RUNNER_TEMP/issue.md"
+          fi

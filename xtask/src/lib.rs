@@ -21,6 +21,7 @@ use crate::{
     metadata::{Chip, Config},
 };
 
+pub mod binary_size;
 pub mod cargo;
 pub mod changelog;
 pub mod commands;

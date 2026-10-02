@@ -65,6 +65,9 @@ enum Cli {
     #[cfg(feature = "report")]
     /// Generate reports from CI data.
     GenerateReport(generate_report::ReportArgs),
+    /// Measure and compare the binary size of the examples.
+    #[clap(subcommand)]
+    BinarySize(BinarySizeCmds),
     /// Tasks for checking compile tests with a local registry.
     #[cfg(feature = "rel-check")]
     #[clap(subcommand)]
@@ -173,6 +176,7 @@ fn main() -> Result<()> {
         Cli::CheckGlobalSymbols { chips } => check_global_symbols(&chips),
         #[cfg(feature = "report")]
         Cli::GenerateReport(args) => generate_report::generate_report(&workspace, args),
+        Cli::BinarySize(command) => binary_size(&workspace, command),
         #[cfg(feature = "rel-check")]
         Cli::RelCheck(relcheck) => relcheck::run_rel_check(relcheck),
 

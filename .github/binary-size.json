@@ -1,0 +1,12 @@
+{
+  "examples": [
+    "hello_world",
+    "embassy_hello_world",
+    "embassy_dhcp",
+    "bas_peripheral"
+  ],
+  "thresholds": {
+    "flash": { "percent": 1.0, "bytes": 2048 },
+    "ram": { "percent": 1.0, "bytes": 512 }
+  }
+}
