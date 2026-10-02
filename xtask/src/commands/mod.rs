@@ -2,6 +2,7 @@ use anyhow::{Result, bail};
 use inquire::Select;
 
 pub use self::{
+    binary_size::*,
     build::*,
     check::*,
     check_changelog::*,
@@ -17,6 +18,7 @@ pub use self::{
 };
 use crate::{cargo::CargoAction, metadata::Chip};
 
+mod binary_size;
 mod build;
 mod check;
 mod check_changelog;
