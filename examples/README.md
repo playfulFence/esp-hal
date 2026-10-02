@@ -51,3 +51,4 @@ In general, the following GPIO are recommended for use, though be conscious of w
 - GPIO8
 - GPIO9
 - GPIO10
+
