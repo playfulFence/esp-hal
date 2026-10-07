@@ -1,0 +1,167 @@
+# Builds a few examples on every chip, once at the current `main` and once at
+# `main` from 24 hours earlier, and compares their sizes. When an example grows
+# past the threshold, opens an issue that lists the pull requests merged in
+# between (or comments on the issue that is already open).
+
+name: Binary Size Nightly
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "Commit to compare against. Empty: main from 24 hours earlier."
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  EXAMPLES: hello_world embassy_hello_world embassy_dhcp bas_peripheral
+  # An example regresses when it grows by more than this many percent and by
+  # more than this many bytes.
+  MAX_GROWTH_PERCENT: 1
+  MAX_FLASH_GROWTH_BYTES: 2048
+  MAX_BSS_GROWTH_BYTES: 512
+  # Read at compile time by the Wi-Fi examples.
+  SSID: SSID
+  PASSWORD: PASSWORD
+  STATIC_IP: 1.1.1.1
+  GATEWAY_IP: 1.1.1.1
+  HOST_IP: 1.1.1.1
+
+jobs:
+  prepare:
+    # Forks can still dispatch the workflow by hand.
+    if: github.event_name != 'schedule' || github.repository_owner == 'esp-rs'
+    runs-on: ubuntu-latest
+    outputs:
+      base: ${{ steps.range.outputs.base }}
+      head: ${{ steps.range.outputs.head }}
+      chips: ${{ steps.range.outputs.chips }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Resolve the commits to compare
+        id: range
+        uses: actions/github-script@v8
+        env:
+          INPUT_BASE: ${{ inputs.base }}
+        with:
+          script: |
+            const { resolveRange } = require('./.github/scripts/binary-size.js');
+            await resolveRange({ core, exec });
+
+  measure:
+    needs: prepare
+    if: needs.prepare.outputs.base != ''
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        soc: ${{ fromJSON(needs.prepare.outputs.chips) }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Resolve Rust target
+        id: target
+        run: |
+          ENTRY=$(jq -c --arg s "${{ matrix.soc }}" '.[] | select(.soc == $s)' .github/chips.json)
+          echo "rust-target=$(echo "$ENTRY" | jq -r '."rust-target"')" >> "$GITHUB_OUTPUT"
+          echo "arch=$(echo "$ENTRY" | jq -r '.arch')" >> "$GITHUB_OUTPUT"
+
+      - uses: ./.github/actions/setup-toolchains
+        with:
+          xtensa: ${{ steps.target.outputs.arch == 'xtensa' }}
+          xtensa-buildtargets: ${{ matrix.soc }}
+          xtensa-default: "true"
+          riscv: ${{ steps.target.outputs.arch == 'riscv' }}
+          riscv-targets: ${{ steps.target.outputs.rust-target }}
+
+      # Prints "<flash> <bss>" for an ELF file. Flash counts every allocated
+      # section with contents, bss the zero-initialized RAM. Skips the sections
+      # the linker scripts use to reserve or pad address space: their size
+      # follows from the memory layout, not from what the firmware contains.
+      - name: Measure ${{ matrix.soc }}
+        env:
+          SOC: ${{ matrix.soc }}
+          TARGET: ${{ steps.target.outputs.rust-target }}
+          BASE: ${{ needs.prepare.outputs.base }}
+          HEAD: ${{ needs.prepare.outputs.head }}
+        run: |
+          set -euo pipefail
+
+          size_of() {
+            local flash=0 bss=0 name type addr off size es flags rest
+            while read -r name type addr off size es flags rest; do
+              [[ "$flags" == *A* ]] || continue
+              case "$name" in
+                .stack|.text_gap|.rotext_dummy|.rwdata_dummy|.rtc_fast.dummy) continue ;;
+              esac
+              if [ "$type" = NOBITS ]; then
+                bss=$((bss + 16#$size))
+              else
+                flash=$((flash + 16#$size))
+              fi
+            done < <(readelf -S -W "$1" | sed -n 's/^ *\[ *[0-9]*\] //p')
+            echo "$flash $bss"
+          }
+
+          mkdir -p sizes
+          for ROLE in base head; do
+            if [ "$ROLE" = base ]; then REF=$BASE; else REF=$HEAD; fi
+            git checkout --quiet --force "$REF"
+            for EXAMPLE in $EXAMPLES; do
+              MANIFEST=$(find examples -path "*/$EXAMPLE/Cargo.toml" -print -quit)
+              # Examples list the chips they support as features.
+              if [ -z "$MANIFEST" ] || ! grep -Eq "^$SOC[[:space:]]*=" "$MANIFEST"; then
+                continue
+              fi
+              cargo xtask build "$EXAMPLE" "$SOC"
+              NAME=$(sed -n 's/^name *= *"\(.*\)"/\1/p' "$MANIFEST" | head -n1)
+              echo "$SOC $EXAMPLE $ROLE $(size_of "target/$TARGET/release/$NAME")" >> sizes/$SOC.txt
+            done
+          done
+          cat sizes/$SOC.txt
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: sizes-${{ matrix.soc }}
+          path: sizes/${{ matrix.soc }}.txt
+
+  report:
+    needs: [prepare, measure]
+    # Report what was measured, also when some chips failed.
+    if: always() && needs.prepare.outputs.base != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: sizes-*
+          path: sizes
+          merge-multiple: true
+
+      - name: Compare and report
+        uses: actions/github-script@v8
+        env:
+          BASE: ${{ needs.prepare.outputs.base }}
+          HEAD: ${{ needs.prepare.outputs.head }}
+        with:
+          script: |
+            const { report } = require('./.github/scripts/binary-size.js');
+            await report({ github, context, core, exec });
