@@ -93,3 +93,4 @@ After revocation, the user loses access to the commands above for that PR.
 ## Help / Usage Hints
 
 If you request `/hil help` or `/hil` without a valid variant or chips, the bot will respond with a short usage explanation, and a reminder that the requester must be a maintainer or trusted author.
+
