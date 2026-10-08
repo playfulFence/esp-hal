@@ -63,7 +63,6 @@ deploy-docs  = ["dep:reqwest", "dep:kuchikiki"]
 preview-docs = ["dep:opener", "dep:rocket"]
 semver-checks = [ "dep:cargo-semver-checks", "dep:flate2", "dep:temp-file", "dep:regex", "dep:zip" ]
 release = ["semver-checks", "dep:opener", "dep:regex", "dep:tame-index"]
-report = ["dep:regex"]
 rel-check = ["dep:regex"]
 mcp = ["dep:inventory", "dep:rmcp", "dep:schemars", "dep:tokio", "dep:xtask-mcp-macros"]
 
