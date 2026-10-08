@@ -398,10 +398,12 @@ async function describeCommit({ github, context, exec }, sha) {
 
 // Splits every regression into the growth of each merged pull request, from
 // the sizes `measureBetween` recorded. Commits without sizes are counted
-// together with the next one that has them.
+// together with the next one that has them. Returns the table and, for each
+// pull request that alone grew past the limits, the examples it grew.
 async function growthByPullRequest(api, rows, chain, limits) {
   const names = new Map();
   const lines = [];
+  const culprits = new Map();
   for (const row of rows) {
     let previous = row.base;
     let pending = [];
@@ -420,16 +422,39 @@ async function growthByPullRequest(api, rows, chain, limits) {
         lines.push(
           `| \`${row.chip}\` | \`${row.example}\` | ${pulls} | ${flash.text} | ${bss.text} |`,
         );
+
+        if (flash.regressed || bss.regressed) {
+          const culprit = pending.map((sha) => names.get(sha)).join(" or ");
+          if (!culprits.has(culprit)) culprits.set(culprit, new Map());
+          const examples = culprits.get(culprit);
+          if (!examples.has(row.example)) examples.set(row.example, []);
+          examples.get(row.example).push(row.chip);
+        }
       }
       previous = sizes;
       pending = [];
     }
   }
-  return [
+  const table = [
     "| Chip | Example | Pull request | Flash (bytes) | bss (bytes) |",
     "|---|---|---|---|---|",
     ...lines,
   ].join("\n");
+  return { table, culprits };
+}
+
+// Names the pull requests that alone grew past the limits, and where.
+function causeText(culprits) {
+  if (culprits.size === 0) {
+    return "No single pull request grew past the limits on its own, the growth adds up over several of them. See the growth by pull request below.";
+  }
+  const lines = [...culprits].map(([culprit, examples]) => {
+    const where = [...examples]
+      .map(([example, chips]) => `\`${example}\` on ${chips.map((chip) => `\`${chip}\``).join(", ")}`)
+      .join("; ");
+    return `**${culprit}** grew past the limits on its own: ${where}.`;
+  });
+  return lines.length === 1 ? lines[0] : lines.map((line) => `- ${line}`).join("\n");
 }
 
 // Writes the nightly table to the run summary and, when something grew past
@@ -486,6 +511,10 @@ async function reportNightly({ github, context, core, exec }) {
     "",
     `Workflow run: ${runUrl(context)}`,
     "",
+    "### Cause",
+    "",
+    causeText(growth.culprits),
+    "",
     "### Regressions",
     "",
     totalsTable(regressions),
@@ -496,7 +525,7 @@ async function reportNightly({ github, context, core, exec }) {
     "",
     "The size after each pull request that changed it. In bold where that pull request alone grew past the limits.",
     "",
-    growth,
+    growth.table,
     "",
     `### Merged between \`${base.slice(0, 10)}\` and \`${head.slice(0, 10)}\``,
     "",
