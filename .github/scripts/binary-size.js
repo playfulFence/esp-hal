@@ -155,32 +155,18 @@ async function measure({ core, exec }) {
   // A pull request head may only be reachable from `refs/pull/*`.
   await exec.exec("git", ["fetch", "--quiet", "--no-tags", "origin", base, head]);
 
+  // Older commits may lack this action, and its post steps need it on disk.
+  const original = await git(exec, ["rev-parse", "HEAD"]);
   const lines = [];
-  for (const [role, commit] of [
-    ["base", base],
-    ["head", head],
-  ]) {
-    await exec.exec("git", ["checkout", "--quiet", "--force", commit]);
-
-    for (const example of examples) {
-      const names = elfNames(example, soc, pkg);
-      if (!names) {
-        core.info(`Skipping ${example}: it does not support ${soc}.`);
-        continue;
-      }
-
-      const packageArgs = pkg ? ["--package", pkg] : [];
-      await exec.exec("cargo", ["xtask", "build", example, ...packageArgs, soc]);
-
-      const elf = names
-        .map((name) => path.join("target", target, "release", name))
-        .find((file) => fs.existsSync(file));
-      if (!elf) throw new Error(`No ELF found for ${example} on ${soc}.`);
-
-      for (const section of await sectionsOf(exec, elf)) {
-        lines.push(`${soc} ${example} ${role} ${section.name} ${section.kind} ${section.bytes}`);
-      }
+  try {
+    for (const [role, commit] of [
+      ["base", base],
+      ["head", head],
+    ]) {
+      lines.push(...(await measureCommit({ core, exec, soc, target, pkg, examples, role, commit })));
     }
+  } finally {
+    await exec.exec("git", ["checkout", "--quiet", "--force", original]);
   }
 
   if (lines.length === 0) {
@@ -190,6 +176,33 @@ async function measure({ core, exec }) {
   fs.mkdirSync(SIZES_DIR, { recursive: true });
   fs.writeFileSync(path.join(SIZES_DIR, `${soc}.txt`), `${lines.join("\n")}\n`);
   core.info(lines.join("\n"));
+}
+
+// Checks out one commit and returns the section lines of its examples.
+async function measureCommit({ core, exec, soc, target, pkg, examples, role, commit }) {
+  await exec.exec("git", ["checkout", "--quiet", "--force", commit]);
+
+  const lines = [];
+  for (const example of examples) {
+    const names = elfNames(example, soc, pkg);
+    if (!names) {
+      core.info(`Skipping ${example}: it does not support ${soc}.`);
+      continue;
+    }
+
+    const packageArgs = pkg ? ["--package", pkg] : [];
+    await exec.exec("cargo", ["xtask", "build", example, ...packageArgs, soc]);
+
+    const elf = names
+      .map((name) => path.join("target", target, "release", name))
+      .find((file) => fs.existsSync(file));
+    if (!elf) throw new Error(`No ELF found for ${example} on ${soc}.`);
+
+    for (const section of await sectionsOf(exec, elf)) {
+      lines.push(`${soc} ${example} ${role} ${section.name} ${section.kind} ${section.bytes}`);
+    }
+  }
+  return lines;
 }
 
 // Reads the `MAX_*` limits from `env`. A typo fails the run instead of
