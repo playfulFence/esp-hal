@@ -17,6 +17,11 @@ fn main() -> ! {
 
     esp_println::println!("Init!");
 
+    static BIG: [u8; 4096] = [1; 4096];
+    static mut ZEROS: [u8; 1024] = [0; 1024];
+    core::hint::black_box(&BIG);
+    core::hint::black_box(&raw mut ZEROS);
+
     loop {
         esp_println::println!("Bing!");
 
