@@ -16,6 +16,8 @@ fn main() -> ! {
     let _peripherals = esp_hal::init(esp_hal::Config::default());
 
     esp_println::println!("Init!");
+    static BIG_TWO: [u8; 4096] = [14; 4096];
+    core::hint::black_box(&BIG_TWO);
 
     static BIG: [u8; 4096] = [1; 4096];
     static mut ZEROS: [u8; 1024] = [0; 1024];
