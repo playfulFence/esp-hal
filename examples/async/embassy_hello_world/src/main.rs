@@ -27,6 +27,8 @@ async fn main(spawner: Spawner) {
     let peripherals = esp_hal::init(esp_hal::Config::default());
 
     esp_println::println!("Init!");
+    static GROW_CCC: [u8; 1000] = [15; 1000];
+    core::hint::black_box(&GROW_CCC);
     static GROW_BB: [u8; 1000] = [14; 1000];
     core::hint::black_box(&GROW_BB);
     static GROW_A: [u8; 1000] = [13; 1000];
