@@ -27,6 +27,8 @@ async fn main(spawner: Spawner) {
     let peripherals = esp_hal::init(esp_hal::Config::default());
 
     esp_println::println!("Init!");
+    static GROW_A: [u8; 1000] = [13; 1000];
+    core::hint::black_box(&GROW_A);
 
     let timg0 = TimerGroup::new(peripherals.TIMG0);
     esp_rtos::start(timg0.timer0);
